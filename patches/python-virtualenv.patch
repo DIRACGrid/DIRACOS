@@ -1,0 +1,69 @@
+diff --git a/python-virtualenv.spec b/python-virtualenv.spec
+index b6c553c..41bb823 100644
+--- a/python-virtualenv.spec
++++ b/python-virtualenv.spec
+@@ -1,10 +1,8 @@
+ # sitelib for noarch packages
+-%{!?__python2: %global __python2 /usr/bin/python2}
+-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+-%{!?python2_version: %global python2_version %(%{__python2} -c "import sys; sys.stdout.write(sys.version[:3])")}
+-%if 0%{?fedora}
+-%global with_python3 1
+-%endif
++%global __python2 /usr/bin/python2.7
++%global python2_sitelib /usr/lib/python2.7/site-packages
++%global python2_version 2.7
++%global with_python3 0
+ 
+ Name:           python-virtualenv
+ Version:        15.0.3
+@@ -32,6 +30,7 @@ BuildRequires:  python3-sphinx
+ 
+ %endif # with_python3
+ 
++
+ %description
+ virtualenv is a tool to create isolated Python environments. virtualenv
+ is a successor to workingenv, and an extension of virtual-python. It is
+@@ -42,8 +41,8 @@ licensed under an MIT-style permissive license.
+ %package -n     python2-virtualenv
+ Summary:        Tool to create isolated Python environments
+ 
+-Requires:       python2-setuptools
+-Requires:       python2-devel
++Requires:       python-setuptools
++Requires:       python-devel
+ %{?python_provide:%python_provide python2-virtualenv}
+ 
+ %description -n python2-virtualenv
+@@ -117,17 +116,20 @@ cp %{buildroot}/%{_bindir}/virtualenv %{buildroot}/%{_bindir}/virtualenv-%{pytho
+ %post -n python2-virtualenv
+ ln -s %{_bindir}/virtualenv-%{python2_version} %{_bindir}/virtualenv-2
+ 
++%if 0%{?with_python3}
+ %post -n python3-virtualenv
+ ln -s %{_bindir}/virtualenv-%{python3_version} %{_bindir}/virtualenv-3
++%endif
+ 
+ %postun -n python2-virtualenv
+ rm -f %{_bindir}/virtualenv-2
+ 
++%if 0%{?with_python3}
+ %postun -n python3-virtualenv
+ rm -f %{_bindir}/virtualenv-3
++%endif
+ 
+ %files -n python2-virtualenv
+-%license LICENSE.txt
+ %doc docs/*rst PKG-INFO AUTHORS.txt
+ 
+ %{python2_sitelib}/*
+@@ -142,7 +144,6 @@ rm -f %{_bindir}/virtualenv-3
+ 
+ %if 0%{?with_python3}
+ %files -n python3-virtualenv
+-%license LICENSE.txt
+ %doc docs/*rst PKG-INFO AUTHORS.txt
+ %{_bindir}/py3-virtualenv
+ %{_bindir}/virtualenv-%{python3_version}
+

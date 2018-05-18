@@ -1,0 +1,83 @@
+diff --git a/gdb.spec b/gdb.spec
+index 72f2631..4f8c99d 100644
+--- a/gdb.spec
++++ b/gdb.spec
+@@ -15,6 +15,8 @@
+  %global _root_libdir %{_libdir}
+ }
+ 
++%define _without_python 1
++
+ Name: %{?scl_prefix}gdb
+ 
+ # Freeze it when GDB gets branched
+@@ -40,10 +42,6 @@ URL: http://gnu.org/software/gdb/
+ %global gdb_src %{tarname}
+ %global gdb_build build-%{_target_platform}
+ 
+-# For DTS RHEL<=7 GDB it is better to use none than a Requires dependency.
+-%if 0%{!?rhel:1} || 0%{?rhel} > 7
+-Recommends: %{?scl_prefix}gcc-gdb-plugin%{?_isa}
+-%endif
+ 
+ %if 0%{!?scl:1}
+ # when manpages were moved from -headless to main
+@@ -77,11 +75,6 @@ Obsoletes: gdb64 < 5.3.91
+ %global have_inproctrace 1
+ %endif
+ 
+-# gdb-add-index cannot be run even for SCL package on RHEL<=6.
+-%if 0%{!?rhel:1} || 0%{?rhel} > 6
+-# eu-strip: -g recognizes .gdb_index as a debugging section. (#631997)
+-Conflicts: elfutils < 0.149
+-%endif
+ 
+ # https://fedorahosted.org/fpc/ticket/43 https://fedorahosted.org/fpc/ticket/109
+ Provides: bundled(libiberty) = %{snapsrc}
+@@ -97,11 +90,6 @@ Provides: bundled(md5-gcc) = %{snapsrc}
+ %global buildisa %{nil}
+ %endif
+ 
+-%if 0%{!?rhel:1} || 0%{?rhel} > 7
+-Recommends: dnf-command(debuginfo-install)
+-# https://bugzilla.redhat.com/show_bug.cgi?id=1209492
+-Recommends: default-yama-scope
+-%endif
+ 
+ %if 0%{?el6:1}
+ %global librpmver 1
+@@ -122,9 +110,6 @@ BuildRequires: rpm-libs%{buildisa}
+ %if 0%{?_with_buildisa:1}
+ BuildRequires: %{librpmname}
+ %endif
+-%if 0%{!?rhel:1} || 0%{?rhel} > 7
+-Recommends: %{librpmname}
+-%endif
+ 
+ # GDB patches have the format `gdb-<version>-bz<red-hat-bz-#>-<desc>.patch'.
+ # They should be created using patch level 1: diff -up ./gdb (or gdb-6.3/gdb).
+@@ -1423,11 +1408,6 @@ for i in `find $RPM_BUILD_ROOT%{_datadir}/gdb -name "*.py"`; do
+ done
+ %endif # 0%{!?_without_python:1}
+ 
+-# gdb-add-index cannot be run even for SCL package on RHEL<=6.
+-%if 0%{?rhel:1} && 0%{?rhel} <= 6
+-rm -f $RPM_BUILD_ROOT%{_bindir}/gdb-add-index
+-rm -f $RPM_BUILD_ROOT%{_mandir}/*/gdb-add-index.1*
+-%endif
+ 
+ # Remove the files that are part of a gdb build but that are owned and
+ # provided by other packages.
+@@ -1515,11 +1495,8 @@ rm -rf $RPM_BUILD_ROOT
+ %{_mandir}/*/gdb.1*
+ %{_sysconfdir}/gdbinit.d
+ %{_mandir}/*/gdbinit.5*
+-# gdb-add-index cannot be run even for SCL package on RHEL<=6.
+-%if 0%{!?rhel:1} || 0%{?rhel} > 6
+ %{_bindir}/gdb-add-index
+ %{_mandir}/*/gdb-add-index.1*
+-%endif
+ # Provide gdbtui for RHEL-5 and RHEL-6 as it is removed upstream (BZ 797664).
+ %if 0%{?rhel:1} && 0%{?rhel} <= 6
+ %{_bindir}/gdbtui
+

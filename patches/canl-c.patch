@@ -1,0 +1,22 @@
+diff -u -r canl-c-orig/canl-c.spec canl-c-patched/canl-c.spec
+--- canl-c-orig/canl-c.spec	2017-02-26 18:33:31.000000000 +0100
++++ canl-c-patched/canl-c.spec	2018-03-27 18:19:11.506739133 +0200
+@@ -88,7 +88,7 @@
+ 
+ 
+ %files
+-%license LICENSE
++#%license LICENSE
+ %doc ChangeLog README
+ %{_libdir}/libcanl_c.so.2
+ %{_libdir}/libcanl_c.so.2.*
+@@ -98,7 +98,7 @@
+ %{_libdir}/libcanl_c.so
+ 
+ %files doc
+-%license LICENSE
++#%license LICENSE
+ %doc canl.pdf
+ 
+ %files examples
+

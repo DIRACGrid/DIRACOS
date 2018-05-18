@@ -1,0 +1,39 @@
+diff --git a/python-setuptools.spec b/python-setuptools.spec
+index 11657a5..80e8a06 100644
+--- a/python-setuptools.spec
++++ b/python-setuptools.spec
+@@ -1,6 +1,9 @@
+ # Dependencies for check and wheel introduce circular dependencies
+ # Set this to 0 after we've bootstrapped.
+-%{!?_with_bootstrap: %global bootstrap 0}
++
++
++
++%global bootstrap 1
+ 
+ %if ! 0%{?bootstrap}
+ %global with_check 1
+@@ -10,13 +13,10 @@
+ %global build_wheel 0
+ %endif
+ 
+-%if 0%{?fedora}
+-%global with_python3 1
+-%else
++%global with_python3 0
+ # define some macros for RHEL 6
+ %global __python2 %__python
+ %global python2_sitelib %python_sitelib
+-%endif
+ 
+ %global srcname setuptools
+ %if 0%{?build_wheel}
+@@ -28,6 +28,7 @@
+ %endif
+ %endif
+ 
++
+ Name:           python-setuptools
+ Version:        25.1.1
+ Release:        1%{?dist}
+

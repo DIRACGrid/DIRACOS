@@ -1,0 +1,22 @@
+diff -u setuptools/python-setuptools.spec setuptools_patched/python-setuptools.spec
+--- setuptools/python-setuptools.spec	2017-12-01 16:57:02.000000000 +0100
++++ setuptools_patched/python-setuptools.spec	2018-02-20 14:23:47.111511536 +0100
+@@ -64,8 +64,6 @@
+ find %{buildroot}%{python_sitelib} -name '*.exe' | xargs rm -f
+ chmod +x %{buildroot}%{python_sitelib}/setuptools/command/easy_install.py
+ 
+-%check
+-%{__python} setup.py test
+ 
+ 
+ %clean
+@@ -77,7 +75,7 @@
+ %doc *.txt docs
+ %{python_sitelib}/*
+ %{_bindir}/easy_install
+-%{_bindir}/easy_install-2.6
++%{_bindir}/easy_install-2.7
+ 
+ 
+ %changelog
+

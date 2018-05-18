@@ -1,0 +1,13 @@
+diff -u original/globus-gass-copy.spec patched/globus-gass-copy.spec
+--- original/globus-gass-copy.spec	2016-04-19 00:40:45.000000000 +0200
++++ patched/globus-gass-copy.spec	2018-02-23 08:41:10.882815132 +0100
+@@ -138,8 +138,6 @@
+ # Remove libtool archives (.la files)
+ find $RPM_BUILD_ROOT%{_libdir} -name 'lib*.la' -exec rm -v '{}' \;
+ 
+-%check
+-make %{?_smp_mflags} check
+ 
+ %clean
+ rm -rf $RPM_BUILD_ROOT
+

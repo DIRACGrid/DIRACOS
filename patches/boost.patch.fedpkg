@@ -1,0 +1,21 @@
+diff --git a/boost.spec b/boost.spec
+index fce6292..efb474a 100644
+--- a/boost.spec
++++ b/boost.spec
+@@ -11,13 +11,8 @@
+ %endif
+ 
+ # Configuration of MPI backends
+-%bcond_without mpich2
+-%ifarch s390 s390x %{arm}
+-  # No OpenMPI support on these arches
+-  %bcond_with openmpi
+-%else
+-  %bcond_without openmpi
+-%endif
++%bcond_with mpich2
++%bcond_with openmpi
+ 
+ Name: boost
+ Summary: The free peer-reviewed portable C++ source libraries
+

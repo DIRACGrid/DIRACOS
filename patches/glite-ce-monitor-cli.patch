@@ -1,0 +1,13 @@
+diff -u original/glite-ce-monitor-cli.spec patched/glite-ce-monitor-cli.spec
+--- original/glite-ce-monitor-cli.spec	2013-07-02 14:39:42.000000000 +0200
++++ patched/glite-ce-monitor-cli.spec	2018-02-23 08:34:08.585571287 +0100
+@@ -11,7 +11,7 @@
+ BuildRequires: emi-pkgconfig-compat, glite-ce-wsdl
+ BuildRequires: glite-lbjp-common-gsoap-plugin-devel, boost-devel
+ BuildRequires: voms-devel, gsoap-devel, c-ares-devel
+-BuildRequires: globus-openssl-devel, globus-openssl-module-devel, globus-gssapi-gsi-devel
++BuildRequires: globus-openssl-module-devel, globus-gssapi-gsi-devel
+ BuildRequires: globus-callout-devel, globus-common-devel
+ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+ AutoReqProv: yes
+

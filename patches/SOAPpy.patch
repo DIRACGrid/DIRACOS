@@ -1,0 +1,12 @@
+diff -u original/SOAPpy.spec patched/SOAPpy.spec
+--- original/SOAPpy.spec	2010-06-28 21:07:06.000000000 +0200
++++ patched/SOAPpy.spec	2018-02-28 17:51:07.867779254 +0100
+@@ -22,7 +22,6 @@
+ BuildRequires:  python-devel
+ BuildRequires:  python-fpconst >= 0.6.0
+ Requires:       python-fpconst >= 0.6.0
+-Requires:       PyXML >= 0.8.3
+ 
+ %description
+ The goal of the SOAPpy team is to provide a full-featured SOAP library
+

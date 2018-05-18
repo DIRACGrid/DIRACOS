@@ -1,0 +1,28 @@
+diff -u condor/condor.spec patched/condor.spec
+--- condor/condor.spec	2017-01-27 01:12:30.000000000 +0100
++++ patched/condor.spec	2018-02-28 15:49:04.756396411 +0100
+@@ -6,6 +6,7 @@
+ # % define uw_build 1
+ # % define std_univ 1
+ 
++%define uw_build 0
+ # Things for F15 or later
+ %if 0%{?fedora} >= 16
+ # NOTE: HTCondor+gsoap doesn't work yet on F15; ticket not yet upstream AFAIK.  BB
+@@ -69,15 +70,8 @@
+ # Things not turned on, or don't have Fedora packages yet
+ %define qmf 0
+ 
+-%if 0%{?fedora}
+ %define blahp 0
+ %define cream 0
+-# a handful of std universe files don't seem to get built in fedora...
+-%define std_univ 0
+-%else
+-%define blahp 1
+-%define cream 1
+-%endif
+ 
+ %if 0%{?hcc}
+ %define blahp 0
+

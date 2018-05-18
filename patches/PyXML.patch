@@ -1,0 +1,14 @@
+diff -u original/PyXML.spec patched/PyXML.spec
+--- original/PyXML.spec	2010-07-20 16:00:48.000000000 +0200
++++ patched/PyXML.spec	2018-02-28 17:24:54.065599401 +0100
+@@ -87,9 +87,6 @@
+ %clean
+ rm -rf $RPM_BUILD_ROOT
+ 
+-%check
+-cd test
+-PYTHONPATH=.. python regrtest.py -v
+ 
+ %files -f %{name}
+ %defattr(-,root,root,-)
+
