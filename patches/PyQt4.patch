@@ -1,0 +1,15 @@
+diff -u -r PyQt4-orig/PyQt4.spec PyQt4-patched/PyQt4.spec
+--- PyQt4-orig/PyQt4.spec	2012-08-24 19:54:45.000000000 +0200
++++ PyQt4-patched/PyQt4.spec	2018-03-29 10:47:21.458440175 +0200
+@@ -52,6 +52,12 @@
+ BuildRequires: sip-devel >= 4.9.3
+
+ Requires: dbus-python
++# Add manual dependencies so that it pulls what it needs for BK GUY
++Requires: libXi
++Requires: libXrandr
++Requires: libXcursor
++Requires: libXinerama
++
+ %{?_qt4_version:Requires: qt4 >= %{_qt4_version}}
+ %{?_sip_api:Requires: sip-api(%{_sip_api_major}) >= %{_sip_api}}

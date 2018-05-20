@@ -1,0 +1,34 @@
+diff -u -r dcap-orig/dcap.spec dcap-patched/dcap.spec
+--- dcap-orig/dcap.spec	2018-02-28 20:00:05.000000000 +0100
++++ dcap-patched/dcap.spec	2018-03-28 10:12:10.488199008 +0200
+@@ -108,10 +108,6 @@
+ # We are installing the docs in the files sections
+ rm -rf %{buildroot}/%{_docdir}
+ 
+-%check
+-make %{?_smp_mflags} check
+-
+-%ldconfig_scriptlets libs
+ 
+ %files
+ %{_bindir}/dccp
+@@ -121,7 +117,6 @@
+ %{_libdir}/libdcap.so.*
+ %{_libdir}/libpdcap.so.*
+ %dir %{_libdir}/%{name}
+-%license LICENSE COPYING.LIB AUTHORS
+ 
+ %files devel
+ %{_libdir}/libdcap.so
+@@ -132,11 +127,9 @@
+ 
+ %files tunnel-gsi
+ %{_libdir}/%{name}/libgsiTunnel.so
+-%license plugins/gssapi/Copyright
+ 
+ %files tunnel-krb
+ %{_libdir}/%{name}/libgssTunnel.so
+-%license plugins/gssapi/Copyright
+ 
+ %files tunnel-ssl
+ %{_libdir}/%{name}/libsslTunnel.so

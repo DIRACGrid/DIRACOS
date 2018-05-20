@@ -1,0 +1,27 @@
+diff -u boost/boost.spec boost_patched/boost.spec
+--- boost/boost.spec	2015-12-23 21:56:23.000000000 +0100
++++ boost_patched/boost.spec	2018-02-22 17:09:07.577570650 +0100
+@@ -10,20 +10,8 @@
+   %define disable_long_double 1
+ %endif
+ 
+-# Configuration of MPI backends
+-%ifnarch %{ix86} x86_64
+-  # No MPICH support except on x86 and x86_64
+-  %bcond_with mpich
+-%else
+-  %bcond_without mpich
+-%endif
+-
+-%ifarch s390 s390x
+-  # No OpenMPI support on zseries
+-  %bcond_with openmpi
+-%else
+-  %bcond_without openmpi
+-%endif
++%bcond_with mpich
++%bcond_with openmpi
+ 
+ Name: boost
+ Summary: The free peer-reviewed portable C++ source libraries
+

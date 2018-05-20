@@ -1,0 +1,50 @@
+diff -ru rpm-macro-orig/python-rpm-macros.spec rpm-macro/python-rpm-macros.spec
+--- rpm-macro-orig/python-rpm-macros.spec       2016-09-15 22:42:46.000000000 +0200
++++ rpm-macro/python-rpm-macros.spec    2018-03-06 10:08:20.825002067 +0100
+@@ -7,12 +7,13 @@
+ Source0:        macros.python
+ Source1:        macros.python-srpm
+ Source2:        macros.python2
+-Source3:        macros.python3
+ 
+ BuildArch:      noarch
+ # For %%python3_pkgversion used in %%python_provide
+ Requires:       python-srpm-macros
+ 
++%define rpmmacrodir /etc/rpm
++
+ %description
+ This package contains the unversioned Python RPM macros, that most
+ implementations should rely on.
+@@ -32,12 +33,6 @@
+ %description -n python2-rpm-macros
+ RPM macros for building Python 2 packages.
+ 
+-%package -n python3-rpm-macros
+-Summary:        RPM macros for building Python 3 packages
+-
+-%description -n python3-rpm-macros
+-RPM macros for building Python 3 packages.
+-
+ 
+ %prep
+ 
+@@ -45,7 +40,7 @@
+ 
+ %install
+ mkdir -p %{buildroot}/%{rpmmacrodir}
+-install -m 644 %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} \
++install -m 644 %{SOURCE0} %{SOURCE1} %{SOURCE2} \
+   %{buildroot}/%{rpmmacrodir}
+ 
+ 
+@@ -58,8 +53,6 @@
+ %files -n python2-rpm-macros
+ %{rpmmacrodir}/macros.python2
+ 
+-%files -n python3-rpm-macros
+-%{rpmmacrodir}/macros.python3
+ 
+ 
+ %changelog
+

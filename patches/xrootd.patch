@@ -1,0 +1,85 @@
+diff -u -r xrootd-orig/xrootd.spec xrootd-patched/xrootd.spec
+--- xrootd-orig/xrootd.spec	2018-01-29 16:28:46.000000000 +0100
++++ xrootd-patched/xrootd.spec	2018-03-28 08:55:47.389391917 +0200
+@@ -64,11 +64,6 @@
+ BuildRequires: ncurses-devel
+ 
+ BuildRequires: python2-devel
+-%if %{?fedora}%{!?fedora:0} >= 13
+-BuildRequires: python3-devel
+-%else
+-BuildRequires: python34-devel
+-%endif
+ 
+ BuildRequires: openssl-devel
+ 
+@@ -276,19 +271,6 @@
+ %description -n python2-xrootd
+ Python 2 bindings for XRootD
+ 
+-#-------------------------------------------------------------------------------
+-# python3
+-#-------------------------------------------------------------------------------
+-%package -n python3-%{name}
+-Summary:       Python 3 bindings for XRootD
+-Group:         Development/Libraries
+-%if %{?fedora}%{!?fedora:0} >= 13
+-%{?python_provide:%python_provide python3-%{name}}
+-%endif
+-Requires:      %{name}-client-libs%{?_isa} = %{epoch}:%{version}-%{release}
+-
+-%description -n python3-xrootd
+-Python 3 bindings for XRootD
+ 
+ #-------------------------------------------------------------------------------
+ # doc
+@@ -331,17 +313,6 @@
+ Ceph back-end plug-in for XRootD.
+ %endif
+ 
+-#-------------------------------------------------------------------------------
+-# tests
+-#-------------------------------------------------------------------------------
+-%if %{?_with_tests:1}%{!?_with_tests:0}
+-%package tests
+-Summary: CPPUnit tests
+-Group:   Development/Tools
+-Requires: %{name}-client = %{epoch}:%{version}-%{release}
+-%description tests
+-This package contains a set of CPPUnit tests for xrootd.
+-%endif
+ 
+ %if %{?_with_compat:1}%{!?_with_compat:0}
+ #-------------------------------------------------------------------------------
+@@ -419,10 +390,6 @@
+ popd
+ %endif
+ 
+-# build python3 bindings
+-pushd build/bindings/python
+-%py3_build
+-popd
+ 
+ #-------------------------------------------------------------------------------
+ # Installation
+@@ -533,10 +500,6 @@
+ install -m 644 -p packaging/common/xrootd.pp \
+     %{buildroot}%{_datadir}/selinux/packages/%{name}/%{name}.pp
+ 
+-# install python3 bindings
+-pushd build/bindings/python
+-%py3_install
+-popd
+ 
+ %clean
+ rm -rf $RPM_BUILD_ROOT
+@@ -817,9 +780,6 @@
+ %files -n python2-%{name} -f xrootd/build/PYTHON_INSTALLED_FILES
+ %defattr(-,root,root,-)
+ 
+-%files -n python3-%{name}
+-%defattr(-,root,root,-)
+-%{python3_sitearch}/*
+ 
+ %files doc
+ %defattr(-,root,root,-)

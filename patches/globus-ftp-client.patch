@@ -1,0 +1,13 @@
+diff -u original/globus-ftp-client.spec modified/globus-ftp-client.spec
+--- original/globus-ftp-client.spec        2018-02-19 16:37:31.517706012 +0100
++++ modified/globus-ftp-client.spec       2018-02-19 16:38:35.852407595 +0100
+@@ -113,9 +113,6 @@
+ # Remove libtool archives (.la files)
+ find $RPM_BUILD_ROOT%{_libdir} -name 'lib*.la' -exec rm -v '{}' \;
+ 
+-%check
+-make %{_smp_mflags} check
+-
+ %clean
+ rm -rf $RPM_BUILD_ROOT
+

@@ -1,0 +1,25 @@
+diff -r -u original/glite-ce-cream-cli.spec patched/glite-ce-cream-cli.spec
+--- original/glite-ce-cream-cli.spec	2014-03-25 09:00:49.000000000 +0100
++++ patched/glite-ce-cream-cli.spec	2018-02-23 08:45:04.496842579 +0100
+@@ -10,7 +10,7 @@
+ Requires: uberftp
+ BuildRequires: cmake, chrpath, emi-pkgconfig-compat
+ BuildRequires: glite-ce-cream-client-devel, glite-jdl-api-cpp-devel
+-BuildRequires: globus-common-devel, globus-callout-devel, globus-openssl-devel
++BuildRequires: globus-common-devel, globus-callout-devel
+ BuildRequires: globus-openssl-module-devel, globus-gsi-callback-devel, globus-gsi-cert-utils-devel
+ BuildRequires: globus-gsi-credential-devel, globus-gsi-openssl-error-devel, globus-gsi-proxy-core-devel
+ BuildRequires: globus-gsi-proxy-ssl-devel, globus-gsi-sysconfig-devel,globus-gssapi-error-devel
+diff -r -u original/src/CMakeLists.txt patched/src/CMakeLists.txt
+--- original/src/CMakeLists.txt	2014-03-25 09:00:17.000000000 +0100
++++ patched/src/CMakeLists.txt	2018-02-23 08:47:41.799195573 +0100
+@@ -45,7 +45,7 @@
+ pkg_check_modules(GLITE_WMSUTILS_CLASSADS classad-utils)
+ pkg_check_modules(GRIDSITE_OPENSSL gridsite-openssl)
+ pkg_check_modules(GLOBUS_COMMON globus-common)
+-pkg_check_modules(GLOBUS_CORE globus-core)
++pkg_check_modules(GLOBUS_CORE globus-common)
+ pkg_check_modules(GLOBUS_CALLOUT globus-callout)
+ pkg_check_modules(GLOBUS_OPENSSL_MODULE globus-openssl-module)
+ pkg_check_modules(GLOBUS_GSI_CALLBACK globus-gsi-callback)
+

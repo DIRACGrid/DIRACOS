@@ -1,0 +1,22 @@
+--- nordugrid-arc-orig/nordugrid-arc.spec	2017-09-19 05:25:47.000000000 +0200
++++ nordugrid-arc-patched/nordugrid-arc.spec	2018-03-28 13:41:07.939847810 +0200
+@@ -6,8 +6,8 @@
+
+ %global with_xrootd %{!?_without_xrootd:1}%{?_without_xrootd:0}
+
+-%global with_java %{!?_without_java:1}%{?_without_java:0}
+-%global with_junit %{!?_without_junit:1}%{?_without_junit:0}
++%global with_java 0
++%global with_junit 0
+
+ %if %{?rhel}%{!?rhel:0} == 6
+ %ifarch ppc64
+@@ -42,7 +42,7 @@
+
+ %global with_sqlite 1
+
+-%global with_ldns 1
++%global with_ldns 0
+
+ %if %{?fedora}%{!?fedora:0} >= 25 || %{?rhel}%{!?rhel:0} >= 8
+ %global use_systemd 1

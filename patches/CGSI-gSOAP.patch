@@ -1,0 +1,13 @@
+diff -u SPECS-orig/CGSI-gSOAP.spec SPECS/CGSI-gSOAP.spec
+--- SPECS-orig/CGSI-gSOAP.spec	2018-03-13 11:50:56.147003668 +0100
++++ SPECS/CGSI-gSOAP.spec	2018-03-13 11:53:18.309003289 +0100
+@@ -23,6 +23,9 @@
+ BuildRequires:	voms-devel
+ BuildRequires:	doxygen
+
++%define _pkgdocdir     %{_docdir}/%{name}-%{version}
++
++
+ %description
+ This is a GSI plugin for gSOAP. It uses the globus GSI libraries to implement
+ GSI secure authentication and encryption on top of gSOAP.

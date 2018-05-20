@@ -1,0 +1,54 @@
+{
+   "rpmBuild" :{
+      "mockConfig": "mockConfig",
+      "mockRoot": "mockRoot",
+      "patchDir" : "patchDir",
+      "packageGroups": [
+         {
+            "mockConfig": "grp1_mockConfig",
+            "mockRoot": "grp1_mockRoot",
+            "patchDir" : "grp1_patchDir",
+            "name": "grp1",
+            "packages": [
+               {
+                  "name" : "grp1_pkg1_name",
+                  "routine": "grp1_pkg1_routine",
+                  "src": "grp1_pkg1_src",
+                  "mockConfig": "grp1_pkg1_mockConfig",
+                  "mockRoot": "grp1_pkg1_mockRoot",
+                  "patchDir" : "grp1_pkg1_patchDir",
+                  "patchFile" : "grp1_pkg1_patchFile",
+                  "repo" : "grp1_pkg1_repo",
+                  "buildOnly" : true,
+                  "disablePatch": true
+               },
+               {
+                  "name" : "grp1_pkg2_name",
+                  "src": "grp1_pkg2_src"
+               }
+            ],
+            "repo": "grp1_repo"
+         },
+         {
+            "name": "grp2",
+            "packages": [
+               {
+                  "name" : "grp2_pkg1_name",
+                  "src": "grp2_pkg1_src",
+                  "mockConfig": "grp2_pkg1_mockConfig",
+                  "mockRoot": "grp2_pkg1_mockRoot",
+                  "patchDir" : "grp2_pkg1_patchDir",
+                  "patchFile" : "grp2_pkg1_patchFile",
+                  "buildOnly" : true,
+                  "disablePatch": true
+               },
+               {
+                  "name" : "grp2_pkg2_name",
+                  "src": "grp2_pkg2_src"
+               }
+            ]
+         }
+      ],
+      "repo": "repo"
+   }
+}
