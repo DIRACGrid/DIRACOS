@@ -332,3 +332,15 @@ https://linux.die.net/man/1/chrpath
 
 Currently there is an issue with CentOS7.
 The python scripts have `/usr/bin/env` as shebang. However, `/usr/bin/env` requires `GLIBC_2.14` on CentOS7, which is not in the `libc` shipped here. The solution is probably to fix the postinstall script of DIRAC to not use the system `env`
+
+# Test DIRACOS
+
+If you want to test DIRACOS, it is enough to do the following:
+
+```
+  https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/Core/scripts/dirac-install.py
+  chmod +x dirac-install.py 
+  ./dirac-install.py -r v6r20 --dirac-os --dirac-os-version=0.0.5 
+```
+If you want to install it together with your extension, you will most probably have to copy the diracos tar files from `http://lhcbproject.web.cern.ch/lhcbproject/dist/Dirac_project/installSource/` to your own baseURL
+
