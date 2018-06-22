@@ -30,8 +30,16 @@ def _downloadFile(url, dest):
 
   logging.debug("Writing to %s", dest)
 
-  with open(dest, 'wb') as df:
-    df.write(urllib.urlopen(url).read())
+  # This downloading does not work because some sites
+  # moved their repository to TLS, and there is no way
+  # in python 2.6 to configure the SSL context. 
+  # That's why we have to use a system command..
+  #with open(dest, 'wb') as df:
+  #  df.write(urllib.urlopen(url).read())
+
+  dl_cmd = ['curl', '-o', dest, '-L', url ]
+  logging.debug("Downloading with %s"%' '.join(dl_cmd))
+  subprocess.check_call(dl_cmd)
 
   return dest
 
