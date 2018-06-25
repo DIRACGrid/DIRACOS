@@ -1,11 +1,12 @@
 #!/usr/bin/env python
-import sys
-import json
-from diracos import Conf, diracoslib
 import logging
+import pprint
+import sys
+
+from diracos import Conf, diracoslib
+
 logging.basicConfig(level=logging.DEBUG)
 
-import pprint
 
 def main():
   jsonConf = sys.argv[1]
@@ -13,7 +14,9 @@ def main():
   allPackages = cfg['allPackagesConfig']
   pprint.pprint(allPackages)
 
-  for package in allPackages:
+  totalPackages = len(allPackages)
+  for packageId, package in enumerate(allPackages, 1):
+    logging.info("Building %s (%s/%s)", package['name'], packageId, totalPackages)
     diracoslib.buildPackage(package)
 
 
