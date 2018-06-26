@@ -419,8 +419,14 @@
             "name": "xrootd",
             "packages":[
                {
+                  "name": "perl-generators",
+                  "src" : "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/p/perl-generators-1.08-5.el6.src.rpm",
+                  "buildOnly" : true,
+                  "comment" : "xrootd needs perl-generators"
+               },
+               {
                   "name": "xrootd",
-                  "src": "http://xrootd.web.cern.ch/xrootd/sw/releases/4.8.1/rpms/source/xrootd-4.8.1-1.el7.src.rpm",
+                  "src": "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/x/xrootd-4.8.3-1.el6.src.rpm",
                   "pkgList": [
                       "xrootd",
                       "xrootd-libs",
@@ -452,7 +458,7 @@
                },
                {
                   "name": "CGSI-gSOAP",
-                  "src" : "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/c/CGSI-gSOAP-1.3.10-7.el6.src.rpm",
+                  "src" : "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/c/CGSI-gSOAP-1.3.11-1.el6.src.rpm",
                   "buildOnly" : true,
                   "comment" : "for srm-ifce"
                },
@@ -467,7 +473,7 @@
                {
                   "name": "lcgdm",
                   "comment" : "Contains all the lfc and dpm related things",
-                  "src" : "http://dl.fedoraproject.org/pub/epel/6Server/SRPMS/Packages/l/lcgdm-1.9.2-1.el6.src.rpm",
+                  "src" : "https://dl.fedoraproject.org/pub/epel/6Server/SRPMS/Packages/l/lcgdm-1.10.0-5.el6.src.rpm",
                   "pkgList" : [
                      "lcgdm-libs",
                      "lcgdm-devel",
@@ -503,7 +509,8 @@
                   "name": "gfal2",
                   "comment" : "Carreful, testing package",
                   "src_old": "http://dmc-repo.web.cern.ch/dmc-repo/el6/x86_64/gfal2-2.13.3-1.el6.src.rpm",
-                  "src": "http://dmc-repo.web.cern.ch/dmc-repo/testing/el6/x86_64/gfal2-2.15.2-r1803011640.el6.src.rpm",
+                  "src_old": "http://dmc-repo.web.cern.ch/dmc-repo/testing/el6/x86_64/gfal2-2.15.2-r1803011640.el6.src.rpm",
+                  "src": "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/g/gfal2-2.15.4-1.el6.src.rpm",
                   "excludePatterns": [
                      ".*-doc-.*",
                      ".*-debuginfo-.*",
@@ -582,11 +589,6 @@
                   "name": "libs3",
                   "src": "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/l/libs3-2.0-0.5.20161104gita052a00.el6.src.rpm",
                   "buildOnly": true
-               },
-               {
-                  "name" : "perl-generators",
-                  "src" : "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/p/perl-generators-1.08-5.el6.src.rpm",
-                  "buildOnly" : true
                },
                {
                   "name": "nordugrid-arc",
@@ -684,7 +686,7 @@
    "mockInstallConfig": "../mockConfigs/mock-install-diracos.cfg",
    "mockInstallRoot": "/var/lib/mock/epel-6-x86_64-install",
    "pipRequirements" : "https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/requirements.txt",
-   "version" : "0.0.5",
+   "version" : "0.0.6",
    "comment" : "This is in line with lcgbundle 14.0",
    "pipBuildDependencies":[
       "libcurl-devel",
