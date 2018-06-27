@@ -1,5 +1,6 @@
---- /xrootd-orig/xrootd.spec	2018-05-03 08:20:43.000000000 +0200
-+++ /xrootd-patched/xrootd.spec	2018-06-25 16:09:32.890745565 +0200
+diff -u -r xrootd-orig/xrootd.spec xrootd-patched/xrootd.spec
+--- xrootd-orig/xrootd.spec	2018-05-03 08:20:43.000000000 +0200
++++ xrootd-patched/xrootd.spec	2018-06-25 16:09:32.890745565 +0200
 @@ -37,18 +37,22 @@
  BuildRequires:	systemd
  %endif
