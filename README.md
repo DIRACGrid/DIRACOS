@@ -34,6 +34,7 @@ The build is done starting from an SRPM package or from the fedora repo using fe
 Once the rpms are built, they are copied to the repository you specify in your config files. The list of RPMs copied can be filtered.
 Some RPMs can be required only for building purposes. When this is the case, these RPMs are not considered later on when creating the bundle.
 
+It is very important to understand that the building procedure is incremental. Packages are built in turn, and one package might likely depend on its predecessor. So starting by trying to build the last package from the list is bound to fail. This also means that if you are changing a package in the middle, you might want to rebuild all what comes after (so you might as well rebuild everything...)
 
 ## Patching the sources
 
@@ -54,11 +55,17 @@ The routine file has to be named `(post-|pre-)<package>.py`.
 
 In case of a full routine, the routine is responsible for everything, from building to updating the repository.
 
+## Caching mechanism
+
+In order to optimize the building mechanism, a caching mechanism is in place, which avoids rebuilding a package that is already built. While gaining speed, this might trick you as well by not rebuilding a package that maybe requires to be. The mechanism is very simple: everytime a package is built, the srpm is copied to the yum repository. When building a package, if the corresponding SRPM with the correct version is found in the yum repo, the built is skip. If you want to force a rebuild, remove the srpm from the repository, and update it (not needed, but cleaner).
+
 
 
 # Python packages
 
 The python packages are installed with pip inside a mock environment, using virtualenv. Running inside the mock environment ensures to use the lib packages needed from our repo.
+
+The python packages are installed from a requirement file, linked in the json configuration file (see `pipRequirements`). Adding a new python package is as simple as adding a line there.
 
 # Creating the bundle
 
@@ -162,6 +169,8 @@ Copy it from your mock root in /tmp (e.g. /var/lib/mock/epel-6-x86_64-install/ro
 
 # Adding a new package
 
+Note: if you are adding a python module, use pip ! Not the RPM version.
+
 ## RPM package
 
 Whether you want to replace an existing package by a newer version or add a completely new one, it is better to try first by hand. The process goes as follow:
@@ -204,6 +213,12 @@ diff -r -u <original> <patched>
 ```
 
 where `<original>` contains the uncompressed original SRPM, and `<patched>` your modified version
+
+
+## Python package
+
+As mentioned earlier, python packages are installed with `pip` from a requirement file linked in the json config file as `pipRequirements`.
+To add a python package, just add it in the requirement file. However, in order to be able to build it in the mock and virtualenv environment, some building dependencies might be necessary. If so, they should be added in `pipBuildDependencies`.
 
 # Configuration Grammar
 
@@ -339,8 +354,7 @@ If you want to test DIRACOS, it is enough to do the following:
 
 ```
   https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/Core/scripts/dirac-install.py
-  chmod +x dirac-install.py 
-  ./dirac-install.py -r v6r20 --dirac-os --dirac-os-version=0.0.5 
+  chmod +x dirac-install.py
+  ./dirac-install.py -r v6r20 --dirac-os --dirac-os-version=0.0.5
 ```
 If you want to install it together with your extension, you will most probably have to copy the diracos tar files from `http://lhcbproject.web.cern.ch/lhcbproject/dist/Dirac_project/installSource/` to your own baseURL
-
