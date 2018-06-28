@@ -1,0 +1,20 @@
+#!/bin/bash
+
+
+# We define DIRACOS if not done as in the local directory
+if [ -z "$DIRACOS" ];
+then
+  DIRACOS=$PWD/diracos;
+  export DIRACOS;
+fi
+
+# We build LD_LIBRARY_PATH
+LD_LIBRARY_PATH=$(find -L $DIRACOS -name '*.so' -printf "%h\n" | sort -u | paste -sd ':'):$LD_LIBRARY_PATH
+echo $LD_LIBRARY_PATH
+export LD_LIBRARY_PATH
+
+
+# we build the PATH
+PATH=$DIRACOS/bin:$DIRACOS/usr/bin:$DIRACOS/sbin:$PATH
+echo $PATH
+export PATH
