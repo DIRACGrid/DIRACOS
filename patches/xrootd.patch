@@ -1,7 +1,6 @@
-diff -u -r xrootd-orig/xrootd.spec xrootd-patched/xrootd.spec
 --- xrootd-orig/xrootd.spec	2018-05-03 08:20:43.000000000 +0200
-+++ xrootd-patched/xrootd.spec	2018-06-25 16:09:32.890745565 +0200
-@@ -37,18 +37,22 @@
++++ xrootd-patched/xrootd.spec	2018-06-28 14:13:38.010637407 +0200
+@@ -37,18 +37,6 @@
  BuildRequires:	systemd
  %endif
  BuildRequires:	python2-devel
@@ -17,52 +16,29 @@ diff -u -r xrootd-orig/xrootd.spec xrootd-patched/xrootd.spec
 -%if %{?rhel}%{!?rhel:0} == 6
 -BuildRequires:	python-sphinx10
 -%endif
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
  %if %{?fedora}%{!?fedora:0} >= 24
  BuildRequires:	librados-devel
  BuildRequires:	libradosstriper-devel
-@@ -217,16 +221,16 @@
+@@ -216,18 +204,6 @@
+ 
  %description -n python2-%{name}
  This package contains Python 2 bindings for xrootd.
- 
+-
 -%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 7
 -%package -n python%{python3_pkgversion}-%{name}
 -Summary:	Python 3 bindings for xrootd
 -%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
 -Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 -Requires:	%{name}-client-libs%{?_isa} = %{epoch}:%{version}-%{release}
- 
+-
 -%description -n python%{python3_pkgversion}-%{name}
 -This package contains Python 3 bindings for xrootd.
 -%endif
-+
-+
-+
-+
-+
-+
-+
-+
-+
- 
+-
  %package doc
  Summary:	Developer documentation for the xrootd libraries
-@@ -246,11 +250,11 @@
+ BuildArch:	noarch
+@@ -246,12 +222,6 @@
  make %{?_smp_mflags}
  popd
  
@@ -71,15 +47,11 @@ diff -u -r xrootd-orig/xrootd.spec xrootd-patched/xrootd.spec
 -%py3_build
 -popd
 -%endif
-+
-+
-+
-+
-+
- 
+-
  pushd packaging/common
  make -f /usr/share/selinux/devel/Makefile
-@@ -260,13 +264,13 @@
+ popd
+@@ -260,13 +230,6 @@
  
  export PYTHONPATH=$(cd build/bindings/python/build/lib.*-%{python2_version} ; pwd)
  export LD_LIBRARY_PATH=${PWD}/build/src/XrdCl:${PWD}/build/src
@@ -90,17 +62,10 @@ diff -u -r xrootd-orig/xrootd.spec xrootd-patched/xrootd.spec
 -make html
 -%endif
 -popd
-+
-+
-+
-+
-+
-+
-+
  
  %install
  rm -rf %{buildroot}
-@@ -275,11 +279,11 @@
+@@ -275,12 +238,6 @@
  make install DESTDIR=%{buildroot}
  popd
  
@@ -109,65 +74,48 @@ diff -u -r xrootd-orig/xrootd.spec xrootd-patched/xrootd.spec
 -%py3_install
 -popd
 -%endif
-+
-+
-+
-+
-+
- 
+-
  # Service start-up scripts / unit files
  %if %{use_systemd}
-@@ -353,26 +357,26 @@
+ mkdir -p %{buildroot}%{_unitdir}
+@@ -352,28 +309,6 @@
+ install -m 644 -p packaging/common/%{name}.pp \
      %{buildroot}%{_datadir}/selinux/packages/%{name}
  
- # Documentation
+-# Documentation
 -mkdir -p %{buildroot}%{_pkgdocdir}
 -cp -pr doxydoc/html %{buildroot}%{_pkgdocdir}
- 
+-
 -cp -pr bindings/python/docs/build/html %{buildroot}%{_pkgdocdir}/python
 -rm %{buildroot}%{_pkgdocdir}/python/.buildinfo
- 
+-
 -%ldconfig_scriptlets libs
- 
+-
 -%ldconfig_scriptlets client-libs
- 
+-
 -%ldconfig_scriptlets server-libs
- 
+-
 -%if %{?fedora}%{!?fedora:0} >= 24
 -%ldconfig_scriptlets ceph
 -%endif
- 
+-
 -%pre server
 -getent group %{name} >/dev/null || groupadd -r %{name}
 -getent passwd %{name} >/dev/null || useradd -r -g %{name} -s /sbin/nologin \
 -  -d %{_localstatedir}/spool/%{name} -c "XRootD runtime user" %{name}
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
-+
- 
+-
  # Remove obsolete service
  /sbin/service olbd stop >/dev/null 2>&1 || :
-@@ -515,7 +519,7 @@
+ /sbin/chkconfig --del olbd >/dev/null 2>&1 || :
+@@ -515,7 +450,6 @@
  %{_libdir}/libXrdCksCalczcrc32-4.so
  %{_libdir}/libXrdCryptossl-4.so
  %{_libdir}/libXrdSec*-4.so
 -%license COPYING* LICENSE
-+
  
  %files devel
  %{_bindir}/xrootd-config
-@@ -627,13 +631,13 @@
+@@ -627,14 +561,6 @@
  %files -n python2-%{name}
  %{python2_sitearch}/*
  
@@ -175,15 +123,10 @@ diff -u -r xrootd-orig/xrootd.spec xrootd-patched/xrootd.spec
 -%files -n python%{python3_pkgversion}-%{name}
 -%{python3_sitearch}/*
 -%endif
- 
+-
 -%files doc
 -%doc %{_pkgdocdir}
-+
-+
-+
-+
-+
-+
- 
+-
  %changelog
  * Thu May 03 2018 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:4.8.3-1
+ - Update to version 4.8.3
