@@ -419,6 +419,12 @@
             "name": "xrootd",
             "packages":[
                {
+                  "name": "perl-generators",
+                  "src" : "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/p/perl-generators-1.08-5.el6.src.rpm",
+                  "buildOnly" : true,
+                  "comment" : "xrootd needs perl-generators"
+               },
+               {
                   "name": "xrootd",
                   "src": "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/x/xrootd-4.8.3-1.el6.src.rpm",
                   "pkgList": [
@@ -583,11 +589,6 @@
                   "name": "libs3",
                   "src": "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/l/libs3-2.0-0.5.20161104gita052a00.el6.src.rpm",
                   "buildOnly": true
-               },
-               {
-                  "name" : "perl-generators",
-                  "src" : "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/p/perl-generators-1.08-5.el6.src.rpm",
-                  "buildOnly" : true
                },
                {
                   "name": "nordugrid-arc",
