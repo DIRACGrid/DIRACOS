@@ -34,7 +34,9 @@ The build is done starting from an SRPM package or from the fedora repo using fe
 Once the rpms are built, they are copied to the repository you specify in your config files. The list of RPMs copied can be filtered.
 Some RPMs can be required only for building purposes. When this is the case, these RPMs are not considered later on when creating the bundle.
 
-It is very important to understand that the building procedure is incremental. Packages are built in turn, and one package might likely depend on its predecessor. So starting by trying to build the last package from the list is bound to fail. This also means that if you are changing a package in the middle, you might want to rebuild all what comes after (so you might as well rebuild everything...)
+It is very important to understand that the building procedure is incremental. Packages are built in turn, and one package might likely depend on its predecessor. So starting by trying to build the last package from the list is bound to fail. This also means that if you are changing a package in the middle, you might want to rebuild all what comes after (so you might as well rebuild everything...).
+
+A final note on the graphic libraries. They are just too big, too complex, too plateform dependant to be shipped here. So it is assumed that if you require X, you will install it independantely in your system.
 
 ## Patching the sources
 
@@ -91,9 +93,9 @@ In order to avoid such headache, we just exclude EPEL alltogether, and recompile
 
 The building procedure of a new diracos is completely automated. It requires that you have a few basic packages installed on your system, a few mock config files and a json file containing the list of packages you want. The grammar for this json file is described bellow.
 
-## Initial setup
+It must be run from an SLC6 machine (or container).
 
-Tested from an SLC6 machine.
+## Initial setup
 
 ```
    # Install the few tools needed
@@ -155,9 +157,16 @@ dos-build-python-modules <jsonFile>
 ```
 ## Bundle DIRACOS
 
+Just packages eveything in a single tar file:
 
 ```
-dos-bundle /tmp/DIRACOS/config/lcgBundle.json
+dos-bundle <jsonFile>
+```
+
+For example
+
+```
+dos-bundle /tmp/DIRACOS/config/diracos.json
 ```
 
 ## Get your bundle
@@ -165,6 +174,38 @@ dos-bundle /tmp/DIRACOS/config/lcgBundle.json
 
 Copy it from your mock root in /tmp (e.g. /var/lib/mock/epel-6-x86_64-install/root/tmp/diracos-1.0.0.tar.gz)
 
+## Test it !
+
+You can run this in any machine (tested on SLC6 & CC7), not necessarily the one from which you built.
+
+The current test consist in a python files that will try to import pretty much all the python modules used in DIRAC, and make sure they are taken from diracos directory.
+
+The test files (`testrc` and `testImports.py`) are in the repository that you checked out for the config, under tests/integrations.
+
+
+```
+# go in a temporary directory, and untar DIRACOS
+
+cd /tmp
+untar diracos-1.0.0.tar.gz
+
+# Enter a new shell (so in case of problem, you just logout)
+bash
+
+# Setup the DIRACOS environment variable
+# (if you copied the testrc in the parent directory of diracos,
+#  you do not need to, testrc will find it)
+export DIRACOS=/tmp/diracos
+
+# setup the environment (more or less how DIRAC will do)
+source testrc
+
+# run the test
+pytest testImport.py
+
+# exit the shell
+exit
+```
 
 
 # Adding a new package
@@ -348,9 +389,10 @@ https://linux.die.net/man/1/chrpath
 Currently there is an issue with CentOS7.
 The python scripts have `/usr/bin/env` as shebang. However, `/usr/bin/env` requires `GLIBC_2.14` on CentOS7, which is not in the `libc` shipped here. The solution is probably to fix the postinstall script of DIRAC to not use the system `env`
 
-# Test DIRACOS
+# Test DIRACOS as a User
 
-If you want to test DIRACOS, it is enough to do the following:
+
+If you want to test DIRACOS in a DIRAC installation, it is enough to do the following:
 
 ```
   https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/Core/scripts/dirac-install.py
