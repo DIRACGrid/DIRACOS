@@ -32,7 +32,7 @@ def _downloadFile(url, dest):
 
   # This downloading does not work because some sites
   # moved their repository to TLS, and there is no way
-  # in python 2.6 to configure the SSL context. 
+  # in python 2.6 to configure the SSL context.
   # That's why we have to use a system command..
   #with open(dest, 'wb') as df:
   #  df.write(urllib.urlopen(url).read())
@@ -299,6 +299,9 @@ def _buildFromSRPM(packageCfg):
   if not os.path.isfile(srpmFile):
     logging.debug("SRPM file is an URL, download it first")
     srpmFile = _downloadFile(srpmFile, workDir)
+
+
+  # Can I put this before downloading ? Probably...
 
   # get package name
   pkgName, pkgVersion, _release, _epoch, _arch = rpmUtils.miscutils.splitFilename(
