@@ -1,10 +1,12 @@
 {
-   "rpmBuild" : {
-
+   "version": "0.0.6",
+   "comment": "This is in line with lcgbundle 14.0",
+   "rpmBuild": {
       "mockConfig": "../mockConfigs/mock-build-diracos.cfg",
       "mockRoot": "/var/lib/mock/epel-6-x86_64",
-      "patchDir" : "../patches",
-      "routineDir" : "../routines/",
+      "patchDir": "../patches",
+      "routineDir": "../routines/",
+      "repo": "/diracos_repo",
       "excludePatterns": [
          ".*-doc-.*",
          ".*-debuginfo-.*"
@@ -21,30 +23,29 @@
                   "branch": "f24"
                },
                {
+                  "mockRoot": "/var/lib/mock/epel-6-i386",
                   "src": "python",
-                  "mockConfig": "epel-6-x86_64",
-                  "name": "python-i386",
-                  "branch": "f24",
                   "mockConfig": "epel-6-i386",
-                  "mockRoot": "/var/lib/mock/epel-6-i386"
+                  "name": "python-i386",
+                  "branch": "f24"
                },
                {
                   "src": "gdb",
                   "mockConfig": "epel-6-x86_64",
                   "name": "gdb",
-                  "branch": "f25",
-                  "buildOnly" : true,
-                  "postRoutine": "bootstrap-mock.py"
+                  "postRoutine": "bootstrap-mock.py",
+                  "buildOnly": true,
+                  "branch": "f25"
                },
                {
-                  "src" : "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/e/expat21-2.1.0-1.el6.src.rpm",
-                  "name" : "expat",
-                  "buildOnly" : true
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/expat21-2.1.0-1.el6.src.rpm",
+                  "name": "expat",
+                  "buildOnly": true
                },
                {
-                  "src":"http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/p/python-rpm-macros-3-11.el6.src.rpm",
-                  "name":"python-rpm-macros",
-                  "buildOnly" : true
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-rpm-macros-3-11.el6.src.rpm",
+                  "name": "python-rpm-macros",
+                  "buildOnly": true
                },
                {
                   "src": "python-virtualenv",
@@ -52,83 +53,83 @@
                   "branch": "f25"
                },
                {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/python-setuptools-0.6.10-4.el6_9.src.rpm",
-                  "name": "python-setuptools",
-                  "mockConfig": "../mockConfigs/mock-build-diracos.cfg"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-setuptools-0.6.10-4.el6_9.src.rpm",
+                  "mockConfig": "../mockConfigs/mock-build-diracos.cfg",
+                  "name": "python-setuptools"
                },
                {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/yum-metadata-parser-1.1.2-16.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/yum-metadata-parser-1.1.2-16.el6.src.rpm",
                   "name": "yum-metadata-parser",
                   "buildOnly": true
                },
                {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/rpm-4.8.0-55.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/rpm-4.8.0-55.el6.src.rpm",
                   "name": "rpm",
                   "buildOnly": true
                },
                {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/libxml2-2.7.6-21.el6_8.1.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/libxml2-2.7.6-21.el6_8.1.src.rpm",
                   "name": "libxml2",
                   "buildOnly": true
                },
                {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/pygpgme-0.1-18.20090824bzr68.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/pygpgme-0.1-18.20090824bzr68.el6.src.rpm",
                   "name": "pygpgme",
                   "buildOnly": true
                },
                {
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/python-pycurl-7.19.0-9.el6.src.rpm",
-                  "name" : "python-pycurl",
-                  "buildOnly" : true
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-pycurl-7.19.0-9.el6.src.rpm",
+                  "name": "python-pycurl",
+                  "buildOnly": true
                },
                {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/python-urlgrabber-3.9.1-11.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-urlgrabber-3.9.1-11.el6.src.rpm",
                   "name": "python-urlgrabber",
                   "buildOnly": true
                },
-              {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/python-iniparse-0.3.1-2.1.el6.src.rpm",
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-iniparse-0.3.1-2.1.el6.src.rpm",
                   "name": "python-iniparse",
                   "buildOnly": true
                },
                {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/python-nose-0.10.4-3.1.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-nose-0.10.4-3.1.el6.src.rpm",
                   "name": "python-nose",
                   "buildOnly": true
                },
                {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/yum-3.2.29-81.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/yum-3.2.29-81.el6.src.rpm",
                   "name": "yum",
                   "buildOnly": true
                },
                {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/yum-utils-1.1.30-40.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/yum-utils-1.1.30-40.el6.src.rpm",
                   "name": "yum-utils",
                   "buildOnly": true
                }
             ]
          },
          {
-            "name" : "utilities",
+            "name": "utilities",
             "packages": [
                {
-                  "name" : "boost",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os//SRPMS/boost-1.41.0-28.el6.src.rpm",
-                  "comment": "Needs to be recompiled because of boost-python"
+                  "comment": "Needs to be recompiled because of boost-python",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/boost-1.41.0-28.el6.src.rpm",
+                  "name": "boost"
                },
                {
-                  "name": "classads",
-                  "src": "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/c/classads-1.0.10-1.el6.src.rpm",
-                  "comment": "For matching JDL"
+                  "comment": "For matching JDL",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/classads-1.0.10-1.el6.src.rpm",
+                  "name": "classads"
                },
                {
-                  "name": "gsoap",
-                  "src": "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/g/gsoap-2.7.16-6.el6.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gsoap-2.7.16-6.el6.src.rpm",
+                  "name": "gsoap"
                },
                {
+                  "comment": "We do not want to take the server rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/voms-2.0.14-1.el6.src.rpm",
                   "name": "voms",
-                  "src": "https://download.fedoraproject.org/pub/epel/6/SRPMS/Packages/v/voms-2.0.14-1.el6.src.rpm",
-                  "comment" : "We do not want to take the server rpm",
                   "pkgList": [
                      "voms",
                      "voms-clients-cpp",
@@ -141,68 +142,68 @@
             "name": "globus",
             "packages": [
                {
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/libtool-2.2.6-15.5.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/libtool-2.2.6-15.5.el6.src.rpm",
                   "name": "libtool",
                   "buildOnly": true
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-common-16.4-1.el6+gt6.src.rpm",
-                  "name": "globus-common",
-                  "excludePatterns": []
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-common-16.4-1.el6+gt6.src.rpm",
+                  "excludePatterns": [],
+                  "name": "globus-common"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gsi-proxy-ssl-5.8-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-proxy-ssl-5.8-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-proxy-ssl"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gsi-openssl-error-3.5-2.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-openssl-error-3.5-2.el6+gt6.src.rpm",
                   "name": "globus-gsi-openssl-error"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-openssl-module-4.6-2.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-openssl-module-4.6-2.el6+gt6.src.rpm",
                   "name": "globus-openssl-module"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gsi-cert-utils-9.12-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-cert-utils-9.12-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-cert-utils"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gsi-sysconfig-6.9-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-sysconfig-6.9-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-sysconfig"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gsi-callback-5.8-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-callback-5.8-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-callback"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gsi-credential-7.9-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-credential-7.9-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-credential"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gsi-proxy-core-7.9-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-proxy-core-7.9-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-proxy-core"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gssapi-gsi-12.11-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gssapi-gsi-12.11-1.el6+gt6.src.rpm",
                   "name": "globus-gssapi-gsi"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-callout-3.14-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-callout-3.14-1.el6+gt6.src.rpm",
                   "name": "globus-callout"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-xio-5.12-1.el6+gt6.src.rpm",
-                  "name": "globus-xio",
+                  "comment": "We have to keep the doc because it is required later...",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-xio-5.12-1.el6+gt6.src.rpm",
                   "excludePatterns": [],
-                  "comment" : "We have to keep the doc because it is required later..."
+                  "name": "globus-xio"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-xio-pipe-driver-3.9-3.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-xio-pipe-driver-3.9-3.el6+gt6.src.rpm",
                   "name": "globus-xio-pipe-driver",
                   "buildOnly": true
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gss-assist-10.15-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gss-assist-10.15-1.el6+gt6.src.rpm",
                   "name": "globus-gss-assist",
                   "pkgList": [
                      "globus-gss-assist",
@@ -210,231 +211,230 @@
                   ]
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gssapi-error-5.4-2.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gssapi-error-5.4-2.el6+gt6.src.rpm",
                   "name": "globus-gssapi-error"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-xio-gsi-driver-3.10-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-xio-gsi-driver-3.10-1.el6+gt6.src.rpm",
                   "name": "globus-xio-gsi-driver"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-io-11.5-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-io-11.5-1.el6+gt6.src.rpm",
                   "name": "globus-io"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gass-transfer-8.8-2.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gass-transfer-8.8-2.el6+gt6.src.rpm",
                   "name": "globus-gass-transfer"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-usage-4.4-2.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-usage-4.4-2.el6+gt6.src.rpm",
                   "name": "globus-usage"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-xio-popen-driver-3.5-2.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-xio-popen-driver-3.5-2.el6+gt6.src.rpm",
                   "name": "globus-xio-popen-driver"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-ftp-control-6.10-1.el6+gt6.src.rpm",
-                  "name": "globus-ftp-control",
+                  "comment": "We need to keep the doc because globus-ft-client requires it for buid...",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-ftp-control-6.10-1.el6+gt6.src.rpm",
                   "excludePatterns": [
                      ".*-debuginfo-.*"
                   ],
-                  "comment" : "We need to keep the doc because globus-ft-client requires it for buid..."
+                  "name": "globus-ftp-control"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gridftp-server-control-4.1-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gridftp-server-control-4.1-1.el6+gt6.src.rpm",
                   "name": "globus-gridftp-server-control",
                   "buildOnly": true
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-authz-callout-error-3.6-3.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-authz-callout-error-3.6-3.el6+gt6.src.rpm",
                   "name": "globus-authz-callout-error",
                   "buildOnly": true
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-authz-3.12-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-authz-3.12-1.el6+gt6.src.rpm",
                   "name": "globus-authz",
                   "buildOnly": true
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gfork-4.8-2.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gfork-4.8-2.el6+gt6.src.rpm",
                   "name": "globus-gfork",
                   "buildOnly": true
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-openssl-module-4.8-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-openssl-module-4.8-1.el6+gt6.src.rpm",
                   "name": "globus-openssl-module",
                   "buildOnly": true
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gridftp-server-10.4-2.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gridftp-server-10.4-2.el6+gt6.src.rpm",
                   "name": "globus-gridftp-server",
                   "buildOnly": true
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-xio-udt-driver-1.20-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-xio-udt-driver-1.20-1.el6+gt6.src.rpm",
                   "name": "globus-xio-udt-driver",
                   "buildOnly": true
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/testing/rpm/el/6/SRPMS/globus-ftp-client-8.29-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-ftp-client-8.29-1.el6+gt6.src.rpm",
                   "name": "globus-ftp-client"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gass-copy-9.19-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gass-copy-9.19-1.el6+gt6.src.rpm",
                   "name": "globus-gass-copy"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-proxy-utils-6.15-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-proxy-utils-6.15-1.el6+gt6.src.rpm",
                   "name": "globus-proxy-utils"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-rsl-10.10-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-rsl-10.10-1.el6+gt6.src.rpm",
                   "name": "globus-rsl"
                },
                {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/myproxy-6.1.18-1.el6+gt6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/myproxy-6.1.18-1.el6+gt6.src.rpm",
                   "name": "myproxy",
-                  "pkgList":[
+                  "pkgList": [
                      "myproxy",
                      "myproxy-devel",
                      "myproxy-libs"
                   ]
                },
                {
-                  "src" : "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gass-server-ez-5.8-3.el6+gt6.src.rpm",
-                  "name" : "globus-gass-server-ez",
-                  "buildOnly" : true,
-                  "comment": "For condor"
-               },
-               {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gram-protocol-12.15-1.el6+gt6.src.rpm",
-                  "name": "globus-gram-protocol",
-                  "buildOnly": true,
                   "comment": "For condor",
-                  "excludePatterns": [
-                     ".*-debuginfo-.*"
-                  ],
-                  "comment" : "We need to keep the doc because globus-gram-client requires it for buid..."
-               },
-               {
-                  "src": "http://downloads.globus.org/toolkit/gt6/stable/rpm/el/6/SRPMS/globus-gram-client-13.9-1.el6+gt6.src.rpm",
-                  "name": "globus-gram-client",
-                  "buildOnly": true,
-                  "comment": "For condor"
-               }
-            ]
-      },
-      {
-            "name": "cream",
-            "packages": [
-               {
-                  "buildOnly": true,
-                  "name": "emi-pkgconfig-compat",
-                  "src": "http://ci-01.cnaf.infn.it/download/cream/SRPMS/sl6_x86_64/emi-pkgconfig-compat-1.0.1-2.sl6.src.rpm"
-               },
-               {
-                  "buildOnly": true,
-                  "name": "glite-ce-wsdl",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-ce-wsdl-1.15.1-1.sl6.src.rpm"
-               },
-               {
-                  "buildOnly": true,
-                  "name": "glite-jobid-api-c",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-jobid-api-c-2.2.13-1.el6.src.rpm"
-               },
-               {
-                  "buildOnly": true,
-                  "name": "glite-wms-utils-exception",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-wms-utils-exception-3.4.2-2.el6.src.rpm"
-               },
-               {
-                  "buildOnly": true,
-                  "name": "glite-wms-utils-classad",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-wms-utils-classad-3.4.2-2.el6.src.rpm"
-               },
-               {
-                  "name": "glite-jobid-api-cpp",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-jobid-api-cpp-1.3.10-1.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gass-server-ez-5.8-3.el6+gt6.src.rpm",
+                  "name": "globus-gass-server-ez",
                   "buildOnly": true
                },
                {
-                  "buildOnly": true,
+                  "comment": "We need to keep the doc because globus-gram-client requires it for buid...",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gram-protocol-12.15-1.el6+gt6.src.rpm",
+                  "excludePatterns": [
+                     ".*-debuginfo-.*"
+                  ],
+                  "name": "globus-gram-protocol",
+                  "buildOnly": true
+               },
+               {
+                  "comment": "For condor",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gram-client-13.9-1.el6+gt6.src.rpm",
+                  "name": "globus-gram-client",
+                  "buildOnly": true
+               }
+            ]
+         },
+         {
+            "name": "cream",
+            "packages": [
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/emi-pkgconfig-compat-1.0.1-2.sl6.src.rpm",
+                  "name": "emi-pkgconfig-compat",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-ce-wsdl-1.15.1-1.sl6.src.rpm",
+                  "name": "glite-ce-wsdl",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-jobid-api-c-2.2.13-1.el6.src.rpm",
+                  "name": "glite-jobid-api-c",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-wms-utils-exception-3.4.2-2.el6.src.rpm",
+                  "name": "glite-wms-utils-exception",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-wms-utils-classad-3.4.2-2.el6.src.rpm",
+                  "name": "glite-wms-utils-classad",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-jobid-api-cpp-1.3.10-1.el6.src.rpm",
+                  "name": "glite-jobid-api-cpp",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-jdl-api-cpp-3.4.2-2.el6.src.rpm",
                   "name": "glite-jdl-api-cpp",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-jdl-api-cpp-3.4.2-2.el6.src.rpm"
+                  "buildOnly": true
                },
                {
-                  "buildOnly": true,
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-lbjp-common-gss-3.2.16-1.el6.src.rpm",
                   "name": "glite-lbjp-common-gss",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-lbjp-common-gss-3.2.16-1.el6.src.rpm"
+                  "buildOnly": true
                },
                {
-                  "buildOnly": true,
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-lbjp-common-gsoap-plugin-3.2.12-1.el6.src.rpm",
                   "name": "glite-lbjp-common-gsoap-plugin",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-lbjp-common-gsoap-plugin-3.2.12-1.el6.src.rpm"
+                  "buildOnly": true
                },
                {
-                  "name" : "canl-c",
-                  "src" : "http://mirrors.isu.net.sa/pub/fedora/fedora-epel/6/SRPMS/canl-c-2.1.8-1.el6.src.rpm",
-                  "pkgList" : [
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/canl-c-2.1.8-1.el6.src.rpm",
+                  "name": "canl-c",
+                  "pkgList": [
                      "canl-c",
                      "canl-c-devel"
                   ]
                },
                {
-                  "name" : "canl-c++",
-                  "src" : "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/c/canl-c++-1.1.0-4.el6.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/canl-c++-1.1.0-4.el6.src.rpm",
+                  "name": "canl-c++"
                },
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gridsite-2.2.6-2.el6.src.rpm",
                   "name": "gridsite",
-                  "src": "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/g/gridsite-2.2.6-2.el6.src.rpm",
-                  "buildOnly" : true
-               },
-               {
-                  "name": "glite-ce-cream-client-api-c",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-ce-cream-client-api-c-1.15.4-2.el6.src.rpm"
-               },
-               {
-                  "name": "glite-jobid-api-cpp",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-jobid-api-cpp-1.3.10-1.el6.src.rpm",
                   "buildOnly": true
                },
                {
-                  "name": "glite-ce-cream-cli",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-ce-cream-cli-1.15.3-2.el6.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-ce-cream-client-api-c-1.15.4-2.el6.src.rpm",
+                  "name": "glite-ce-cream-client-api-c"
                },
                {
-                  "name": "glite-ce-monitor-cli",
-                  "src": "http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-ce-monitor-cli-1.15.2-2.el6.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-jobid-api-cpp-1.3.10-1.el6.src.rpm",
+                  "name": "glite-jobid-api-cpp",
+                  "buildOnly": true
                },
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-ce-cream-cli-1.15.3-2.el6.src.rpm",
+                  "name": "glite-ce-cream-cli"
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-ce-monitor-cli-1.15.2-2.el6.src.rpm",
+                  "name": "glite-ce-monitor-cli"
+               },
+               {
+                  "comment": "for condor",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-ce-cream-utils-1.3.5-1.el6.src.rpm",
                   "name": "glite-ce-cream-utils",
-                  "src":"http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS/updates/glite-ce-cream-utils-1.3.5-1.el6.src.rpm",
-                  "buildOnly": true,
-                  "comment" : "for condor"
+                  "buildOnly": true
                }
             ]
          },
          {
             "name": "xrootd",
-            "packages":[
+            "packages": [
                {
+                  "comment": "xrootd needs perl-generators",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/perl-generators-1.08-5.el6.src.rpm",
                   "name": "perl-generators",
-                  "src" : "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/p/perl-generators-1.08-5.el6.src.rpm",
-                  "buildOnly" : true,
-                  "comment" : "xrootd needs perl-generators"
+                  "buildOnly": true
                },
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/xrootd-4.8.3-1.el6.src.rpm",
                   "name": "xrootd",
-                  "src": "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/x/xrootd-4.8.3-1.el6.src.rpm",
                   "pkgList": [
-                      "xrootd",
-                      "xrootd-libs",
-                      "xrootd-devel",
-                      "xrootd-client-libs",
-                      "xrootd-client-devel",
-                      "xrootd-client",
-                      "python2-xrootd"
+                     "xrootd",
+                     "xrootd-libs",
+                     "xrootd-devel",
+                     "xrootd-client-libs",
+                     "xrootd-client-devel",
+                     "xrootd-client",
+                     "python2-xrootd"
                   ]
                }
             ]
@@ -443,8 +443,8 @@
             "name": "davix",
             "packages": [
                {
-                  "name": "davix",
-                  "src": "http://dmc-repo.web.cern.ch/dmc-repo/el6/x86_64/davix-0.6.6-r1705170955.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/davix-0.6.6-r1705170955.src.rpm",
+                  "name": "davix"
                }
             ]
          },
@@ -452,29 +452,29 @@
             "name": "gfal2",
             "packages": [
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/epydoc-3.0.1-6.el6.src.rpm",
                   "name": "epydoc",
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/epydoc-3.0.1-6.el6.src.rpm",
                   "buildOnly": true
                },
                {
+                  "comment": "for srm-ifce",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/CGSI-gSOAP-1.3.11-1.el6.src.rpm",
                   "name": "CGSI-gSOAP",
-                  "src" : "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/c/CGSI-gSOAP-1.3.11-1.el6.src.rpm",
-                  "buildOnly" : true,
-                  "comment" : "for srm-ifce"
+                  "buildOnly": true
                },
                {
-                  "name": "srm-ifce",
-                  "src": "http://dmc-repo.web.cern.ch/dmc-repo/el6/x86_64/srm-ifce-1.24.2-1.el6.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/srm-ifce-1.24.2-1.el6.src.rpm",
+                  "name": "srm-ifce"
                },
                {
-                  "name" : "pugixml",
-                  "src": "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/p/pugixml-1.0-3.el6.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/pugixml-1.0-3.el6.src.rpm",
+                  "name": "pugixml"
                },
                {
+                  "comment": "Contains all the lfc and dpm related things",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/lcgdm-1.10.0-5.el6.src.rpm",
                   "name": "lcgdm",
-                  "comment" : "Contains all the lfc and dpm related things",
-                  "src" : "https://dl.fedoraproject.org/pub/epel/6Server/SRPMS/Packages/l/lcgdm-1.10.0-5.el6.src.rpm",
-                  "pkgList" : [
+                  "pkgList": [
                      "lcgdm-libs",
                      "lcgdm-devel",
                      "lfc",
@@ -490,110 +490,110 @@
                   ]
                },
                {
-                  "name":"CUnit",
-                  "src" : "http://dl.fedoraproject.org/pub/epel/6Server/SRPMS/Packages/c/CUnit-2.1.2-6.el6.src.rpm",
-                  "comment" : "needed by dcap",
-                  "buildOnly" : true
+                  "comment": "needed by dcap",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/CUnit-2.1.2-6.el6.src.rpm",
+                  "name": "CUnit",
+                  "buildOnly": true
                },
                {
-                  "name" : "dcap",
-                  "src" : "http://mirror.switch.ch/ftp/mirror/epel/6/SRPMS/Packages/d/dcap-2.47.12-4.el6.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/dcap-2.47.12-4.el6.src.rpm",
+                  "name": "dcap"
                },
                {
-                  "name" : "gtest",
-                  "src": "http://dl.fedoraproject.org/pub/epel/6Server/SRPMS/Packages/g/gtest-1.5.0-5.el6.src.rpm",
-                  "buildOnly" : true,
-                  "comment" : "used by gfal2"
+                  "comment": "used by gfal2",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gtest-1.5.0-5.el6.src.rpm",
+                  "name": "gtest",
+                  "buildOnly": true
                },
                {
-                  "name": "gfal2",
-                  "comment" : "Carreful, testing package",
-                  "src_old": "http://dmc-repo.web.cern.ch/dmc-repo/el6/x86_64/gfal2-2.13.3-1.el6.src.rpm",
+                  "comment": "Carreful, testing package",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gfal2-2.15.4-1.el6.src.rpm",
                   "src_old": "http://dmc-repo.web.cern.ch/dmc-repo/testing/el6/x86_64/gfal2-2.15.2-r1803011640.el6.src.rpm",
-                  "src": "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/g/gfal2-2.15.4-1.el6.src.rpm",
                   "excludePatterns": [
                      ".*-doc-.*",
                      ".*-debuginfo-.*",
                      ".*-tests-.*"
-                  ]
+                  ],
+                  "name": "gfal2"
                },
                {
-                  "name": "gfal2-python",
-                  "src": "http://dmc-repo.web.cern.ch/dmc-repo/el6/x86_64/gfal2-python-1.9.3-1.el6.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gfal2-python-1.9.3-1.el6.src.rpm",
+                  "name": "gfal2-python"
                },
                {
-                  "name": "gfal2-util",
-                  "src": "http://dmc-repo.web.cern.ch/dmc-repo/el6/x86_64/gfal2-util-1.5.1-1.el6.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gfal2-util-1.5.1-1.el6.src.rpm",
+                  "name": "gfal2-util"
                }
             ]
          },
          {
             "name": "condor",
-            "packages":[
+            "packages": [
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/condor-8.6.9-1.el6.src.rpm",
                   "name": "condor",
-                  "src" : "http://research.cs.wisc.edu/htcondor/yum/stable/rhel6/condor-8.6.9-1.el6.src.rpm",
-                  "pkgList" :[
+                  "pkgList": [
                      "condor",
                      "condor-classads",
                      "condor-classads-devel",
                      "condor-procd",
-                     "condor-python"               ]
+                     "condor-python"
+                  ]
                }
             ]
          },
          {
             "name": "arc",
-            "packages":[
+            "packages": [
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-zope-interface-3.5.2-2.1.el6.src.rpm",
                   "name": "python-zope-interface",
-                  "src":"http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/python-zope-interface-3.5.2-2.1.el6.src.rpm",
-                  "buildOnly" : true
+                  "buildOnly": true
                },
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-zope-filesystem-1-5.el6.src.rpm",
                   "name": "python-zope-filesystem",
-                  "src":"http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/python-zope-filesystem-1-5.el6.src.rpm",
-                  "buildOnly" : true
+                  "buildOnly": true
                },
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-twisted-core-8.2.0-4.el6.src.rpm",
                   "name": "python-twisted-core",
-                  "src":"http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/python-twisted-core-8.2.0-4.el6.src.rpm",
-                  "buildOnly" : true
+                  "buildOnly": true
                },
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/pyOpenSSL-0.13.1-2.el6.src.rpm",
                   "name": "pyOpenSSL",
-                  "src": "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/pyOpenSSL-0.13.1-2.el6.src.rpm",
                   "buildOnly": true
                },
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-twisted-web-8.2.0-5.el6_8.src.rpm",
                   "name": "python-twisted-web",
-                  "src":"http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/python-twisted-web-8.2.0-5.el6_8.src.rpm",
-                  "buildOnly" : true
-               },
-               {
-                  "name": "python-fpconst",
-                  "src":"http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/python-fpconst-0.7.3-6.1.el6.src.rpm",
-                  "buildOnly" : true
-               },
-               {
-                  "name": "PyXML",
-                  "src":"http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/PyXML-0.8.4-19.el6.src.rpm",
-                  "buildOnly" : true
-               },
-               {
-                  "name": "SOAPpy",
-                  "src":"http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/SOAPpy-0.11.6-11.el6.src.rpm",
-                  "buildOnly" : true
-               },
-               {
-                  "name": "libs3",
-                  "src": "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/l/libs3-2.0-0.5.20161104gita052a00.el6.src.rpm",
                   "buildOnly": true
                },
                {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-fpconst-0.7.3-6.1.el6.src.rpm",
+                  "name": "python-fpconst",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/PyXML-0.8.4-19.el6.src.rpm",
+                  "name": "PyXML",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/SOAPpy-0.11.6-11.el6.src.rpm",
+                  "name": "SOAPpy",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/libs3-2.0-0.5.20161104gita052a00.el6.src.rpm",
+                  "name": "libs3",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/nordugrid-arc-5.4.0-1.el6.src.rpm",
                   "name": "nordugrid-arc",
-                  "src" : "http://mirrors.isu.net.sa/pub/fedora/fedora-epel/6/SRPMS/nordugrid-arc-5.4.0-1.el6.src.rpm",
-                  "pkgList" :[
+                  "pkgList": [
                      "nordugrid-arc",
                      "nordugrid-arc-client",
                      "nordugrid-arc-plugins-needed",
@@ -604,91 +604,88 @@
             ]
          },
          {
-            "name" : "Externals",
-            "packages" : [
+            "name": "Externals",
+            "packages": [
                {
-                  "name" : "rrdtool",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/rrdtool-1.3.8-10.el6.src.rpm",
-                  "comment" : "Externals have 1.4.9"
+                  "comment": "Externals have 1.4.9",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/rrdtool-1.3.8-10.el6.src.rpm",
+                  "name": "rrdtool"
                },
                {
-                  "name" : "bzip2",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/bzip2-1.0.5-7.el6_0.src.rpm",
-                  "comment" : "Externals have 1.0.6"
+                  "comment": "Externals have 1.0.6",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/bzip2-1.0.5-7.el6_0.src.rpm",
+                  "name": "bzip2"
                },
                {
-                  "name" : "zlib",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/zlib-1.2.3-29.el6.src.rpm",
-                  "comment" : "Externals have 1.2.11"
+                  "comment": "Externals have 1.2.11",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/zlib-1.2.3-29.el6.src.rpm",
+                  "name": "zlib"
                },
                {
-                  "name" : "ncurses",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/ncurses-5.7-4.20090207.el6.src.rpm",
-                  "comment" : "Externals have 6.1"
+                  "comment": "Externals have 6.1",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/ncurses-5.7-4.20090207.el6.src.rpm",
+                  "name": "ncurses"
                },
                {
-                  "name" : "sqlite",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/sqlite-3.6.20-1.el6.src.rpm",
-                  "comment" : "Externals have 3.22.0"
+                  "comment": "Externals have 3.22.0",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/sqlite-3.6.20-1.el6.src.rpm",
+                  "name": "sqlite"
                },
                {
+                  "comment": "To build mysql",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/cmake28-2.8.12.2-2.el6.src.rpm",
                   "name": "cmake",
-                  "src" : "http://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/c/cmake28-2.8.12.2-2.el6.src.rpm",
-                  "buildOnly": true,
-                  "comment" : "To build mysql"
+                  "buildOnly": true
                },
                {
-                  "name" : "mysql-community",
-                  "src": "http://repo.mysql.com/yum/mysql-5.7-community/el/6/SRPMS/mysql-community-5.7.21-1.el6.src.rpm",
-                  "pkgList" : [
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/mysql-community-5.7.21-1.el6.src.rpm",
+                  "name": "mysql-community",
+                  "pkgList": [
                      "mysql-community-devel",
                      "mysql-community-libs",
                      "mysql-community-common"
                   ]
                },
                {
-                  "name":"curl",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/curl-7.19.7-53.el6_9.src.rpm"
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/curl-7.19.7-53.el6_9.src.rpm",
+                  "name": "curl"
                }
             ]
          },
          {
-            "name" : "qt",
-            "packages":[
+            "name": "qt",
+            "packages": [
                {
-                  "name" : "sip",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/sip-4.9.3-1.el6.src.rpm",
-                  "buildOnly" : true,
-                  "comment" : "needed to build PyQt4"
+                  "comment": "needed to build PyQt4",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/sip-4.9.3-1.el6.src.rpm",
+                  "name": "sip",
+                  "buildOnly": true
                },
                {
-                  "name" : "dbus-python",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/dbus-python-0.83.0-6.1.el6.src.rpm",
-                  "buildOnly" : true,
-                  "comment" : "needed to build PyQt4"
+                  "comment": "needed to build PyQt4",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/dbus-python-0.83.0-6.1.el6.src.rpm",
+                  "name": "dbus-python",
+                  "buildOnly": true
                },
                {
-                  "name" : "asciidoc",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/asciidoc-8.4.5-4.1.el6.src.rpm",
-                  "buildOnly" : true,
-                  "comment" : "Needed by PyQt4 and needs python ABI"
+                  "comment": "Needed by PyQt4 and needs python ABI",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/asciidoc-8.4.5-4.1.el6.src.rpm",
+                  "name": "asciidoc",
+                  "buildOnly": true
                },
                {
-                  "name" : "PyQt4",
-                  "src" : "http://ftp.redhat.com/pub/redhat/linux/enterprise/6Server/en/os/SRPMS/PyQt4-4.6.2-9.el6.src.rpm",
-                  "comment" : "There are a few deps for the BKK that do not need to be recompiled, so I just added them as a dependency to the RPM"
+                  "comment": "There are a few deps for the BKK that do not need to be recompiled, so I just added them as a dependency to the RPM",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/PyQt4-4.6.2-9.el6.src.rpm",
+                  "name": "PyQt4"
                }
             ]
          }
-         ],
-      "repo": "/diracos_repo"
+      ]
    },
    "mockInstallConfig": "../mockConfigs/mock-install-diracos.cfg",
    "mockInstallRoot": "/var/lib/mock/epel-6-x86_64-install",
-   "pipRequirements" : "https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/requirements.txt",
-   "version" : "0.0.6",
-   "comment" : "This is in line with lcgbundle 14.0",
-   "pipBuildDependencies":[
+   "pipRequirements": "https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/requirements.txt",
+   "pipBuildDependencies": [
       "libcurl-devel",
       "python-devel",
       "mysql-community-devel",
@@ -697,7 +694,7 @@
       "tar",
       "patch"
    ],
-   "ignoredPackages":[
+   "ignoredPackages": [
       "bash",
       "perl",
       "chkconfig",
