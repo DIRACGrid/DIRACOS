@@ -149,22 +149,35 @@ BUNDLE_DIRACOS_SCRIPT_TPL = """#!/bin/bash
 DIRACOS_VERSION=%(diracOsVersion)s
 PKG_URLS="%(requiredPackages)s"
 
+# Location where the bundle takes place
+DIRACOS=/tmp/diracos
+DIRACOSRC=/$DIRACOS/diracosrc
+
 echo "Extracting rpms $PKG_URLS"
 
-mkdir /tmp/diracos
-cd /tmp/diracos
+mkdir $DIRACOS
+cd $DIRACOS
 for i in $PKG_URLS; do curl -L $i | rpm2cpio | cpio -dvim; done
 
 echo "Copying python modules"
-cp -r /tmp/pipDirac/lib/* /tmp/diracos/usr/lib64/
-cp -r /tmp/pipDirac/bin/ /tmp/diracos/usr/
+cp -r /tmp/pipDirac/lib/* $DIRACOS/usr/lib64/
+cp -r /tmp/pipDirac/bin/ $DIRACOS/usr/
 
 echo "Deleting empty directories"
-find /tmp/diracos -type d -empty -delete
+find $DIRACOS -type d -empty -delete
 
 # Fix the shebang for python
 echo "Fixing the shebang"
 grep -rIl '#!/usr/bin/python' /tmp/diracos | xargs sed -i 's:#!/usr/bin/python:#!/usr/bin/env python:g'
+
+# Generating the diracosrc
+
+DIRACOS_LD_LIBRARY_PATH=$(find -L $DIRACOS -name '*.so' -printf "%%h\n" | sort -u | sed -E "s|^$DIRACOS|\$DIRACOS|g" | sort -u | paste -sd ':')
+echo "LD_LIBRARY_PATH=$DIRACOS_LD_LIBRARY_PATH:\$LD_LIBRARY_PATH" > $DIRACOSRC
+echo "export LD_LIBRARY_PATH" >> $DIRACOSRC
+
+echo "PATH=\$DIRACOS/bin:\$DIRACOS/usr/bin:\$DIRACOS/sbin:\$PATH" >> $DIRACOSRC
+echo "export PATH" >> $DIRACOSRC
 
 cd /tmp
 tar cvzf diracos-$DIRACOS_VERSION.tar.gz diracos

@@ -193,15 +193,13 @@ untar diracos-1.0.0.tar.gz
 bash
 
 # Setup the DIRACOS environment variable
-# (if you copied the testrc in the parent directory of diracos,
-#  you do not need to, testrc will find it)
 export DIRACOS=/tmp/diracos
 
 # setup the environment (more or less how DIRAC will do)
-source testrc
+source $DIRACOS/diracosrc
 
 # run the test
-pytest testImport.py
+pytest test_import.py
 
 # exit the shell
 exit

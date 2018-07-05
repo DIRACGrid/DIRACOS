@@ -200,7 +200,7 @@ diracosPath = os.environ['DIRACOS']
 # inContainer = isRunningInContainer()
 
 @parametrize('moduleName', moduleNames)
-def testModule(moduleName):
+def test_module(moduleName):
   """ Try to import a module and check whether it is located in DIRACOS.
 
       Modules that are in the ALLOWED_TO_FAIL list are shown as skipped and generate a warning
