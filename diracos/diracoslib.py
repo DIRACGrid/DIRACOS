@@ -34,17 +34,17 @@ def _downloadFile(url, dest):
   # moved their repository to TLS, and there is no way
   # in python 2.6 to configure the SSL context.
   # That's why we have to use a system command..
-  #with open(dest, 'wb') as df:
+  # with open(dest, 'wb') as df:
   #  df.write(urllib.urlopen(url).read())
 
-  dl_cmd = ['curl', '-o', dest, '-L', url ]
-  logging.debug("Downloading with %s"%' '.join(dl_cmd))
+  dl_cmd = ['curl', '-o', dest, '-L', url]
+  logging.debug("Downloading with %s" % ' '.join(dl_cmd))
   subprocess.check_call(dl_cmd)
 
   return dest
 
 
-def _extractSRPM(srpmFile, workDir = None):
+def _extractSRPM(srpmFile, workDir=None):
   """
      Uncompress an srpm.
 
@@ -58,7 +58,7 @@ def _extractSRPM(srpmFile, workDir = None):
   """
   logging.debug("Extracting SRPM %s", srpmFile)
   # Create a temporary directory to work in
-  tmpDir = tempfile.mkdtemp(dir = workDir)
+  tmpDir = tempfile.mkdtemp(dir=workDir)
   logging.debug("Working in %s", tmpDir)
 
   # move the srpm there
@@ -146,7 +146,7 @@ def _mockBuildSRPM(specFile, sources, mockConfigFile=None):
   subprocess.check_call(cmd)
 
 
-def _mock_patchAndRecreateSRPM(srpmFile, patchFile, mockConfigFile, mockRoot, workDir = None):
+def _mock_patchAndRecreateSRPM(srpmFile, patchFile, mockConfigFile, mockRoot, workDir=None):
   """ Patch and recreate an SRPM using mock.
 
       The work is done in a temporary dir.
@@ -160,7 +160,7 @@ def _mock_patchAndRecreateSRPM(srpmFile, patchFile, mockConfigFile, mockRoot, wo
 
   """
 
-  tmpDir = _extractSRPM(srpmFile, workDir = workDir)
+  tmpDir = _extractSRPM(srpmFile, workDir=workDir)
   _applyPatch(patchFile, tmpDir)
 
   specFile = glob.glob(os.path.join(tmpDir, '*.spec'))[0]
@@ -206,10 +206,8 @@ def _buildFromFedpkg(packageCfg):
   excludePatterns = packageCfg.get('excludePatterns')
   pkgList = packageCfg.get('pkgList')
 
-
-
   logging.info("Building %s from fedpkg branch %s", pkgName, branch)
-  tmpDir = tempfile.mkdtemp(dir = workDir)
+  tmpDir = tempfile.mkdtemp(dir=workDir)
   logging.debug("Working in %s", tmpDir)
   fedPkgClone = ['fedpkg', '--path', tmpDir, 'clone', '--anonymous', pkgName]
   logging.debug("Getting fedpkg with %s", fedPkgClone)
@@ -242,18 +240,19 @@ def _buildFromFedpkg(packageCfg):
 
   # If the src.rpm is already in the repo, do not rebuild it
   # get package name
-  _pkgName, pkgVersion, _release, _epoch, _arch = rpmUtils.miscutils.splitFilename(
+  _pkgName, pkgVersion, pkgRelease, _epoch, _arch = rpmUtils.miscutils.splitFilename(
       os.path.basename(srpmFile))
-  existingBuild = glob.glob(os.path.join(repository, '*/%s-%s*src.rpm' % (pkgName, pkgVersion)))
+  existingBuild = glob.glob(
+      os.path.join(
+          repository, '*/%s-%s-%s*src.rpm' %
+          (pkgName, pkgVersion, pkgRelease)))
 
   if existingBuild:
     logging.info("The repo already contains a build, not rebuilding: %s", existingBuild)
     return
 
-
   _mockRebuild(srpmFile, mockConfig)
   mockResultDir = os.path.join(mockRoot, 'result/')
-
 
   rpmDestDir = repository
   byRPMType = True
@@ -262,8 +261,12 @@ def _buildFromFedpkg(packageCfg):
     rpmDestDir = os.path.join(rpmDestDir, 'buildOnly')
     byRPMType = False
 
-
-  _copyRPMs(mockResultDir, rpmDestDir, byRPMType=byRPMType, excludePatterns = excludePatterns, pkgList = pkgList)
+  _copyRPMs(
+      mockResultDir,
+      rpmDestDir,
+      byRPMType=byRPMType,
+      excludePatterns=excludePatterns,
+      pkgList=pkgList)
   _createRepo(repository)
   logging.info('Finished')
 
@@ -291,28 +294,27 @@ def _buildFromSRPM(packageCfg):
   excludePatterns = packageCfg.get('excludePatterns')
   pkgList = packageCfg.get('pkgList')
 
-
   logging.info("Building %s %s", srpmFile, "%s" % ("with mockConfig %s" % mockConfig
                                                    if mockConfig else ""))
+
+  # get package name
+  pkgName, pkgVersion, pkgRelease, _epoch, _arch = rpmUtils.miscutils.splitFilename(
+      os.path.basename(srpmFile))
+
+  # If the src.rpm is already in the repo, do not rebuild it
+
+  existingBuild = glob.glob(
+      os.path.join(
+          repository, '*/%s-%s-%s*src.rpm' %
+          (pkgName, pkgVersion, pkgRelease)))
+  if existingBuild:
+    logging.info("The repo already contains a build, not rebuilding: %s", existingBuild)
+    return
 
   # if the file is not available locally, download it
   if not os.path.isfile(srpmFile):
     logging.debug("SRPM file is an URL, download it first")
     srpmFile = _downloadFile(srpmFile, workDir)
-
-
-  # Can I put this before downloading ? Probably...
-
-  # get package name
-  pkgName, pkgVersion, _release, _epoch, _arch = rpmUtils.miscutils.splitFilename(
-      os.path.basename(srpmFile))
-
-  # If the src.rpm is already in the repo, do not rebuild it
-
-  existingBuild = glob.glob(os.path.join(repository, '*/%s-%s*src.rpm' % (pkgName, pkgVersion)))
-  if existingBuild:
-    logging.info("The repo already contains a build, not rebuilding: %s", existingBuild)
-    return
 
   # If no patchFile is specified but we have a patchDir,
   # try to find a patch file called like the package
@@ -344,7 +346,12 @@ def _buildFromSRPM(packageCfg):
     rpmDestDir = os.path.join(rpmDestDir, 'buildOnly')
     byRPMType = False
 
-  _copyRPMs(mockResultDir, rpmDestDir, byRPMType=byRPMType, excludePatterns = excludePatterns, pkgList = pkgList)
+  _copyRPMs(
+      mockResultDir,
+      rpmDestDir,
+      byRPMType=byRPMType,
+      excludePatterns=excludePatterns,
+      pkgList=pkgList)
   _createRepo(repository)
   logging.info('Finished')
 
@@ -384,7 +391,7 @@ def _createRepo(repository, initRepo=False):
   subprocess.call(cmd)
 
 
-def _copyRPMs(srcDir, destDir, byRPMType=False, excludePatterns = None, pkgList = None):
+def _copyRPMs(srcDir, destDir, byRPMType=False, excludePatterns=None, pkgList=None):
   """ Copy all the rpms in a directory to a destination
 
       :param srcDir: path to the source directory
@@ -403,14 +410,17 @@ def _copyRPMs(srcDir, destDir, byRPMType=False, excludePatterns = None, pkgList 
 
   # If we have a specific list of packages
   if pkgList:
-    logging.debug("Looking for specific packages %s",pkgList)
+    logging.debug("Looking for specific packages %s", pkgList)
     # Create a dict <package name, rpm path>
-    rpmPathDict = dict((rpmUtils.miscutils.splitFilename(os.path.basename(rpm))[0], rpm) for rpm in rpmList )
-    logging.debug("Found following packages %s",rpmPathDict)
+    rpmPathDict = dict(
+        (rpmUtils.miscutils.splitFilename(
+            os.path.basename(rpm))[0],
+            rpm) for rpm in rpmList)
+    logging.debug("Found following packages %s", rpmPathDict)
     rpmList = [rpmPathDict[pkg] for pkg in pkgList]
   # If we have some exclusion pattern
   elif excludePatterns:
-    logging.debug("Filtering list with pattern %s",excludePatterns)
+    logging.debug("Filtering list with pattern %s", excludePatterns)
     rpmList = [rpm for rpm in rpmList if not any([re.match(p, rpm) for p in excludePatterns])]
 
   # put back the srpm
@@ -515,7 +525,12 @@ pip install -r requirements.txt
 virtualenv --relocatable /tmp/pipDirac/
 """
 
-def buildPythonModules(mockInstallConfig, mockInstallRoot, pipRequirementFile, pipBuildDependencies):
+
+def buildPythonModules(
+        mockInstallConfig,
+        mockInstallRoot,
+        pipRequirementFile,
+        pipBuildDependencies):
   """
       Make a pip install of all the requirements in pipRequirementFile inside a
       mock environemnt, using virtualenv.
@@ -538,13 +553,13 @@ def buildPythonModules(mockInstallConfig, mockInstallRoot, pipRequirementFile, p
 
   subprocess.check_call(mockInitCmd)
 
-
   shellBuildScript = os.path.join(mockInstallRoot, 'root/tmp/buildPythonModules.sh')
   with open(shellBuildScript, 'w') as sbs:
-    sbs.write(BUILD_PYTHON_MODULE_SH_TPL%{'pipRequirementFile':pipRequirementFile, 'pipBuildDependencies' : ' '.join(pipBuildDependencies)})
-  os.chmod(shellBuildScript, 0755)
-
-
+    sbs.write(
+        BUILD_PYTHON_MODULE_SH_TPL % {
+            'pipRequirementFile': pipRequirementFile,
+            'pipBuildDependencies': ' '.join(pipBuildDependencies)})
+  os.chmod(shellBuildScript, 0o755)
 
   logging.info("Building python modules")
   logging.debug("mockInstallConfig %s", mockInstallConfig)
@@ -557,8 +572,6 @@ def buildPythonModules(mockInstallConfig, mockInstallRoot, pipRequirementFile, p
   logging.debug("building python packages with: %s", pipBuildCmd)
 
   subprocess.check_call(pipBuildCmd)
-
-
 
 
 def bundleDIRACOS(fullCfg):
@@ -577,7 +590,6 @@ def bundleDIRACOS(fullCfg):
 
   logging.info("Bootstraping packaging of diracos")
 
-
   # We copy the bundlelib and the json conf in the mock environment and run that
 
   mockInstallRoot = fullCfg['mockInstallRoot']
@@ -588,11 +600,10 @@ def bundleDIRACOS(fullCfg):
   bundlelibSrcPath = os.path.join(os.path.dirname(__file__), 'bundlelib.py')
 
   shutil.copyfile(bundlelibSrcPath, bundlelibDestPath)
-  os.chmod(bundlelibDestPath, 0755)
+  os.chmod(bundlelibDestPath, 0o755)
 
   with open(jsonConfPath, 'w') as jc:
     json.dump(fullCfg, jc)
-
 
   bundleCmd = ['mock', '-r', mockInstallConfig, '--shell', 'python /tmp/bundlelib.py']
   subprocess.check_call(bundleCmd)
