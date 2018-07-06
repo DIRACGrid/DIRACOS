@@ -125,6 +125,15 @@ For the mock configuration files, it is mostly the local repository that you hav
 
 For the json file, the paths of mock have to match what is in the mock configuration files, and so does the repo. The paths for patches and routines can be relative, so it should work straight out of the checkout
 
+These are all the places where the `DIRACOS_REPO` is referred:
+
+  * https://github.com/DIRACGrid/DIRACOS/blob/master/mockConfigs/mock-build-diracos.cfg#L92
+  * https://github.com/DIRACGrid/DIRACOS/blob/master/mockConfigs/mock-install-diracos.cfg#L9
+  * https://github.com/DIRACGrid/DIRACOS/blob/master/mockConfigs/mock-install-diracos.cfg#L94
+  * https://github.com/DIRACGrid/DIRACOS/blob/master/config/diracos.json#L9
+
+ If you do not change the above mentioned lines, you have to have `$DIRACOS_REPO=/diracos_repo`, otherwise the compilation will fail.
+
 
 ## Building everything
 
@@ -247,11 +256,25 @@ mock -r <mockConfigFile> --buildsrpm --spec <specFile> --sources <tarFile>
 
 Once you are happy with the result, just add the package the the json configuration file. If you modified the SRPM, you need to generate a patch file called `<package>.patch`, and put it in your patch directory.
 
+If the package is meant to stay in DIRACOS, it should be uploaded to DIRACOS srpm repository: http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/
+
 ```
 diff -r -u <original> <patched>
 ```
 
 where `<original>` contains the uncompressed original SRPM, and `<patched>` your modified version
+
+
+Common locations for packages include:
+
+  * EPEL https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/
+  * Redhat http://ftp.redhat.com/pub/redhat/linux/enterprise/6Client/en/os/SRPMS/ (and parent folder)
+  * http://emisoft.web.cern.ch/emisoft/dist/EMI/3/sl6/SRPMS
+  * http://dmc-repo.web.cern.ch/dmc-repo/el6/x86_64/
+
+
+Note: For any middleware package, rather use the source repo (for example http://dmc-repo.web.cern.ch/d) than derived (like EPEL)
+
 
 
 ## Python package
@@ -350,6 +373,41 @@ Any other options will be read and passed to the build functions. Usefull exampl
 
 
 # Troubleshoot
+
+## Error `Requires: python(abi) = 2.6`
+
+If you see such an error, start by comparing the version of the complaining package with the one which is in the diracos_repo. If they do not match, then you need to update the version shipped with DIRACOS.
+
+
+The whole point of building so many RPMs is because we try to get ride of python2.6 in all the low level packages. If you see such a message, that means that one of the package you are building requires a dependency that we do not provide. And if that's the case, you might want to look at version change. For example::
+
+```
+Getting requirements for yum-3.2.29-81.el6.py27.usc4.src
+ --> python-2.7.13-2.el6.x86_64
+ --> gettext-0.17-18.el6.x86_64
+ --> intltool-0.41.0-1.1.el6.noarch
+ --> python-nose-0.10.4-3.1.el6.py27.usc4.noarch
+ --> python-2.7.13-2.el6.x86_64
+ --> rpm-python-4.8.0-59.el6.x86_64
+ --> Already installed : rpm-4.8.0-59.el6.x86_64
+ --> python-iniparse-0.3.1-2.1.el6.py27.usc4.noarch
+ --> python-2.7.13-2.el6.x86_64
+ --> python-urlgrabber-3.9.1-11.el6.py27.usc4.noarch
+ --> yum-metadata-parser-1.1.2-16.el6.py27.usc4.x86_64
+ --> pygpgme-0.1-18.20090824bzr68.el6.py27.usc4.x86_64
+Error: Package: rpm-python-4.8.0-59.el6.x86_64 (base)
+           Requires: libpython2.6.so.1.0()(64bit)
+Error: Package: rpm-python-4.8.0-59.el6.x86_64 (base)
+           Requires: python(abi) = 2.6
+           Installing: python-2.7.13-2.el6.x86_64 (local-py2.7)
+               python(abi) = 2.7
+ You could try using --skip-broken to work around the problem
+ You could try running: rpm -Va --nofiles --nodigest
+ ```
+
+ This stack trace is due to `rpm-python-4.8.0-59` being pulled from the `base` repo, despite we provide `rpm-python-4.8.0-55`. This is because some packages (`yum` in that case) has a loose dependency (no specific version ) on `rpm-python`, so it takes the latest. The solution is to update our version of `rpm-python`
+
+
 
 ## Build is failing for broken rpm dependencies
 
