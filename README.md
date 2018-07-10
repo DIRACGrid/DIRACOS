@@ -103,7 +103,12 @@ It must be run from an SLC6 machine (or container).
 
    # Create the basic structure of your yum repository
    export DIRACOS_REPO=/diracos_repo
-   mkdir -p $DIRACOS_REPO/i386 $DIRACOS_REPO/i686 $DIRACOS_REPO/src $DIRACOS_REPO/noarch $DIRACOS_REPO/x86_64 $DIRACOS_REPO/buildOnly
+   mkdir -p $DIRACOS_REPO/i386 $DIRACOS_REPO/i686 $DIRACOS_REPO/src $DIRACOS_REPO/noarch $DIRACOS_REPO/x86_64 $DIRACOS_REPO/bootstrap $DIRACOS_REPO/buildOnly
+
+   # Needed for speedup optimization
+   curl -o $DIRACOS_REPO/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm -L http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm
+   curl -o $DIRACOS_REPO/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm -L http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm
+
    createrepo $DIRACOS_REPO  
 
    # Install the diracos machinery (currently from github)
@@ -127,12 +132,14 @@ For the json file, the paths of mock have to match what is in the mock configura
 
 These are all the places where the `DIRACOS_REPO` is referred:
 
-  * https://github.com/DIRACGrid/DIRACOS/blob/master/mockConfigs/mock-build-diracos.cfg#L92
+  * https://github.com/DIRACGrid/DIRACOS/blob/master/mockConfigs/mock-build-diracos.cfg#L93
   * https://github.com/DIRACGrid/DIRACOS/blob/master/mockConfigs/mock-install-diracos.cfg#L9
   * https://github.com/DIRACGrid/DIRACOS/blob/master/mockConfigs/mock-install-diracos.cfg#L94
   * https://github.com/DIRACGrid/DIRACOS/blob/master/config/diracos.json#L9
 
  If you do not change the above mentioned lines, you have to have `$DIRACOS_REPO=/diracos_repo`, otherwise the compilation will fail.
+
+ Finally, you can optimize the build by specifying the number of processors you want to use in the mock config file https://github.com/DIRACGrid/DIRACOS/blob/master/mockConfigs/mock-build-diracos.cfg#L9
 
 
 ## Building everything
