@@ -179,6 +179,9 @@ echo "export LD_LIBRARY_PATH" >> $DIRACOSRC
 echo "PATH=\$DIRACOS/bin:\$DIRACOS/usr/bin:\$DIRACOS/sbin:\$PATH" >> $DIRACOSRC
 echo "export PATH" >> $DIRACOSRC
 
+echo '# Silence the python warnings' >> $DIRACOSRC
+echo 'export PYTHONWARNINGS="ignore"' >> $DIRACOSRC
+
 cd /tmp
 tar cvzf diracos-$DIRACOS_VERSION.tar.gz diracos
 """
