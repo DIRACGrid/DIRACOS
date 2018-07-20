@@ -239,13 +239,14 @@ def _buildFromFedpkg(packageCfg):
   srpmFile = glob.glob('%s/*.src.rpm' % tmpDir)[0]
 
   # If the src.rpm is already in the repo, do not rebuild it
-  # get package name
-  _pkgName, pkgVersion, pkgRelease, _epoch, _arch = rpmUtils.miscutils.splitFilename(
+  # here we do not check the pkgRelease because it will be the fedora name (i.e. f24)
+  # while the one we end up having in our repo is our custom one (el6.py27 for example)
+  _pkgName, pkgVersion, _pkgRelease, _epoch, _arch = rpmUtils.miscutils.splitFilename(
       os.path.basename(srpmFile))
   existingBuild = glob.glob(
       os.path.join(
-          repository, '*/%s-%s-%s*src.rpm' %
-          (pkgName, pkgVersion, pkgRelease)))
+          repository, '*/%s-%s*src.rpm' %
+          (pkgName, pkgVersion)))
 
   if existingBuild:
     logging.info("The repo already contains a build, not rebuilding: %s", existingBuild)
