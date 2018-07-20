@@ -1,0 +1,20 @@
+{
+   "rpmBuild" :{
+      "mockConfig": "mockConfig",
+      "mockRoot": "mockRoot",
+      "patchDir" : "patchDir",
+      "packageGroups": [
+         {
+            "name": "grp1",
+            "packages": [
+               {
+                  "name" : "grp1_pkg1_name",
+                  "src": "grp1_pkg1_src"
+               }
+            ]
+         }
+      ],
+      "repo": "repo"
+   },
+   "pipRequirements" : "../requirements.txt"
+}

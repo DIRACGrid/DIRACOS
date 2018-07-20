@@ -500,7 +500,6 @@ BUILD_PYTHON_MODULE_SH_TPL = """#!/bin/bash
 set +x
 # This script is normally called automatically with the arguments taken from the json configuration file
 
-PIP_REQUIREMENT_FILE=%(pipRequirementFile)s
 PIP_BUILD_DEPENDENCIES="%(pipBuildDependencies)s"
 
 echo "Installing pip"
@@ -510,19 +509,17 @@ python get-pip.py
 
 echo "Preparing to build pythong packages"
 
-echo "Pip requirement file $PIP_REQUIREMENT_FILE"
 echo "Pip build dependencies $PIP_BUILD_DEPENDENCIES"
 
 echo "Installing dependency"
 yum install $PIP_BUILD_DEPENDENCIES
 
 yum install python2-virtualenv
-#curl -O -L https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/requirements.txt
-curl -O -L $PIP_REQUIREMENT_FILE
+
 
 virtualenv /tmp/pipDirac
 source /tmp/pipDirac/bin/activate
-pip install -r requirements.txt
+pip install -r /tmp/requirements.txt
 virtualenv --relocatable /tmp/pipDirac/
 """
 
@@ -542,7 +539,7 @@ def buildPythonModules(
 
       :param mockInstallConf: path to the mock config file in which to perform the build
       :param mockInstallRoot: root path of the mock installation
-      :param pipRequirementFile: url to the requirements.txt
+      :param pipRequirementFile: url/path to the requirements.txt
       :param pipBuildDependencies: list of RPM packages to install prior to building.
 
   """
@@ -554,11 +551,20 @@ def buildPythonModules(
 
   subprocess.check_call(mockInitCmd)
 
+  # We need to put the requirments.txt in the mock directory.
+  # if it is a file, we copy it, if not, we download it
+  # The destination is always /tmp/requirements.txt
+  pipRequirementInMock = os.path.join(mockInstallRoot, 'root/tmp/requirements.txt')
+  if os.path.isfile(pipRequirementFile):
+    shutil.copy(pipRequirementFile,pipRequirementInMock)
+  else:
+    _downloadFile(pipRequirementFile, pipRequirementInMock)
+
+
   shellBuildScript = os.path.join(mockInstallRoot, 'root/tmp/buildPythonModules.sh')
   with open(shellBuildScript, 'w') as sbs:
     sbs.write(
         BUILD_PYTHON_MODULE_SH_TPL % {
-            'pipRequirementFile': pipRequirementFile,
             'pipBuildDependencies': ' '.join(pipBuildDependencies)})
   os.chmod(shellBuildScript, 0o755)
 

@@ -684,7 +684,7 @@
    },
    "mockInstallConfig": "../mockConfigs/mock-install-diracos.cfg",
    "mockInstallRoot": "/var/lib/mock/epel-6-x86_64-install",
-   "pipRequirements": "https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/requirements.txt",
+   "pipRequirements": "requirements.txt",
    "pipBuildDependencies": [
       "libcurl-devel",
       "python-devel",

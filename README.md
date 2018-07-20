@@ -359,7 +359,7 @@ At the moment, there are no checks, but the program will crash.
 * `packages`: each packageGroup should have a list of packages
 * `patchDir`: directory where to look for the patches
 * `pipBuildDependencies`: list of rpm packages required to perform the pip install
-* `pipRequirements`: url to the requirements.txt file to feed pip
+* `pipRequirements`: url/path to the requirements.txt file to feed pip
 * `repo`: path to the repository where to copy the produced RPMs
 * `routineDir`: directory where to look for routines
 * `src`: The source of the package. Depending on what is passed here, the build procedure is slightly different. Currently, the src can either be the url of a SRPM, or the name of a fedora package.

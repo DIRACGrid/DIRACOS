@@ -14,7 +14,7 @@
                   "name" : "grp1_pkg1_name",
                   "routine": "grp1_pkg1_routine",
                   "src": "grp1_pkg1_src",
-                  "mockConfig": "grp1_pkg1_mockConfig",
+                  "mockConfig": "grp1_pkg1_mockConfig.cfg",
                   "mockRoot": "grp1_pkg1_mockRoot",
                   "patchDir" : "grp1_pkg1_patchDir",
                   "patchFile" : "grp1_pkg1_patchFile",
