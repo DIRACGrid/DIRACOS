@@ -1,0 +1,16 @@
+SLC6:
+  tags:
+    - DIRACOS
+  image: cern/slc6-base
+  script:
+    - yum install -y mock rpm-build fedora-packager createrepo python-pip
+    - export DIRACOS_REPO=/diracos_repo
+    - mkdir -p $DIRACOS_REPO/i386 $DIRACOS_REPO/i686 $DIRACOS_REPO/src $DIRACOS_REPO/noarch $DIRACOS_REPO/x86_64 $DIRACOS_REPO/bootstrap $DIRACOS_REPO/buildOnly
+    - curl -o $DIRACOS_REPO/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm -L http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm
+    - curl -o $DIRACOS_REPO/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm -L http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm
+    - createrepo $DIRACOS_REPO
+    - pip install git+https://github.com/DIRACGrid/DIRACOS.git
+    - sed -i -e 's/-j4/-j40/g' mockConfigs/mock-build-diracos.cfg
+    - dos-build-all-rpms config/diracos.json
+    - dos-build-python-modules config/diracos.json
+    - dos-bundle config/diracos.json
