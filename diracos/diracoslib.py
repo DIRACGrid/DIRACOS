@@ -6,7 +6,6 @@ import json
 import logging
 import os
 import re
-import urllib
 import shutil
 import subprocess
 import tempfile
@@ -38,7 +37,7 @@ def _downloadFile(url, dest):
   #  df.write(urllib.urlopen(url).read())
 
   dl_cmd = ['curl', '-o', dest, '-L', url]
-  logging.debug("Downloading with %s" % ' '.join(dl_cmd))
+  logging.debug("Downloading with %s", ' '.join(dl_cmd))
   subprocess.check_call(dl_cmd)
 
   return dest
@@ -497,7 +496,6 @@ def buildPackage(packageCfg):
 
 # This is the template file used to generate the shell script to build the python modules
 BUILD_PYTHON_MODULE_SH_TPL = """#!/bin/bash
-set +x
 # This script is normally called automatically with the arguments taken from the json configuration file
 
 PIP_BUILD_DEPENDENCIES="%(pipBuildDependencies)s"
@@ -556,10 +554,9 @@ def buildPythonModules(
   # The destination is always /tmp/requirements.txt
   pipRequirementInMock = os.path.join(mockInstallRoot, 'root/tmp/requirements.txt')
   if os.path.isfile(pipRequirementFile):
-    shutil.copy(pipRequirementFile,pipRequirementInMock)
+    shutil.copy(pipRequirementFile, pipRequirementInMock)
   else:
     _downloadFile(pipRequirementFile, pipRequirementInMock)
-
 
   shellBuildScript = os.path.join(mockInstallRoot, 'root/tmp/buildPythonModules.sh')
   with open(shellBuildScript, 'w') as sbs:
@@ -614,3 +611,100 @@ def bundleDIRACOS(fullCfg):
 
   bundleCmd = ['mock', '-r', mockInstallConfig, '--shell', 'python /tmp/bundlelib.py']
   subprocess.check_call(bundleCmd)
+
+
+FIX_PIP_REQUIREMENTS_VERSIONS_SH_TPL = """#!/bin/bash
+# This script is normally called automatically with the arguments taken from the json configuration file
+
+
+# This is the file containing the loose requirements
+# It was copied there by fixPipRequirementsVersions
+PIP_REQUIREMENTS_LOOSE=/tmp/loose_requirements.txt
+
+echo "Installing pip"
+cd /tmp
+curl -O -L https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+
+echo "Fixing the version"
+
+# First, copy the git requirements to the target file
+grep 'git+' loose_requirements.txt > fixed_requirements.txt
+
+# Add the strict versions
+grep '==' loose_requirements.txt >> fixed_requirements.txt
+
+# Transform the '<=' requirements into '=='
+grep '<=' loose_requirements.txt | sed 's/<=/==/g' >> fixed_requirements.txt
+
+# For all the '>=', check the latest versions known to pip, and use that one
+for pkg in $(grep '>=' loose_requirements.txt | awk -F '[>=]' {'print $1'});
+do
+  # When asking pip to install version 0.0.0, it will fail and list you which available versions there are
+  latest=$(pip install $pkg==0.0.0 2>&1 | grep 'from versions' | awk -F '[,:]' {'print $NF'} | sed -e 's/)//g' -e 's/ //g');
+  echo "$pkg==$latest";
+done >> fixed_requirements.txt
+
+
+# For all the non specified version, check the latest versions known to pip, and use that one
+for pkg in $(grep -vE '(=|#|git)' loose_requirements.txt |  awk  {'print $1'});
+do
+  # When asking pip to install version 0.0.0, it will fail and list you which available versions there are
+  latest=$(pip install $pkg==0.0.0 2>&1 | grep 'from versions' | awk -F '[,:]' {'print $NF'} | sed -e 's/)//g' -e 's/ //g');
+  echo "$pkg==$latest";
+done >> fixed_requirements.txt
+
+"""
+
+
+def fixPipRequirementsVersions(mockInstallConfig,
+                               mockInstallRoot,
+                               pipRequirementFile):
+  """
+      Takes a pip requirements file, and prints it with fixed versions.
+      The versions are tacken from the mock environent
+
+      * packages from git are left untouched
+      * requirements '==' are left untouched
+      * requirements '<=' are fixed to '=='
+      * requirements '>=' are fixed to the latest version available
+      * requirements with no version are fixed to the latest available
+
+      :param mockInstallConf: path to the mock config file in which to perform the build
+      :param mockInstallRoot: root path of the mock installation
+      :param pipRequirementFile: url/path to the requirements.txt
+
+      :returns: path to the requirements file with fixed versions
+  """
+
+
+
+  # First, init the environment
+
+  mockInitCmd = ['mock', '-r', mockInstallConfig, '--init']
+  logging.debug("Initializing environment with: %s", mockInitCmd)
+
+  subprocess.check_call(mockInitCmd)
+
+  logging.info("Fixing versions of requirements file")
+
+  # We need to put the requirments.txt in the mock directory.
+  # if it is a file, we copy it, if not, we download it
+  # The destination is always /tmp/loose_requirements.txt
+  pipRequirementInMock = os.path.join(mockInstallRoot, 'root/tmp/loose_requirements.txt')
+  if os.path.isfile(pipRequirementFile):
+    shutil.copy(pipRequirementFile, pipRequirementInMock)
+  else:
+    _downloadFile(pipRequirementFile, pipRequirementInMock)
+
+  # We copy the script to fix the versions in the mock environment
+
+  shellFixVersionsScript = os.path.join(mockInstallRoot, 'root/tmp/fixPipVersions.sh')
+  with open(shellFixVersionsScript, 'w') as sbs:
+    sbs.write(FIX_PIP_REQUIREMENTS_VERSIONS_SH_TPL)
+  os.chmod(shellFixVersionsScript, 0o755)
+
+  fixVersionsCmd = ['mock', '-r', mockInstallConfig, '--shell', '/tmp/fixPipVersions.sh']
+  subprocess.check_call(fixVersionsCmd)
+
+  return os.path.join(mockInstallRoot, 'root/tmp/fixed_requirements.txt')
