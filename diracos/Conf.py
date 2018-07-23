@@ -4,11 +4,13 @@ Manages the configuration for diracos
 
 import json
 import os
+from urlparse import urlparse
 
 
 # Path that might be relative
 PATH_OPTIONS = ("mockInstallConfig",
                 "mockInstallRoot",
+                "pipRequirements",
                )
 PKG_PATH_OPTIONS = ("mockConfig",
                     "mockRoot",
@@ -35,7 +37,9 @@ def load(jsonFile):
 
     for opt in PATH_OPTIONS:
       if opt in fullConf:
-        fullConf[opt] = os.path.abspath(os.path.join(confDirectory, fullConf[opt]))
+        # If it is a URL, we do not touch, otherwise, make it an absolute path
+        if not urlparse(fullConf[opt]).scheme:
+          fullConf[opt] = os.path.abspath(os.path.join(confDirectory, fullConf[opt]))
 
     rpmBuildConf = fullConf['rpmBuild']
 
