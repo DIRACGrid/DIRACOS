@@ -43,6 +43,10 @@ Also you need to make sure that your containers have enough free space (20G). Co
    pip install git+https://github.com/DIRACGrid/DIRACOS.git
 
    # Get the configuration files by cloning the same repo
+   git clone https://github.com/DIRACGrid/DIRACOS.git
+
+   # if you are building a specific tag, don't forget to check it out
+   # git checkout XYZ
 ```
 
 

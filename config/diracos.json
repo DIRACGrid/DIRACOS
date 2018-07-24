@@ -1,6 +1,6 @@
 {
-   "version": "0.0.6",
-   "comment": "This is in line with lcgbundle 14.0",
+   "version": "master",
+   "comment": "This is the latest version",
    "rpmBuild": {
       "mockConfig": "../mockConfigs/mock-build-diracos.cfg",
       "mockRoot": "/var/lib/mock/epel-6-x86_64",
