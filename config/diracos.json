@@ -463,7 +463,7 @@
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/srm-ifce-1.24.2-1.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/srm-ifce-1.24.4-1.el6.src.rpm",
                   "name": "srm-ifce"
                },
                {
