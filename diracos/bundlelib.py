@@ -12,7 +12,6 @@ import subprocess
 from yum import rpmUtils
 
 
-
 def _getPackageDependencies(packageSet, ignoredPackages=None):
   """ List the package on which a given set of package depends
 
@@ -31,7 +30,6 @@ def _getPackageDependencies(packageSet, ignoredPackages=None):
       '--requires',
       '--resolve',
       '--pkgnarrow=all'] + list(packageSet)
-
 
   logging.debug("Getting dependencies using %s", repoQueryCmd)
   deps = set([p for p in subprocess.check_output(
@@ -98,8 +96,6 @@ def _resolveAllPackageDependencyURLs(requiredPkg=None, ignoredPackages=None):
   requiredByFile = '/tmp/requiredBy.txt'
   onlyForDepFile = '/tmp/onlyForDep.txt'
 
-
-
   # Just for information purposes. Keep the info of which package is required by which one
   requiredBy = {}
   logging.info("Resolving the dependencies for %s", requiredPkg)
@@ -121,8 +117,7 @@ def _resolveAllPackageDependencyURLs(requiredPkg=None, ignoredPackages=None):
   try:
     pkgs.remove('glibc')
   except Exception as e:
-    logging.debug("EXCEPTION %s",e)
-
+    logging.debug("EXCEPTION %s", e)
 
   if pkgListFile:
     with open(pkgListFile, 'w') as fd:
@@ -182,6 +177,14 @@ echo "export PATH" >> $DIRACOSRC
 echo '# Silence the python warnings' >> $DIRACOSRC
 echo 'export PYTHONWARNINGS="ignore"' >> $DIRACOSRC
 
+# add the list of rpms and python packages for info
+
+echo -e "DIRACOS $DIRACOS_VERSION $(date -u)\n\n" > /tmp/diracos/versions.txt
+echo -e "===== RPM packages ====\n\n" >> /tmp/diracos/versions.txt
+cat /tmp/rpms.txt | sort >> /tmp/diracos/versions.txt
+echo -e "\n\n===== Python packages ====\n\n" >> /tmp/diracos/versions.txt
+cat /tmp/requirements.txt | sort >> /tmp/diracos/versions.txt
+
 cd /tmp
 tar cvzf diracos-$DIRACOS_VERSION.tar.gz diracos
 """
@@ -201,7 +204,6 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
 
   logging.info("Bundleing DIRACOS version %s", diracOsVersion)
 
-
   if not requiredPkg:
     # Take the RPMs from x86_64 and noarch
     dirToExplore = [os.path.join(repository, subdir) for subdir in ('x86_64', 'noarch')]
@@ -220,6 +222,14 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
   # urlList = [ 'file:///diracos_repo//x86_64/globus-gss-assist-10.15-1.el6.py27.usc4.x86_64.rpm']
   logging.debug("urlList %s", urlList)
 
+  # Write the list of rpms to a file /tmp/rpms.txt
+  # It is meant to be kept in the tar for info
+  # We do not keep the whole URL, just the package name
+  rpmVersionsFile = '/tmp/rpms.txt'
+  with open(rpmVersionsFile, 'w') as rvf:
+    for pkgUrl in urlList:
+      rvf.write('%s\n' % os.path.basename(pkgUrl))
+
   shellBundleScript = '/tmp/bundleDiracOS.sh'
   with open(shellBundleScript, 'w') as sbs:
     sbs.write(
@@ -234,17 +244,22 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
   subprocess.check_call(bundleCmd)
 
 
-if __name__ == '__main__':
-  # If we call this as a script, it means we are inside the mock environment, so we can assume fix paths
+def main():
   logging.basicConfig(level=logging.DEBUG)
 
   jsonConf = '/tmp/conf.json'
   with open(jsonConf, 'r') as fd:
     cfg = json.load(fd)
     repository = cfg['rpmBuild']['repo']
-    ignoredPkg=set(cfg['ignoredPackages'])
+    ignoredPkg = set(cfg['ignoredPackages'])
     diracOsVersion = cfg['version']
   _doBundleDIRACOS(
       diracOsVersion,
       repository=repository,
       ignoredPackages=ignoredPkg)
+
+
+if __name__ == '__main__':
+  # If we call this as a script, it means we are inside the mock
+  # environment, so we can assume fix paths
+  main()
