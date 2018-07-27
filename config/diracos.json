@@ -135,6 +135,11 @@
                      "voms-clients-cpp",
                      "voms-devel"
                   ]
+               },
+               {
+                  "comment": "SRPM built using https://github.com/imeyer/runit-rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/runit-2.1.2-1.el6.src.rpm",
+                  "name": "runit"
                }
             ]
          },
