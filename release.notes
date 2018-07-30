@@ -1,3 +1,10 @@
+[0.0.8]
+
+NEW: (#33) documentation on how to make a release
+NEW: (#33) pull request template
+NEW: (#37) add a versions.txt file in diracos containing all the packages (issue #32)
+CHANGE: (#37) srm-ifce to 1.24.4
+NEW: (#38) add runit
 
 
 [0.0.7]
