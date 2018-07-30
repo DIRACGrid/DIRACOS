@@ -171,7 +171,7 @@ DIRACOS_LD_LIBRARY_PATH=$(find -L $DIRACOS -name '*.so' -printf "%%h\n" | sort -
 echo "LD_LIBRARY_PATH=$DIRACOS_LD_LIBRARY_PATH:\$LD_LIBRARY_PATH" > $DIRACOSRC
 echo "export LD_LIBRARY_PATH" >> $DIRACOSRC
 
-echo "PATH=\$DIRACOS/bin:\$DIRACOS/usr/bin:\$DIRACOS/sbin:\$PATH" >> $DIRACOSRC
+echo "PATH=\$DIRACOS/bin:\$DIRACOS/usr/bin:\$DIRACOS/sbin:\$DIRACOS/usr/sbin:\$PATH" >> $DIRACOSRC
 echo "export PATH" >> $DIRACOSRC
 
 echo '# Silence the python warnings' >> $DIRACOSRC
