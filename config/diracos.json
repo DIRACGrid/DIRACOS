@@ -103,7 +103,7 @@
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/yum-utils-1.1.30-41.el6.src.rpm",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/yum-utils-1.1.30-42.el6_10.src.rpm",
                   "name": "yum-utils",
                   "buildOnly": true
                }
