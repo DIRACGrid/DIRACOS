@@ -1,4 +1,14 @@
+variables:
+    EOS_PATH: "/eos/project/d/diracos/www/"
+    GIT_SUBMODULE_STRATEGY: recursive
+
+stages:
+    - compile
+    - deploy
+
 SLC6:
+  stage: compile
+  retry: 2
   tags:
     - DIRACOS
   image: cern/slc6-base
@@ -10,7 +20,28 @@ SLC6:
     - curl -o $DIRACOS_REPO/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm -L http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm
     - createrepo $DIRACOS_REPO
     - pip install git+https://github.com/DIRACGrid/DIRACOS.git
-    - sed -i -e 's/-j4/-j40/g' mockConfigs/mock-build-diracos.cfg
+    - sed -i -e 's/-j4/-j16/g' mockConfigs/mock-build-diracos.cfg
     - dos-build-all-rpms config/diracos.json
     - dos-build-python-modules config/diracos.json
     - dos-bundle config/diracos.json
+    - mkdir -p public/${CI_COMMIT_REF_NAME}
+    - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/diracos-${CI_COMMIT_REF_NAME}.tar.gz public/${CI_COMMIT_REF_NAME}/diracos-${CI_COMMIT_REF_NAME}.tar.gz
+    - cd public/${CI_COMMIT_REF_NAME}
+    - md5sum diracos-${CI_COMMIT_REF_NAME}.tar.gz | awk {'print $1'} > diracos-${CI_COMMIT_REF_NAME}.md5
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 hour
+
+# Deploy to EOS folder
+deployment:
+    stage: deploy
+    only:
+      - master
+    # Custom docker image providing the needed tools to deploy in EOS
+    image: gitlab-registry.cern.ch/ci-tools/ci-web-deployer:latest
+    script:
+        - deploy-eos
+    # do not run any globally defined before_script or after_script for this step
+    before_script: []
+    after_script: []

@@ -1,5 +1,7 @@
 # DIRACOS
 
+[![pipeline status](https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/badges/master/pipeline.svg)](https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/commits/master)
+
 DIRACOS aims at bringing in one archive all the dependencies needed by DIRAC.
 
 
