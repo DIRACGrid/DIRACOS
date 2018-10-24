@@ -68,6 +68,8 @@ This script requires the same setup as a build of DIRACOS. Thus, you can already
 
 You can then get the output file (`/var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt`) and put it in replacement of the existing `requirements.txt`, after inspecting it.
 
+NOTE:  You have to execute `dos-fix-pip-versions` after you executed  `dos-build-all-rpms` and you need to copy `fixed_requirements.txt` out of  `/var/lib/mock/epel-6-x86_64-install/root/tmp/` before proceeding with the execution of any other command as it might delete `fixed_requirements.txt`.
+
 Once you are satisfied, you can update the version in the json file, commit, tag and push the branch
 
 ```
