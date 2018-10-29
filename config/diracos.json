@@ -118,6 +118,17 @@
                   "name": "boost"
                },
                {
+                  "comment": "Needed by PyQt4 and git and needs python ABI",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/asciidoc-8.4.5-4.1.el6.src.rpm",
+                  "name": "asciidoc",
+                  "buildOnly": true
+               },
+               {
+                  "comment": "For git python module",
+                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/git-1.7.1-9.el6_9.src.rpm",
+                  "name": "git"
+               },
+               {
                   "comment": "For matching JDL",
                   "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/classads-1.0.10-1.el6.src.rpm",
                   "name": "classads"
@@ -670,12 +681,6 @@
                   "comment": "needed to build PyQt4",
                   "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/dbus-python-0.83.0-6.1.el6.src.rpm",
                   "name": "dbus-python",
-                  "buildOnly": true
-               },
-               {
-                  "comment": "Needed by PyQt4 and needs python ABI",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/asciidoc-8.4.5-4.1.el6.src.rpm",
-                  "name": "asciidoc",
                   "buildOnly": true
                },
                {
