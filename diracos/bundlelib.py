@@ -146,7 +146,9 @@ PKG_URLS="%(requiredPackages)s"
 
 # Location where the bundle takes place
 DIRACOS=/tmp/diracos
-DIRACOSRC=/$DIRACOS/diracosrc
+DIRACOSRC=$DIRACOS/diracosrc
+DIRACOS_VERSION_FILE=$DIRACOS/versions.txt
+
 
 echo "Extracting rpms $PKG_URLS"
 
@@ -166,6 +168,7 @@ echo "Fixing the shebang"
 grep -rIl '#!/usr/bin/python' /tmp/diracos | xargs sed -i 's:#!/usr/bin/python:#!/usr/bin/env python:g'
 
 # Generating the diracosrc
+echo "Generating diracosrc $DIRACOSRC"
 
 DIRACOS_LD_LIBRARY_PATH=$(find -L $DIRACOS -name '*.so' -printf "%%h\n" | sort -u | sed -E "s|^$DIRACOS|\$DIRACOS|g" | sort -u | paste -sd ':')
 echo "LD_LIBRARY_PATH=$DIRACOS_LD_LIBRARY_PATH:\$LD_LIBRARY_PATH" > $DIRACOSRC
@@ -178,15 +181,63 @@ echo '# Silence the python warnings' >> $DIRACOSRC
 echo 'export PYTHONWARNINGS="ignore"' >> $DIRACOSRC
 
 # add the list of rpms and python packages for info
+echo "Adding the version list $DIRACOS_VERSION_FILE"
 
-echo -e "DIRACOS $DIRACOS_VERSION $(date -u)\n\n" > /tmp/diracos/versions.txt
-echo -e "===== RPM packages ====\n\n" >> /tmp/diracos/versions.txt
-cat /tmp/rpms.txt | sort >> /tmp/diracos/versions.txt
-echo -e "\n\n===== Python packages ====\n\n" >> /tmp/diracos/versions.txt
-cat /tmp/requirements.txt | sort >> /tmp/diracos/versions.txt
+
+echo -e "DIRACOS $DIRACOS_VERSION $(date -u)\n\n" > $DIRACOS_VERSION_FILE
+echo -e "===== RPM packages ====\n\n" >> $DIRACOS_VERSION_FILE
+cat /tmp/rpms.txt | sort >> $DIRACOS_VERSION_FILE
+echo -e "\n\n===== Python packages ====\n\n" >> $DIRACOS_VERSION_FILE
+cat /tmp/requirements.txt | sort >> $DIRACOS_VERSION_FILE
+
+
+###############################################
+# Here we just go through the symlinks, list
+# the broken ones. We will compare them
+# to a list of known broken links a posteriori
+echo "Finding all the broken symlinks"
+
+# Find all the symlinks
+brokenLinks=$(
+for i in $(find $DIRACOS -type l);
+do
+  # Find the target of the symlink
+  fp=$(readlink $i);
+
+  # If the target is an absolute path, but not in DIRACOS
+  if [ $(echo $fp | sed "s|^$DIRACOS|./|g" | grep -cE '^/') -ne 0 ];
+  then
+    # If the target file does not exist, print a warning
+    if [ ! -f $fp ];
+    then
+      # We display the link, but replace the actual DIRACOS path with just 'DIRACOS'
+      echo -n "$i\\n" | sed "s|^$DIRACOS|DIRACOS|g";
+    fi;
+  fi;
+done)
+
+echo "Found broken symlinks, put them in $DIRACOS/brokenLinks.txt"
+
+# The file MUST be sorted for comparison, and we remove the empty lines
+echo -e $brokenLinks | sort | sed '/^$/d' > $DIRACOS/brokenLinks.txt
+
+###############################
 
 cd /tmp
-tar cvzf diracos-$DIRACOS_VERSION.tar.gz diracos
+# The dereference options allow to replace a link (hard or sym) with a copy of the file.
+# A link pointing to nowhere would just be removed.
+tar --hard-dereference --dereference -cvzf diracos-$DIRACOS_VERSION.tar.gz diracos
+
+tarRc=$?
+# tar will probably return 1 because of --dereference and --hard-dereference (man tar is your friend)
+# So I consider the tar a success if the returned code is 0 or 1
+if [ $tarRc -eq 0 ] || [ $tarRc -eq 1 ];
+then
+  exit 0;
+fi;
+exit $tarRc
+
+
 """
 
 

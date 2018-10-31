@@ -4,6 +4,7 @@ variables:
 
 stages:
     - compile
+    - links
     - test
     - deploy
 
@@ -35,6 +36,23 @@ compile:
     paths:
       - public
     expire_in: 1 week
+
+
+# Check links
+check_links:
+  stage: links
+  tags:
+    - docker
+  image: cern/slc6-base
+  before_script:
+    - yum install tar -y
+  script:
+    - tar xf public/${CI_COMMIT_REF_NAME}/diracos-${CI_COMMIT_REF_NAME}.tar.gz -C /tmp
+    - export DIRACOS=/tmp/diracos
+    - source $DIRACOS/diracosrc
+    - ./tests/integration/test_symlink.sh
+  dependencies:
+    - compile
 
 
 # Run tests
