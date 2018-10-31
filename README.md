@@ -61,3 +61,6 @@ do grep '^#' $doc | while read title;
 done
 
 ```
+
+## Disclaimer
+DIRACOS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. We are aiming at supporting SLC6 and CC7, whilst we test also on other platforms we do not provide support for those.
