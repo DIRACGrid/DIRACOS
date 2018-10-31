@@ -1,6 +1,6 @@
 # DIRACOS
 
-[![pipeline status](https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/badges/master/pipeline.svg)](https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/commits/master)
+[![pipeline status](https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/badges/master/pipeline.svg)](https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/pipelines)
 
 DIRACOS aims at bringing in one archive all the dependencies needed by DIRAC.
 
@@ -61,3 +61,6 @@ do grep '^#' $doc | while read title;
 done
 
 ```
+
+## Disclaimer
+DIRACOS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. We are aiming at supporting SLC6 and CC7, whilst we test also on other platforms we do not provide support for those.

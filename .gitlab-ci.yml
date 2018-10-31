@@ -4,9 +4,10 @@ variables:
 
 stages:
     - compile
+    - test
     - deploy
 
-SLC6:
+compile:
   stage: compile
   retry: 2
   tags:
@@ -22,16 +23,54 @@ SLC6:
     - pip install git+https://github.com/DIRACGrid/DIRACOS.git
     - sed -i -e 's/-j4/-j16/g' mockConfigs/mock-build-diracos.cfg
     - dos-build-all-rpms config/diracos.json
+    - dos-fix-pip-versions config/diracos.json
+    - mkdir -p public/${CI_COMMIT_REF_NAME}
+    - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt public/${CI_COMMIT_REF_NAME}/.
     - dos-build-python-modules config/diracos.json
     - dos-bundle config/diracos.json
-    - mkdir -p public/${CI_COMMIT_REF_NAME}
     - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/diracos-${CI_COMMIT_REF_NAME}.tar.gz public/${CI_COMMIT_REF_NAME}/diracos-${CI_COMMIT_REF_NAME}.tar.gz
     - cd public/${CI_COMMIT_REF_NAME}
     - md5sum diracos-${CI_COMMIT_REF_NAME}.tar.gz | awk {'print $1'} > diracos-${CI_COMMIT_REF_NAME}.md5
   artifacts:
     paths:
       - public
-    expire_in: 1 hour
+    expire_in: 1 week
+
+
+# Run tests
+
+.run_test:
+  stage: test
+  tags:
+    - docker
+  script:
+    - tar xf public/${CI_COMMIT_REF_NAME}/diracos-${CI_COMMIT_REF_NAME}.tar.gz -C /tmp
+    - export DIRACOS=/tmp/diracos
+    - source $DIRACOS/diracosrc
+    - pytest tests/integration/test_import.py
+  dependencies:
+    - compile
+
+SLC6:
+  extends: .run_test
+  image: cern/slc6-base
+  before_script:
+    - yum install tar -y
+
+CC7:
+  extends: .run_test
+  image: cern/cc7-base
+
+fedora-latest:
+  extends: .run_test
+  image: fedora:latest
+  allow_failure: true
+
+ubuntu-latest:
+  extends: .run_test
+  image: ubuntu:latest
+  allow_failure: true
+
 
 # Deploy to EOS folder
 deployment:
