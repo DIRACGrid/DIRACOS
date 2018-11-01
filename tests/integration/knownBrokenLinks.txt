@@ -1,0 +1,9 @@
+# This file contains the list of symlinks that we know point to nothing
+# It does not need to be sorted, since this will be done by the comparison
+# The path here must be relative to the root of DIRACOS, and start with "DIRACOS"
+
+DIRACOS/etc/fonts/conf.d/20-unhint-small-dejavu-lgc-sans-mono.conf
+DIRACOS/etc/fonts/conf.d/20-unhint-small-dejavu-sans-mono.conf
+DIRACOS/etc/fonts/conf.d/57-dejavu-sans-mono.conf
+DIRACOS/etc/fonts/conf.d/58-dejavu-lgc-sans-mono.conf
+DIRACOS/usr/share/doc/nordugrid-arc-5.4.0/arc.conf.reference

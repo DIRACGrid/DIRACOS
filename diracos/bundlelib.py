@@ -185,8 +185,40 @@ cat /tmp/rpms.txt | sort >> /tmp/diracos/versions.txt
 echo -e "\n\n===== Python packages ====\n\n" >> /tmp/diracos/versions.txt
 cat /tmp/requirements.txt | sort >> /tmp/diracos/versions.txt
 
+
+###############################################
+# Here we just go through the symlinks, list
+# the broken ones. We will compare them
+# to a list of known broken links a posteriori
+
+# Find all the symlinks
+brokenLinks=$(
+for i in $(find $DIRACOS -type l);
+do
+  # Find the target of the symlink
+  fp=$(readlink $i);
+
+  # If the target is an absolute path, but not in DIRACOS
+  if [ $(echo $fp | sed "s|^$DIRACOS|./|g" | grep -cE '^/') -ne 0 ];
+  then
+    # If the target file does not exist, print a warning
+    if [ ! -f $fp ];
+    then
+      # We display the link, but replace the actual DIRACOS path with just 'DIRACOS'
+      echo -n "$i\n" | sed "s|^$DIRACOS|DIRACOS/|g";
+    fi;
+  fi;
+done)
+
+# The file MUST be sorted for comparison, and we remove the empty lines
+echo -e $brokenLinks | sort | sed '/^$/d' > /tmp/diracos/brokenLinks.txt
+
+###############################
+
 cd /tmp
-tar cvzf diracos-$DIRACOS_VERSION.tar.gz diracos
+# The dereference options allow to replace a link (hard or sym) with a copy of the file.
+# A link pointing to nowhere would just be removed.
+tar --hard-dereference --dereference cvzf diracos-$DIRACOS_VERSION.tar.gz diracos
 """
 
 
