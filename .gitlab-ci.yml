@@ -21,7 +21,7 @@ compile:
     - curl -o $DIRACOS_REPO/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm -L http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm
     - curl -o $DIRACOS_REPO/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm -L http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm
     - createrepo $DIRACOS_REPO
-    - pip install git+https://github.com/DIRACGrid/DIRACOS.git
+    - pip install git+${CI_REPOSITORY_URL}@${CI_COMMIT_REF_NAME}
     - sed -i -e 's/-j4/-j16/g' mockConfigs/mock-build-diracos.cfg
     - dos-build-all-rpms config/diracos.json
     - dos-fix-pip-versions config/diracos.json
