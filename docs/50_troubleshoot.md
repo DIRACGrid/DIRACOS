@@ -70,3 +70,7 @@ https://linux.die.net/man/1/chrpath
 
 Currently there is an issue with CentOS7.
 The python scripts have `/usr/bin/env` as shebang. However, `/usr/bin/env` requires `GLIBC_2.14` on CentOS7, which is not in the `libc` shipped here. The solution is probably to fix the postinstall script of DIRAC to not use the system `env`
+
+## Symlinks
+
+Some RPMs will create broken symlinks. The existing ones are know, and are in the file `tests/integration/knownBrokenLinks.txt`. Shall a new one appear, this test should trigger, and you should either fix it, or add it to the list.

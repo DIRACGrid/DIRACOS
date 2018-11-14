@@ -26,3 +26,7 @@ There is a boostrap issue with mock: mock needs gdb which, when compiled with py
 
 We could very well rely on the EPEL repository to provide most of the dependencies. The issue there is that it is very difficult to know if we are not rebuilding some of the dependencies of a given RPM, in which case one needs to recompile it as well.
 In order to avoid such headache, we just exclude EPEL alltogether, and recompile it all.
+
+### About links
+
+Some RPMs or pip packages make use of links (symbolic or hard). Every symlink pointing outside of DIRACOS itself is removed by a copy, the others are left untouched. Hard links are always replaced by a copy, because some file system do not support them (in particular CVMFS, which will probably be the main mean of distribution)

@@ -195,6 +195,8 @@ cat /tmp/requirements.txt | sort >> $DIRACOS_VERSION_FILE
 # Here we just go through the symlinks, list
 # the broken ones. We will compare them
 # to a list of known broken links a posteriori
+# The synlinks that points outside of diracos are
+# replaced with a copy of the file
 echo "Finding all the broken symlinks"
 
 # Find all the symlinks
@@ -212,6 +214,11 @@ do
     then
       # We display the link, but replace the actual DIRACOS path with just 'DIRACOS'
       echo -n "$i\\n" | sed "s|^$DIRACOS|DIRACOS|g";
+      # And we remove it
+      rm $i;
+    else
+      # copy the original file
+      cp --remove-destination $fp $i;
     fi;
   fi;
 done)
@@ -224,9 +231,10 @@ echo -e $brokenLinks | sort | sed '/^$/d' > $DIRACOS/brokenLinks.txt
 ###############################
 
 cd /tmp
-# The dereference options allow to replace a link (hard or sym) with a copy of the file.
+# The hard-dereference options allow to replace a hard link with a copy of the file.
 # A link pointing to nowhere would just be removed.
-tar --hard-dereference --dereference -cvzf diracos-$DIRACOS_VERSION.tar.gz diracos
+# We do not use the dereference option (for symlinks) because there are just too many
+tar --hard-dereference -cvzf diracos-$DIRACOS_VERSION.tar.gz diracos
 
 tarRc=$?
 # tar will probably return 1 because of --dereference and --hard-dereference (man tar is your friend)

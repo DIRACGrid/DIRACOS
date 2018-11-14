@@ -127,7 +127,7 @@ You can run this in any machine (tested on SLC6 & CC7), not necessarily the one 
 
 The current test consist in a python files that will try to import pretty much all the python modules used in DIRAC, and make sure they are taken from diracos directory.
 
-The test files (`testrc` and `testImports.py`) are in the repository that you checked out for the config, under tests/integrations.
+The test files (`test_sumlink.sh`, `knowBrokenLinks.txt` and `testImports.py`) are in the repository that you checked out for the config, under tests/integrations.
 
 
 ```
@@ -147,7 +147,7 @@ The test files (`testrc` and `testImports.py`) are in the repository that you ch
 
    # run the test
    pytest test_import.py
-
+   test_symlink.sh
    # exit the shell
    exit
 ```
