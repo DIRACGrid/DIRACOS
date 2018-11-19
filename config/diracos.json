@@ -124,9 +124,12 @@
                   "buildOnly": true
                },
                {
-                  "comment": "For git python module",
+                  "comment": "For git python module. We only keep the main module, not all the addons",
                   "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/git-1.7.1-9.el6_9.src.rpm",
-                  "name": "git"
+                  "name": "git",
+                  "pkgList": [
+                     "git"
+                  ]
                },
                {
                   "comment": "For matching JDL",
