@@ -716,6 +716,12 @@
       "chkconfig",
       "make",
       "pkgconfig",
-      "coreutils"
+      "coreutils",
+      "java-1.7.0-oracle-devel",
+      "java-1.8.0-oracle-devel"
+   ],
+   "removedFolders": [
+      "/usr/share/doc/",
+      "/usr/share/man/"
    ]
 }

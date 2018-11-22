@@ -143,6 +143,7 @@ BUNDLE_DIRACOS_SCRIPT_TPL = """#!/bin/bash
 # of the building repository will be used.
 DIRACOS_VERSION=%(diracOsVersion)s
 PKG_URLS="%(requiredPackages)s"
+REMOVED_FOLDERS="%(removedFolders)s"
 
 # Location where the bundle takes place
 DIRACOS=/tmp/diracos
@@ -190,6 +191,16 @@ cat /tmp/rpms.txt | sort >> $DIRACOS_VERSION_FILE
 echo -e "\n\n===== Python packages ====\n\n" >> $DIRACOS_VERSION_FILE
 cat /tmp/requirements.txt | sort >> $DIRACOS_VERSION_FILE
 
+# Doing some cleanup
+echo "Removing useless folders"
+for fold in $REMOVED_FOLDERS;
+do
+  echo "Removing $DIRACOS/$fold"
+  rm -rf $DIRACOS/$fold;
+done
+
+# Remove pyo and pyc
+find $DIRACOS -name '*.py[oc]' -exec rm {} \;
 
 ###############################################
 # Here we just go through the symlinks, list
@@ -249,7 +260,7 @@ exit $tarRc
 """
 
 
-def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredPackages=None):
+def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredPackages=None, removedFolders=None):
   """
       Create the final diracos tarball.
 
@@ -258,6 +269,7 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
                         the repository and will take all the packages under x86_64 and noarch
     :param repository: path to the repository
     :param ignoredPackages: set of packages to always ignore
+    :param removedFolders: list of folders in DIRACOS we can remove at the end of the build
 
   """
 
@@ -273,7 +285,7 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
 
     # Take the package name, only if it is not a doc and debuginfo
     requiredPkg = set([rpmUtils.miscutils.splitFilename(rpm)[0]
-                       for rpm in allRPMs if '-doc-' not in rpm and 'debuginfo' not in rpm])
+                       for rpm in allRPMs if '-doc-' not in rpm and 'debuginfo' not in rpm and 'devel' not in rpm])
 
   urlList = _resolveAllPackageDependencyURLs(requiredPkg=requiredPkg,
                                              ignoredPackages=ignoredPackages)
@@ -289,12 +301,16 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
     for pkgUrl in urlList:
       rvf.write('%s\n' % os.path.basename(pkgUrl))
 
+  if not removedFolders:
+    removedFolders = ['aStupidRandomNameToAvoidDeletingSomethingUseful']
+
   shellBundleScript = '/tmp/bundleDiracOS.sh'
   with open(shellBundleScript, 'w') as sbs:
     sbs.write(
         BUNDLE_DIRACOS_SCRIPT_TPL % {
             'diracOsVersion': diracOsVersion,
-            'requiredPackages': ' '.join(urlList)})
+            'requiredPackages': ' '.join(urlList),
+            'removedFolders': ' '.join(removedFolders)})
   os.chmod(shellBundleScript, 0o755)
 
   bundleCmd = ['/tmp/bundleDiracOS.sh']
@@ -304,6 +320,7 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
 
 
 def main():
+  """ main method when started as a script """
   logging.basicConfig(level=logging.DEBUG)
 
   jsonConf = '/tmp/conf.json'
@@ -312,10 +329,12 @@ def main():
     repository = cfg['rpmBuild']['repo']
     ignoredPkg = set(cfg['ignoredPackages'])
     diracOsVersion = cfg['version']
+    removedFolders = cfg['removedFolders']
   _doBundleDIRACOS(
       diracOsVersion,
       repository=repository,
-      ignoredPackages=ignoredPkg)
+      ignoredPackages=ignoredPkg,
+      removedFolders=removedFolders)
 
 
 if __name__ == '__main__':
