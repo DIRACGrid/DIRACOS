@@ -34,7 +34,6 @@ DIRACOS aims at bringing in one archive all the dependencies needed by DIRAC.
       + [ Mandatory parameters](docs/40_grammar.md#mandatory-parameters)
       + [ Optional parameters](docs/40_grammar.md#optional-parameters)
   * [ Other sections and options](docs/40_grammar.md#other-sections-and-options)
-
 - [ Troubleshoot](docs/50_troubleshoot.md#troubleshoot)
   * [ Error `Requires: python(abi) = 2.6`](docs/50_troubleshoot.md#error-requires-pythonabi-26)
   * [ Build is failing for broken rpm dependencies](docs/50_troubleshoot.md#build-is-failing-for-broken-rpm-dependencies)

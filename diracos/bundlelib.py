@@ -285,7 +285,7 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
 
     # Take the package name, only if it is not a doc and debuginfo
     requiredPkg = set([rpmUtils.miscutils.splitFilename(rpm)[0]
-                       for rpm in allRPMs if '-doc-' not in rpm and 'debuginfo' not in rpm and 'devel' not in rpm])
+                       for rpm in allRPMs if '-doc-' not in rpm and 'debuginfo' not in rpm])
 
   urlList = _resolveAllPackageDependencyURLs(requiredPkg=requiredPkg,
                                              ignoredPackages=ignoredPackages)
