@@ -61,19 +61,14 @@ This will give the following packages:
 At the moment, there are no checks, but the program will crash.
 
 * `mockConfig`: mock configuration file to use for the build
-* `mockInstallConfig`: mock configuration file to use for the build of python module and packaging
 * `mockRoot`: root directory where mock will work. WARNING: this value is related to the configuration in mockConfig.
-* `mockInstallRoot`: root directory where mock will work. WARNING: this value is related to the configuration in mockConfig.
 * `name`: The name of the package. Should be unique (CAUTION: no check on that yet). It is only used internaly.
 * `packageGroups`: list of package groups. Must be there at the root of the json file.
 * `packages`: each packageGroup should have a list of packages
 * `patchDir`: directory where to look for the patches
-* `pipBuildDependencies`: list of rpm packages required to perform the pip install
-* `pipRequirements`: url/path to the requirements.txt file to feed pip
 * `repo`: path to the repository where to copy the produced RPMs
 * `routineDir`: directory where to look for routines
 * `src`: The source of the package. Depending on what is passed here, the build procedure is slightly different. Currently, the src can either be the url of a SRPM, or the name of a fedora package.
-* `version`: version of dirac os being built (just a tag...)
 
 
 
@@ -86,3 +81,13 @@ At the moment, there are no checks, but the program will crash.
 * `workDir`: directory where the work will be done. Default to `/tmp`
 
 Any other options will be read and passed to the build functions. Usefull examples can be "comment", or any other options your routines may need.
+
+## Other sections and options
+
+* `ignoredPackages`: this list contains the packages that should not be taken for a reason or another when doing the final bundling.
+* `mockInstallConfig`: mock configuration file to use for the build of python module and packaging
+* `mockInstallRoot`: root directory where mock will work. WARNING: this value is related to the configuration in mockConfig.
+* `pipBuildDependencies`: list of rpm packages required to perform the pip install
+* `pipRequirements`: url/path to the requirements.txt file to feed pip
+* `removedFolders`: list of absolute path of folders that are considered useless and can be removed at the end of the build
+* `version`: version of dirac os being built (just a tag...)

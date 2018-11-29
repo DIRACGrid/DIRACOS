@@ -30,3 +30,12 @@ In order to avoid such headache, we just exclude EPEL alltogether, and recompile
 ### About links
 
 Some RPMs or pip packages make use of links (symbolic or hard). Every symlink pointing outside of DIRACOS itself is removed by a copy, the others are left untouched. Hard links are always replaced by a copy, because some file system do not support them (in particular CVMFS, which will probably be the main mean of distribution)
+
+
+## Supported platforms
+
+Only SLC6 and CC7 are supported. We have automated tests for the LTS Ubuntu and Fedora, but if they fail, too bad ! Up to you to fix it if you wish
+
+### Trick
+
+On the latest Fedora, we noticed that adding a `LD_PRELOAD` fixes the tests, but again, use at your own risk, and do not ask for support

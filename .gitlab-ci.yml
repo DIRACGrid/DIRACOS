@@ -83,6 +83,8 @@ fedora-latest:
   extends: .run_test
   image: fedora:latest
   allow_failure: true
+  variables:
+    LD_PRELOAD: "/lib64/libselinux.so.1"
 
 ubuntu-latest:
   extends: .run_test
