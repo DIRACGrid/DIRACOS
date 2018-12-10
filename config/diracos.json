@@ -661,6 +661,7 @@
                   "name": "mysql-community",
                   "pkgList": [
                      "mysql-community-devel",
+                     "mysql-community-client",
                      "mysql-community-libs",
                      "mysql-community-common"
                   ]

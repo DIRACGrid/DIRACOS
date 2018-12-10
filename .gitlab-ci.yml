@@ -66,6 +66,7 @@ check_links:
     - export DIRACOS=/tmp/diracos
     - source $DIRACOS/diracosrc
     - pytest tests/integration/test_import.py
+    - tests/integration/test_cli.sh
   dependencies:
     - compile
 
