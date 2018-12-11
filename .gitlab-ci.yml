@@ -97,7 +97,8 @@ ubuntu-latest:
 deployment:
     stage: deploy
     only:
-      - master
+      - tags@CLICdp/iLCDirac/DIRACOS
+      - branches@CLICdp/iLCDirac/DIRACOS
     # Custom docker image providing the needed tools to deploy in EOS
     image: gitlab-registry.cern.ch/ci-tools/ci-web-deployer:latest
     script:
