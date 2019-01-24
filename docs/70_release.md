@@ -104,8 +104,7 @@ Just make sure to use the tag you just created
 
 ## Deploy the archive
 
-At the moment, `dirac-install` still looks for them here `/afs/cern.ch/lhcb/distribution/Dirac_project/installSource/`.
-But hopefully, we will soon switch to `/eos/project/l/lhcbwebsites/www/lhcb-rpm/dirac/DIRACOS`
+The archive should be placed in `/eos/project/d/diracos/www/releases`
 
 Generate the signature of the archive
 
