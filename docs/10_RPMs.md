@@ -76,7 +76,7 @@ mock -r <mockConfigFile> --buildsrpm --spec <specFile> --sources <tarFile>
 
 Once you are happy with the result, just add the package the the json configuration file. If you modified the SRPM, you need to generate a patch file called `<package>.patch`, and put it in your patch directory.
 
-If the package is meant to stay in DIRACOS, it should be uploaded to DIRACOS srpm repository: http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/
+If the package is meant to stay in DIRACOS, it should be uploaded to DIRACOS srpm repository: https://diracos.web.cern.ch/diracos/SRPM/
 
 ```
 diff -r -u <original> <patched>

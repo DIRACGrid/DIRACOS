@@ -33,8 +33,8 @@ Also you need to make sure that your containers have enough free space (20G). Co
    mkdir -p $DIRACOS_REPO/i386 $DIRACOS_REPO/i686 $DIRACOS_REPO/src $DIRACOS_REPO/noarch $DIRACOS_REPO/x86_64 $DIRACOS_REPO/bootstrap $DIRACOS_REPO/buildOnly
 
    # Needed for speedup optimization
-   curl -o $DIRACOS_REPO/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm -L http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm
-   curl -o $DIRACOS_REPO/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm -L http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm
+   curl -o $DIRACOS_REPO/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm -L https://diracos.web.cern.ch/diracos/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm
+   curl -o $DIRACOS_REPO/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm -L https://diracos.web.cern.ch/diracos/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm
 
    createrepo $DIRACOS_REPO  
 

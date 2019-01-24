@@ -38,12 +38,12 @@
                   "branch": "f25"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/expat21-2.1.0-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/expat21-2.1.0-1.el6.src.rpm",
                   "name": "expat",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-rpm-macros-3-11.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-rpm-macros-3-11.el6.src.rpm",
                   "name": "python-rpm-macros",
                   "buildOnly": true
                },
@@ -53,57 +53,57 @@
                   "branch": "f25"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-setuptools-0.6.10-4.el6_9.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-setuptools-0.6.10-4.el6_9.src.rpm",
                   "mockConfig": "../mockConfigs/mock-build-diracos.cfg",
                   "name": "python-setuptools"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/yum-metadata-parser-1.1.2-16.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/yum-metadata-parser-1.1.2-16.el6.src.rpm",
                   "name": "yum-metadata-parser",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/rpm-4.8.0-59.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/rpm-4.8.0-59.el6.src.rpm",
                   "name": "rpm",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/libxml2-2.7.6-21.el6_8.1.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/libxml2-2.7.6-21.el6_8.1.src.rpm",
                   "name": "libxml2",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/pygpgme-0.1-18.20090824bzr68.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/pygpgme-0.1-18.20090824bzr68.el6.src.rpm",
                   "name": "pygpgme",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-pycurl-7.19.0-9.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-pycurl-7.19.0-9.el6.src.rpm",
                   "name": "python-pycurl",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-urlgrabber-3.9.1-11.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-urlgrabber-3.9.1-11.el6.src.rpm",
                   "name": "python-urlgrabber",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-iniparse-0.3.1-2.1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-iniparse-0.3.1-2.1.el6.src.rpm",
                   "name": "python-iniparse",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-nose-0.10.4-3.1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-nose-0.10.4-3.1.el6.src.rpm",
                   "name": "python-nose",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/yum-3.2.29-81.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/yum-3.2.29-81.el6.src.rpm",
                   "name": "yum",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/yum-utils-1.1.30-42.el6_10.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/yum-utils-1.1.30-42.el6_10.src.rpm",
                   "name": "yum-utils",
                   "buildOnly": true
                }
@@ -114,18 +114,18 @@
             "packages": [
                {
                   "comment": "Needs to be recompiled because of boost-python",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/boost-1.41.0-28.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/boost-1.41.0-28.el6.src.rpm",
                   "name": "boost"
                },
                {
                   "comment": "Needed by PyQt4 and git and needs python ABI",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/asciidoc-8.4.5-4.1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/asciidoc-8.4.5-4.1.el6.src.rpm",
                   "name": "asciidoc",
                   "buildOnly": true
                },
                {
                   "comment": "For git python module. We only keep the main module, not all the addons",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/git-1.7.1-9.el6_9.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/git-1.7.1-9.el6_9.src.rpm",
                   "name": "git",
                   "pkgList": [
                      "git"
@@ -133,16 +133,16 @@
                },
                {
                   "comment": "For matching JDL",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/classads-1.0.10-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/classads-1.0.10-1.el6.src.rpm",
                   "name": "classads"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gsoap-2.7.16-6.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gsoap-2.7.16-6.el6.src.rpm",
                   "name": "gsoap"
                },
                {
                   "comment": "We do not want to take the server rpm",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/voms-2.0.14-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/voms-2.0.14-1.el6.src.rpm",
                   "name": "voms",
                   "pkgList": [
                      "voms",
@@ -152,7 +152,7 @@
                },
                {
                   "comment": "SRPM built using https://github.com/imeyer/runit-rpm",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/runit-2.1.2-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/runit-2.1.2-1.el6.src.rpm",
                   "name": "runit"
                }
             ]
@@ -161,68 +161,68 @@
             "name": "globus",
             "packages": [
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/libtool-2.2.6-15.5.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/libtool-2.2.6-15.5.el6.src.rpm",
                   "name": "libtool",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-common-16.4-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-common-16.4-1.el6+gt6.src.rpm",
                   "excludePatterns": [],
                   "name": "globus-common"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-proxy-ssl-5.8-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gsi-proxy-ssl-5.8-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-proxy-ssl"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-openssl-error-3.5-2.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gsi-openssl-error-3.5-2.el6+gt6.src.rpm",
                   "name": "globus-gsi-openssl-error"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-openssl-module-4.6-2.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-openssl-module-4.6-2.el6+gt6.src.rpm",
                   "name": "globus-openssl-module"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-cert-utils-9.12-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gsi-cert-utils-9.12-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-cert-utils"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-sysconfig-6.9-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gsi-sysconfig-6.9-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-sysconfig"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-callback-5.8-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gsi-callback-5.8-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-callback"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-credential-7.9-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gsi-credential-7.9-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-credential"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gsi-proxy-core-7.9-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gsi-proxy-core-7.9-1.el6+gt6.src.rpm",
                   "name": "globus-gsi-proxy-core"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gssapi-gsi-12.11-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gssapi-gsi-12.11-1.el6+gt6.src.rpm",
                   "name": "globus-gssapi-gsi"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-callout-3.14-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-callout-3.14-1.el6+gt6.src.rpm",
                   "name": "globus-callout"
                },
                {
                   "comment": "We have to keep the doc because it is required later...",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-xio-5.12-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-xio-5.12-1.el6+gt6.src.rpm",
                   "excludePatterns": [],
                   "name": "globus-xio"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-xio-pipe-driver-3.9-3.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-xio-pipe-driver-3.9-3.el6+gt6.src.rpm",
                   "name": "globus-xio-pipe-driver",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gss-assist-10.15-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gss-assist-10.15-1.el6+gt6.src.rpm",
                   "name": "globus-gss-assist",
                   "pkgList": [
                      "globus-gss-assist",
@@ -230,90 +230,90 @@
                   ]
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gssapi-error-5.4-2.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gssapi-error-5.4-2.el6+gt6.src.rpm",
                   "name": "globus-gssapi-error"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-xio-gsi-driver-3.10-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-xio-gsi-driver-3.10-1.el6+gt6.src.rpm",
                   "name": "globus-xio-gsi-driver"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-io-11.5-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-io-11.5-1.el6+gt6.src.rpm",
                   "name": "globus-io"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gass-transfer-8.8-2.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gass-transfer-8.8-2.el6+gt6.src.rpm",
                   "name": "globus-gass-transfer"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-usage-4.4-2.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-usage-4.4-2.el6+gt6.src.rpm",
                   "name": "globus-usage"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-xio-popen-driver-3.5-2.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-xio-popen-driver-3.5-2.el6+gt6.src.rpm",
                   "name": "globus-xio-popen-driver"
                },
                {
                   "comment": "We need to keep the doc because globus-ft-client requires it for buid...",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-ftp-control-6.10-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-ftp-control-6.10-1.el6+gt6.src.rpm",
                   "excludePatterns": [
                      ".*-debuginfo-.*"
                   ],
                   "name": "globus-ftp-control"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gridftp-server-control-4.1-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gridftp-server-control-4.1-1.el6+gt6.src.rpm",
                   "name": "globus-gridftp-server-control",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-authz-callout-error-3.6-3.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-authz-callout-error-3.6-3.el6+gt6.src.rpm",
                   "name": "globus-authz-callout-error",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-authz-3.12-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-authz-3.12-1.el6+gt6.src.rpm",
                   "name": "globus-authz",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gfork-4.8-2.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gfork-4.8-2.el6+gt6.src.rpm",
                   "name": "globus-gfork",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-openssl-module-4.8-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-openssl-module-4.8-1.el6+gt6.src.rpm",
                   "name": "globus-openssl-module",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gridftp-server-10.4-2.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gridftp-server-10.4-2.el6+gt6.src.rpm",
                   "name": "globus-gridftp-server",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-xio-udt-driver-1.20-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-xio-udt-driver-1.20-1.el6+gt6.src.rpm",
                   "name": "globus-xio-udt-driver",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-ftp-client-8.29-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-ftp-client-8.29-1.el6+gt6.src.rpm",
                   "name": "globus-ftp-client"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gass-copy-9.19-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gass-copy-9.19-1.el6+gt6.src.rpm",
                   "name": "globus-gass-copy"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-proxy-utils-6.15-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-proxy-utils-6.15-1.el6+gt6.src.rpm",
                   "name": "globus-proxy-utils"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-rsl-10.10-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-rsl-10.10-1.el6+gt6.src.rpm",
                   "name": "globus-rsl"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/myproxy-6.1.18-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/myproxy-6.1.18-1.el6+gt6.src.rpm",
                   "name": "myproxy",
                   "pkgList": [
                      "myproxy",
@@ -323,13 +323,13 @@
                },
                {
                   "comment": "For condor",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gass-server-ez-5.8-3.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gass-server-ez-5.8-3.el6+gt6.src.rpm",
                   "name": "globus-gass-server-ez",
                   "buildOnly": true
                },
                {
                   "comment": "We need to keep the doc because globus-gram-client requires it for buid...",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gram-protocol-12.15-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gram-protocol-12.15-1.el6+gt6.src.rpm",
                   "excludePatterns": [
                      ".*-debuginfo-.*"
                   ],
@@ -338,7 +338,7 @@
                },
                {
                   "comment": "For condor",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/globus-gram-client-13.9-1.el6+gt6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/globus-gram-client-13.9-1.el6+gt6.src.rpm",
                   "name": "globus-gram-client",
                   "buildOnly": true
                }
@@ -348,52 +348,52 @@
             "name": "cream",
             "packages": [
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/emi-pkgconfig-compat-1.0.1-2.sl6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/emi-pkgconfig-compat-1.0.1-2.sl6.src.rpm",
                   "name": "emi-pkgconfig-compat",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-ce-wsdl-1.15.1-1.sl6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-ce-wsdl-1.15.1-1.sl6.src.rpm",
                   "name": "glite-ce-wsdl",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-jobid-api-c-2.2.13-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-jobid-api-c-2.2.13-1.el6.src.rpm",
                   "name": "glite-jobid-api-c",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-wms-utils-exception-3.4.2-2.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-wms-utils-exception-3.4.2-2.el6.src.rpm",
                   "name": "glite-wms-utils-exception",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-wms-utils-classad-3.4.2-2.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-wms-utils-classad-3.4.2-2.el6.src.rpm",
                   "name": "glite-wms-utils-classad",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-jobid-api-cpp-1.3.10-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-jobid-api-cpp-1.3.10-1.el6.src.rpm",
                   "name": "glite-jobid-api-cpp",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-jdl-api-cpp-3.4.2-2.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-jdl-api-cpp-3.4.2-2.el6.src.rpm",
                   "name": "glite-jdl-api-cpp",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-lbjp-common-gss-3.2.16-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-lbjp-common-gss-3.2.16-1.el6.src.rpm",
                   "name": "glite-lbjp-common-gss",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-lbjp-common-gsoap-plugin-3.2.12-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-lbjp-common-gsoap-plugin-3.2.12-1.el6.src.rpm",
                   "name": "glite-lbjp-common-gsoap-plugin",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/canl-c-2.1.8-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/canl-c-2.1.8-1.el6.src.rpm",
                   "name": "canl-c",
                   "pkgList": [
                      "canl-c",
@@ -401,34 +401,34 @@
                   ]
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/canl-c++-1.1.0-4.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/canl-c++-1.1.0-4.el6.src.rpm",
                   "name": "canl-c++"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gridsite-2.2.6-2.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gridsite-2.2.6-2.el6.src.rpm",
                   "name": "gridsite",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-ce-cream-client-api-c-1.15.4-2.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-ce-cream-client-api-c-1.15.4-2.el6.src.rpm",
                   "name": "glite-ce-cream-client-api-c"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-jobid-api-cpp-1.3.10-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-jobid-api-cpp-1.3.10-1.el6.src.rpm",
                   "name": "glite-jobid-api-cpp",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-ce-cream-cli-1.15.3-2.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-ce-cream-cli-1.15.3-2.el6.src.rpm",
                   "name": "glite-ce-cream-cli"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-ce-monitor-cli-1.15.2-2.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-ce-monitor-cli-1.15.2-2.el6.src.rpm",
                   "name": "glite-ce-monitor-cli"
                },
                {
                   "comment": "for condor",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/glite-ce-cream-utils-1.3.5-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/glite-ce-cream-utils-1.3.5-1.el6.src.rpm",
                   "name": "glite-ce-cream-utils",
                   "buildOnly": true
                }
@@ -439,12 +439,12 @@
             "packages": [
                {
                   "comment": "xrootd needs perl-generators",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/perl-generators-1.08-5.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/perl-generators-1.08-5.el6.src.rpm",
                   "name": "perl-generators",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/xrootd-4.8.3-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/xrootd-4.8.3-1.el6.src.rpm",
                   "name": "xrootd",
                   "pkgList": [
                      "xrootd",
@@ -462,7 +462,7 @@
             "name": "davix",
             "packages": [
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/davix-0.6.6-r1705170955.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/davix-0.6.6-r1705170955.src.rpm",
                   "name": "davix"
                }
             ]
@@ -471,27 +471,27 @@
             "name": "gfal2",
             "packages": [
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/epydoc-3.0.1-6.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/epydoc-3.0.1-6.el6.src.rpm",
                   "name": "epydoc",
                   "buildOnly": true
                },
                {
                   "comment": "for srm-ifce",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/CGSI-gSOAP-1.3.11-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/CGSI-gSOAP-1.3.11-1.el6.src.rpm",
                   "name": "CGSI-gSOAP",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/srm-ifce-1.24.4-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/srm-ifce-1.24.4-1.el6.src.rpm",
                   "name": "srm-ifce"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/pugixml-1.0-3.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/pugixml-1.0-3.el6.src.rpm",
                   "name": "pugixml"
                },
                {
                   "comment": "Contains all the lfc and dpm related things",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/lcgdm-1.10.0-5.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/lcgdm-1.10.0-5.el6.src.rpm",
                   "name": "lcgdm",
                   "pkgList": [
                      "lcgdm-libs",
@@ -510,23 +510,23 @@
                },
                {
                   "comment": "needed by dcap",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/CUnit-2.1.2-6.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/CUnit-2.1.2-6.el6.src.rpm",
                   "name": "CUnit",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/dcap-2.47.12-4.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/dcap-2.47.12-4.el6.src.rpm",
                   "name": "dcap"
                },
                {
                   "comment": "used by gfal2",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gtest-1.5.0-5.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gtest-1.5.0-5.el6.src.rpm",
                   "name": "gtest",
                   "buildOnly": true
                },
                {
                   "comment": "Carreful, testing package",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gfal2-2.15.4-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-2.15.4-1.el6.src.rpm",
                   "src_old": "http://dmc-repo.web.cern.ch/dmc-repo/testing/el6/x86_64/gfal2-2.15.2-r1803011640.el6.src.rpm",
                   "excludePatterns": [
                      ".*-doc-.*",
@@ -536,11 +536,11 @@
                   "name": "gfal2"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gfal2-python-1.9.3-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-python-1.9.3-1.el6.src.rpm",
                   "name": "gfal2-python"
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/gfal2-util-1.5.1-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-util-1.5.1-1.el6.src.rpm",
                   "name": "gfal2-util"
                }
             ]
@@ -549,7 +549,7 @@
             "name": "condor",
             "packages": [
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/condor-8.6.9-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/condor-8.6.9-1.el6.src.rpm",
                   "name": "condor",
                   "pkgList": [
                      "condor",
@@ -565,52 +565,52 @@
             "name": "arc",
             "packages": [
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-zope-interface-3.5.2-2.1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-zope-interface-3.5.2-2.1.el6.src.rpm",
                   "name": "python-zope-interface",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-zope-filesystem-1-5.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-zope-filesystem-1-5.el6.src.rpm",
                   "name": "python-zope-filesystem",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-twisted-core-8.2.0-4.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-twisted-core-8.2.0-4.el6.src.rpm",
                   "name": "python-twisted-core",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/pyOpenSSL-0.13.1-2.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/pyOpenSSL-0.13.1-2.el6.src.rpm",
                   "name": "pyOpenSSL",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-twisted-web-8.2.0-5.el6_8.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-twisted-web-8.2.0-5.el6_8.src.rpm",
                   "name": "python-twisted-web",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/python-fpconst-0.7.3-6.1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/python-fpconst-0.7.3-6.1.el6.src.rpm",
                   "name": "python-fpconst",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/PyXML-0.8.4-19.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/PyXML-0.8.4-19.el6.src.rpm",
                   "name": "PyXML",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/SOAPpy-0.11.6-11.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/SOAPpy-0.11.6-11.el6.src.rpm",
                   "name": "SOAPpy",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/libs3-2.0-0.5.20161104gita052a00.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/libs3-2.0-0.5.20161104gita052a00.el6.src.rpm",
                   "name": "libs3",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/nordugrid-arc-5.4.0-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/nordugrid-arc-5.4.0-1.el6.src.rpm",
                   "name": "nordugrid-arc",
                   "pkgList": [
                      "nordugrid-arc",
@@ -627,37 +627,37 @@
             "packages": [
                {
                   "comment": "Externals have 1.4.9",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/rrdtool-1.3.8-10.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/rrdtool-1.3.8-10.el6.src.rpm",
                   "name": "rrdtool"
                },
                {
                   "comment": "Externals have 1.0.6",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/bzip2-1.0.5-7.el6_0.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/bzip2-1.0.5-7.el6_0.src.rpm",
                   "name": "bzip2"
                },
                {
                   "comment": "Externals have 1.2.11",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/zlib-1.2.3-29.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/zlib-1.2.3-29.el6.src.rpm",
                   "name": "zlib"
                },
                {
                   "comment": "Externals have 6.1",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/ncurses-5.7-4.20090207.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/ncurses-5.7-4.20090207.el6.src.rpm",
                   "name": "ncurses"
                },
                {
                   "comment": "Externals have 3.22.0",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/sqlite-3.6.20-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/sqlite-3.6.20-1.el6.src.rpm",
                   "name": "sqlite"
                },
                {
                   "comment": "To build mysql",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/cmake28-2.8.12.2-2.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/cmake28-2.8.12.2-2.el6.src.rpm",
                   "name": "cmake",
                   "buildOnly": true
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/mysql-community-5.7.21-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/mysql-community-5.7.21-1.el6.src.rpm",
                   "name": "mysql-community",
                   "pkgList": [
                      "mysql-community-devel",
@@ -667,7 +667,7 @@
                   ]
                },
                {
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/curl-7.19.7-53.el6_9.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/curl-7.19.7-53.el6_9.src.rpm",
                   "name": "curl"
                }
             ]
@@ -677,19 +677,19 @@
             "packages": [
                {
                   "comment": "needed to build PyQt4",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/sip-4.9.3-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/sip-4.9.3-1.el6.src.rpm",
                   "name": "sip",
                   "buildOnly": true
                },
                {
                   "comment": "needed to build PyQt4",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/dbus-python-0.83.0-6.1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/dbus-python-0.83.0-6.1.el6.src.rpm",
                   "name": "dbus-python",
                   "buildOnly": true
                },
                {
                   "comment": "There are a few deps for the BKK that do not need to be recompiled, so I just added them as a dependency to the RPM",
-                  "src": "http://lhcb-rpm.web.cern.ch/lhcb-rpm/dirac/DIRACOS/SRPM/PyQt4-4.6.2-9.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/PyQt4-4.6.2-9.el6.src.rpm",
                   "name": "PyQt4"
                }
             ]
