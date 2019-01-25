@@ -18,6 +18,8 @@ ipython==5.3.0
 numpy>=1.10.1
 pexpect>=4.0.1
 psutil>=4.2.0
+pyasn1
+pyasn1_modules
 Pygments>=1.5
 pylint>=1.6.5
 pyparsing>=2.0.6
@@ -36,3 +38,4 @@ suds-jurko>=0.6
 hypothesis
 python-json-logger>=0.1.8
 cx_Oracle
+
