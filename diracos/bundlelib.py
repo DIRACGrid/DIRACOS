@@ -171,8 +171,12 @@ grep -rIl '#!/usr/bin/python' /tmp/diracos | xargs sed -i 's:#!/usr/bin/python:#
 # Generating the diracosrc
 echo "Generating diracosrc $DIRACOSRC"
 
+# If DIRACOS is not defined, we define it as the current location
+echo -e "if [ -z \$DIRACOS ];\nthen\n\tDIRACOS=\$(dirname \"\$(readlink -f \"\$0\")\");\n\texport DIRACOS;\nfi\n" > $DIRACOSRC
+
+
 DIRACOS_LD_LIBRARY_PATH=$(find -L $DIRACOS -name '*.so' -printf "%%h\n" | sort -u | sed -E "s|^$DIRACOS|\$DIRACOS|g" | sort -u | paste -sd ':')
-echo "LD_LIBRARY_PATH=$DIRACOS_LD_LIBRARY_PATH:\$LD_LIBRARY_PATH" > $DIRACOSRC
+echo "LD_LIBRARY_PATH=$DIRACOS_LD_LIBRARY_PATH:\$LD_LIBRARY_PATH" >> $DIRACOSRC
 echo "export LD_LIBRARY_PATH" >> $DIRACOSRC
 
 echo "PATH=\$DIRACOS/bin:\$DIRACOS/usr/bin:\$DIRACOS/sbin:\$DIRACOS/usr/sbin:\$PATH" >> $DIRACOSRC
