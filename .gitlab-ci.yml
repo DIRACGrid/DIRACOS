@@ -180,4 +180,4 @@ push_tag:
     - git commit -m"Update requirements.txt and diracos.json for release ${BUILD_NAME}"
     - git tag ${BUILD_NAME}
     - if [[ $MAKE_TAG ]]; then git push origin --tags ; fi
-    - if [[ $MAKE_TAG ]]; python ./docs/Tools/GetReleaseNotes.py --PRInfo ../changes/PRs.txt --versionInfo ../bundle/diracos/versions.txt --newTag ${BUILD_NAME}
+    - if [[ $MAKE_TAG ]]; python ./docs/Tools/GetReleaseNotes.py --PRInfo ../changes/PRs.txt --versionInfo ../bundle/diracos/versions.txt --newTag ${BUILD_NAME} ; fi
