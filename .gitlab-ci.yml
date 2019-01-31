@@ -22,7 +22,8 @@ changelog:
     - echo "GITHUBTOKEN = \"$GITHUBTOKEN\"" >& GitTokens.py
     - export PYTHONPATH=$(pwd)
     - mkdir changes
-    - python ./docs/Tools/GetReleaseNotes.py --last | cat - release.notes > temp
+    - python ./docs/Tools/GetReleaseNotes.py --last > changes/PRs.txt
+    - less changes/PRs.txt | cat - release.notes > temp
     - source ./docs/Tools/CreateName.sh
     - echo -n "[${BUILD_NAME}]" | cat - temp > changes/release.notes
 
@@ -162,6 +163,9 @@ push_tag:
     - git config --global user.name "DIRACOS"
     - git config --global pull.rebase true
   script:
+    - source ./docs/Tools/CreateName.sh
+    - mkdir bundle
+    - tar xf public/releases/diracos-${BUILD_NAME}.tar.gz -C /bundle
     - git clone git@github.com:diracos/DIRACOS.git DIRACOS
     - cd DIRACOS
     - git pull origin master
@@ -176,3 +180,4 @@ push_tag:
     - git commit -m"Update requirements.txt and diracos.json for release ${BUILD_NAME}"
     - git tag ${BUILD_NAME}
     - if [[ $MAKE_TAG ]]; then git push origin --tags ; fi
+    - if [[ $MAKE_TAG ]]; python ./docs/Tools/GetReleaseNotes.py --PRInfo ../changes/PRs.txt --versionInfo ../bundle/diracos/versions.txt --newTag ${BUILD_NAME}

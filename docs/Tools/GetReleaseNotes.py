@@ -11,6 +11,7 @@ import textwrap
 import requests
 from operator import itemgetter
 import re
+import os.path
 
 try:
   from GitTokens import GITHUBTOKEN
@@ -201,7 +202,7 @@ def versionComp( v1, v2 ):
 class GithubInterface(object):
   """Object to make calls to github API."""
 
-  def __init__(self, owner='DiracGrid', repo='DIRACOS', lastTag=None):
+  def __init__(self, owner='diracos', repo='DIRACOS', lastTag=None):
     """Set default values to parse release notes for DIRAC."""
     self.owner = owner
     self.repo = repo
@@ -214,6 +215,9 @@ class GithubInterface(object):
     self.printLevel = logging.WARNING
     LOGGER.setLevel(self.printLevel)
     self._getLatestTagInfo()
+    self.newTag = None
+    self.versionInfo = ""
+    self.PRInfo = ""
 
   @property
   def _options(self):
@@ -244,6 +248,15 @@ class GithubInterface(object):
     parser.add_argument("-r", "--repo", action="store", dest="repo", help="Repository to check: [Group/]Repo",
                         default='DiracGrid/DIRACOS')
 
+    parser.add_argument("--newTag", action="store", default=self.newTag, dest="newTag",
+                         help="Convert a tag on Github to a release includeing version info")
+
+    parser.add_argument("--versionInfo", action="store", default=self.versionInfo, dest="versionInfo",
+                    help="Location of file containing version information")
+
+    parser.add_argument("--PRInfo", action="store", default=self.PRInfo, dest="PRInfo",
+                    help="Location of file containing PRInfo")
+
     parsed = parser.parse_args()
 
     self.printLevel = _parsePrintLevel(parsed.debug)
@@ -253,6 +266,12 @@ class GithubInterface(object):
     log.info('Getting PRs for: %s', self.branches)
     self.openPRs = parsed.openPRs
     log.info('Also including openPRs?: %s', self.openPRs)
+
+    self.versionInfo = parsed.versionInfo
+    self.PRInfo = parsed.PRInfo
+    self.newTag = parsed.newTag
+    if self.newTag is not None:
+      self.createGithubRelease()
 
     self.last = parsed.last
     self.startDate = parsed.startDate
@@ -312,7 +331,7 @@ class GithubInterface(object):
     rawReleaseNotes = defaultdict(dict)
 
     for pr in prs:
-      baseBranch = pr['base']['label'][len("DiracGrid:"):]
+      baseBranch = pr['base']['label'][len("diracos:"):]
       if baseBranch not in self.branches:
         continue
       comment = parseForReleaseNotes(pr['body'])
@@ -384,11 +403,41 @@ class GithubInterface(object):
       commitInfo = req2Json(url=self._github("git/commits/%s" % self.latestTagInfo['sha']))
       self.latestTagInfo['date'] = commitInfo['committer']['date']
 
-#    lastCommitInfo = req2Json(url=self._github("branches/%s" % self.branch))
-#    self._lastCommitOnBranch =  lastCommitInfo['commit']
-
     return self.latestTagInfo
 
+  def formatReleaseNotes( self ):
+    """ print the release notes """
+    PRText = ""
+    if os.path.isfile(self.PRInfo):
+      PRs = open(self.PRInfo, "r")
+      PRText = PRs.read()
+    else:
+      LOGGER.error("Did not find file containing PRs at path: %s", self.PRInfo)
+      exit(1)
+
+    versionText = ""
+    if os.path.isfile(self.versionInfo):
+      versions = open(self.versionInfo, "r")
+      versionText = versions.read()
+    else:
+      LOGGER.error("Did not find file containing version information at path: %s", self.versionInfo)
+      exit(1)
+    return "## This release contains the following PRs \n %s## Included versions of packages\n %s" % (PRText, versionText.split("\n",1)[1])
+
+
+  def createGithubRelease( self ):
+    """ make a release on github """
+
+    releaseDict = dict( tag_name=self.newTag,
+                       target_commitish="master",
+                       name=self.newTag,
+                       body=self.formatReleaseNotes(),
+                       prerelease=False,
+                       draft=False,
+                       )
+
+    result = req2Json(url=self._github( "releases" ), parameterDict=releaseDict, requestType='POST')
+    return result
 
 if __name__ == "__main__":
 
