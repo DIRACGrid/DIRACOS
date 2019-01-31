@@ -23,7 +23,7 @@ changelog:
     - export PYTHONPATH=$(pwd)
     - mkdir changes
     - python ./docs/Tools/GetReleaseNotes.py --last > changes/PRs.txt
-    - less changes/PRs.txt | cat - release.notes > temp
+    - cat changes/PRs.txt | cat - release.notes > temp
     - source ./docs/Tools/CreateName.sh
     - echo -n "[${BUILD_NAME}]" | cat - temp > changes/release.notes
 
