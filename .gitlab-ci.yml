@@ -152,6 +152,9 @@ push_tag:
     GIT_STRATEGY: none
   image: cern/cc7-base
   before_script:
+    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    - python get-pip.py
+    - pip install requests
     - yum install git less -y
     - eval `ssh-agent -s`
     - mkdir -p ~/.ssh
