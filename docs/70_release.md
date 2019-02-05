@@ -1,37 +1,30 @@
 # Make a new release
+Each release can done manually or automatically and consists of the following steps:
 
-
-Making a new release involves the following steps:
-
-  1. Update the release.notes
-  2. make a release branch
-  3. fix the versions in requirements.txt and commit it in the branch
-  4. build DIRACOS
-  5. deploy the archive
-
-
+## Manual execution of steps
+### Get list of PRs and update release notes
 First of all, get the latest master branch, from which we perform the release. **Careful, you are working with the main repository !**
 
 ```
-   git clone git@github.com:DIRACGrid/DIRACOS.git
-   cd DIRACOS
+git clone git@github.com:DIRACGrid/DIRACOS.git
+cd DIRACOS
 ```
 
-## Updating the release.notes
+No get all the PRs since the last tag. This has to be done using [this script](https://github.com/DIRACGrid/DIRACOS/blob/master/docs/Tools/GetReleaseNotes.py) in the DIRACOS repository by executing
+```
+   python ./docs/Tools/GetReleaseNotes.py --last
+```
+Documentation on how to use it can be found [here](https://dirac.readthedocs.io/en/latest/DeveloperGuide/DevelopmentModel/ReleaseProcedure/index.html?highlight=GetReleaseNotes#release-notes).
 
-This has to be done using [this script](https://github.com/DIRACGrid/DIRAC/blob/integration/docs/Tools/GetReleaseNotes.py) in the DIRAC repository:
-
-Documentation on how to use it can be found [here](https://dirac.readthedocs.io/en/latest/DeveloperGuide/DevelopmentModel/ReleaseProcedure/index.html?highlight=GetReleaseNotes#release-notes)
-
-Once the release.notes is updated, commit and push to the master branch.
+Once you have added this list to the release.notes, commit and push to the master branch.
 
 ```
-   git add release.notes
-   git commit -m "release.notes update for version XYZ"
-   git push origin master
+git add release.notes
+git commit -m "release.notes update for version XYZ"
+git push origin master
 ```
 
-## Make a release branch
+### Make a release branch
 
 ```
    # Start a new branch
@@ -39,7 +32,7 @@ Once the release.notes is updated, commit and push to the master branch.
    git checkout -b branch_XYZ
 ```
 
-## Fix the pip requirements versions
+### Fix the pip requirements versions
 
 The aim of this step is to have a `requirements.txt` with fixed version for every package, such that it is fixed in time. You can of course do it manually...
 Otherwise, there is a utility script `dos-fix-pip-versions`. This script will start from a `requirements.txt` file with loose versions, and do the following:
@@ -86,7 +79,7 @@ Once you are satisfied, you can update the version in the json file, commit, tag
    git push --tags origin XYZ
 ```
 
-### About git packages
+#### About git packages
 
 At the moment, there are only two packages taken from git:
 
@@ -96,13 +89,13 @@ At the moment, there are only two packages taken from git:
 Reminder: to install from a given branch: `git+https://:@gitlab.cern.ch:8443/fts/fts-rest.git@myBranch#egg=fts3` (the egg parameter is the name that the package will take)
 
 
-## Build DIRACOS
+### Build DIRACOS
 
 All [here](30_generatingDIRACOS.md).
 
 Just make sure to use the tag you just created
 
-## Deploy the archive
+### Deploy the archive
 
 The archive should be placed in `/eos/project/d/diracos/www/releases`
 
@@ -113,3 +106,26 @@ Generate the signature of the archive
 ```
 
 Copy the tarball and the md5 file in the release directory
+
+## Automatic generation of a release
+The CI has been setup to automatically generate test builds as well as releases
+### New Release
+If you push a branch with the name `rel-X.Y.Z` the CI will automatically generate a relase `X.Y.Z`, the `rel-*` prefix is the sign to trigger a release.
+```
+   git clone git@github.com:DIRACGrid/DIRACOS.git
+   cd DIRACOS
+   git checkout -b rel-X.Y.Z
+   git push origin rel-X.Y.Z
+
+```
+This will do all the steps desribed in the previous section on manual release. No further intervention necessary.
+### Test Build
+If you push a branch with the name `test_build` the CI will automatically generate a build with the name  `test_build`, the absence of the `rel-*` prefix is the sign to trigger just a build.
+```
+git clone git@github.com:DIRACGrid/DIRACOS.git
+cd DIRACOS
+git checkout -b test_build
+git push origin test_build
+
+```
+This will create a build of DIRACOS, and upload the tarball to the DIRACOS webpage. ***No tag will be performed!***
