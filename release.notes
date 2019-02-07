@@ -1,3 +1,26 @@
+[1.0.0]
+
+NEW: (#38) add runit
+CHANGE: (#40) new packaging version of yum-utils yum-utils-1.1.30-42.el6_10
+FIX: (#43) Deploy nightly build of master and tags to https://diracos.web.cern.ch
+NEW: (#44) cx_Oracle as a python dependency
+NEW: (#47) add tests of DIRACOS on CC7, SLC6, ubuntu, fedora
+NEW: (#48) build git's SRPM
+NEW: (#50) test that there are no absolute symlinks in DIRACOS
+FIX: (#50) absolute symlinks and all hard linksare transformed into copies
+FIX: (#50) create a virtualenv with no external symlinks
+CHANGE: (#51) Shrink the size of DIRACOS by removing useless libs
+FIX: (#51) fix the test for Fedora
+NEW: (#52) Add mysql client
+NEW: (#52) Add test for cli
+CHANGE: (#52) CI jobs deployed only from the main ILC repo
+CHANGE: (#53) use http://diracos.web.cern.ch/ for DIRACOS
+NEW: (#54) add pyasn1 and pyasn1_modules
+NEW: (#57) Extend the CI to produce tags, releases and builds based on branch name
+NEW: (#58) Document release versioning scheme
+
+
+
 [0.0.8]
 
 NEW: (#33) documentation on how to make a release
