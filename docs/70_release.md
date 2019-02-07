@@ -10,7 +10,7 @@ git clone git@github.com:DIRACGrid/DIRACOS.git
 cd DIRACOS
 ```
 
-No get all the PRs since the last tag. This has to be done using [this script](https://github.com/DIRACGrid/DIRACOS/blob/master/docs/Tools/GetReleaseNotes.py) in the DIRACOS repository by executing
+Now get all the PRs since the last tag. This has to be done using [this script](https://github.com/DIRACGrid/DIRACOS/blob/master/docs/Tools/GetReleaseNotes.py) in the DIRACOS repository by executing
 ```
    python ./docs/Tools/GetReleaseNotes.py --last
 ```
