@@ -1,5 +1,5 @@
 {
-   "version": "master",
+   "version": "1.0.0",
    "comment": "This is the latest version",
    "rpmBuild": {
       "mockConfig": "../mockConfigs/mock-build-diracos.cfg",
