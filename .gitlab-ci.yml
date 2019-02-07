@@ -1,20 +1,52 @@
 variables:
     EOS_PATH: "/eos/project/d/diracos/www/"
-    GIT_SUBMODULE_STRATEGY: recursive
 
 stages:
+    - changelog
     - compile
     - links
     - test
     - deploy
+    - push
+
+changelog:
+  stage: changelog
+  tags:
+    - docker
+  image: cern/cc7-base
+  except:
+    - tags
+  before_script:
+    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    - python get-pip.py
+    - pip install requests
+  script:
+    - echo "GITHUBTOKEN = \"$GITHUBTOKEN\"" >& GitTokens.py
+    - export PYTHONPATH=$(pwd)
+    - mkdir changes
+    - python ./docs/Tools/GetReleaseNotes.py --last > changes/PRs.txt
+    - cat changes/PRs.txt | cat - release.notes > temp
+    - source ./docs/Tools/CreateName.sh
+    - echo -n "[${BUILD_NAME}]" | cat - temp > changes/release.notes
+
+  artifacts:
+    paths:
+      - changes
 
 compile:
   stage: compile
+  dependencies:
+    - changelog
   retry: 2
   tags:
     - DIRACOS
+  except:
+    - tags
   image: cern/slc6-base
   script:
+    - source ./docs/Tools/CreateName.sh
+    - sed -i "2s/master/${BUILD_NAME}/" config/diracos.json
+    - cp config/diracos.json changes/diracos.json
     - yum install -y mock rpm-build fedora-packager createrepo python-pip
     - export DIRACOS_REPO=/diracos_repo
     - mkdir -p $DIRACOS_REPO/i386 $DIRACOS_REPO/i686 $DIRACOS_REPO/src $DIRACOS_REPO/noarch $DIRACOS_REPO/x86_64 $DIRACOS_REPO/bootstrap $DIRACOS_REPO/buildOnly
@@ -25,50 +57,58 @@ compile:
     - sed -i -e 's/-j4/-j16/g' mockConfigs/mock-build-diracos.cfg
     - dos-build-all-rpms config/diracos.json
     - dos-fix-pip-versions config/diracos.json
-    - mkdir -p public/${CI_COMMIT_REF_NAME}
-    - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt public/${CI_COMMIT_REF_NAME}/.
+    - mkdir -p public/releases
+    - if [[ "${CI_COMMIT_REF_NAME}" == "master" ]]; then cp /var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt public/releases/requirements_master.txt ; fi
+    - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt changes/requirements.txt
+    - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt config/requirements.txt
     - dos-build-python-modules config/diracos.json
     - dos-bundle config/diracos.json
-    - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/diracos-${CI_COMMIT_REF_NAME}.tar.gz public/${CI_COMMIT_REF_NAME}/diracos-${CI_COMMIT_REF_NAME}.tar.gz
-    - cd public/${CI_COMMIT_REF_NAME}
-    - md5sum diracos-${CI_COMMIT_REF_NAME}.tar.gz | awk {'print $1'} > diracos-${CI_COMMIT_REF_NAME}.md5
+    - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/diracos-${BUILD_NAME}.tar.gz public/releases/diracos-${BUILD_NAME}.tar.gz
+    - cd public/releases
+    - md5sum diracos-${BUILD_NAME}.tar.gz | awk {'print $1'} > diracos-${BUILD_NAME}.md5
   artifacts:
     paths:
       - public
+      - changes
     expire_in: 1 week
 
 
 # Check links
 check_links:
   stage: links
+  dependencies:
+    - compile
   tags:
     - docker
+  except:
+    - tags
   image: cern/slc6-base
   before_script:
     - yum install tar -y
   script:
-    - tar xf public/${CI_COMMIT_REF_NAME}/diracos-${CI_COMMIT_REF_NAME}.tar.gz -C /tmp
+    - source ./docs/Tools/CreateName.sh
+    - tar xf public/releases/diracos-${BUILD_NAME}.tar.gz -C /tmp
     - export DIRACOS=/tmp/diracos
     - source $DIRACOS/diracosrc
     - ./tests/integration/test_symlink.sh
-  dependencies:
-    - compile
-
 
 # Run tests
 
 .run_test:
   stage: test
+  dependencies:
+    - compile
   tags:
     - docker
+  except:
+    - tags
   script:
-    - tar xf public/${CI_COMMIT_REF_NAME}/diracos-${CI_COMMIT_REF_NAME}.tar.gz -C /tmp
+    - source ./docs/Tools/CreateName.sh
+    - tar xf public/releases/diracos-${BUILD_NAME}.tar.gz -C /tmp
     - export DIRACOS=/tmp/diracos
     - source $DIRACOS/diracosrc
     - pytest tests/integration/test_import.py
     - tests/integration/test_cli.sh
-  dependencies:
-    - compile
 
 SLC6:
   extends: .run_test
@@ -96,8 +136,9 @@ ubuntu-latest:
 # Deploy to EOS folder
 deployment:
     stage: deploy
+    dependencies:
+      - compile
     only:
-      - tags@CLICdp/iLCDirac/DIRACOS
       - branches@CLICdp/iLCDirac/DIRACOS
     # Custom docker image providing the needed tools to deploy in EOS
     image: gitlab-registry.cern.ch/ci-tools/ci-web-deployer:latest
@@ -106,3 +147,52 @@ deployment:
     # do not run any globally defined before_script or after_script for this step
     before_script: []
     after_script: []
+
+# Update release notes and tag
+push_tag:
+  stage: push
+  dependencies:
+    - changelog
+    - compile
+  only:
+    - branches@CLICdp/iLCDirac/DIRACOS
+  tags:
+    - docker
+  variables:
+    GIT_STRATEGY: none
+  image: cern/cc7-base
+  before_script:
+    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    - python get-pip.py
+    - pip install requests
+    - yum install git less -y
+    - eval `ssh-agent -s`
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_KEY" | tr -d '\r' > /root/.ssh/id_rsa
+    - chmod 700 /root/.ssh/id_rsa
+    - ssh-keyscan -H github.com >> /root/.ssh/known_hosts
+    - git config --global user.email "dirac.os@cern.ch"
+    - git config --global user.name "DIRACOS"
+    - git config --global pull.rebase true
+  script:
+    - git clone git@github.com:DIRACGrid/DIRACOS.git DIRACOS
+    - cd DIRACOS
+    - source ./docs/Tools/CreateName.sh
+    - mkdir bundle
+    - tar xf ../public/releases/diracos-${BUILD_NAME}.tar.gz -C bundle
+    - git pull origin master
+    - cp ../changes/release.notes release.notes
+    - git add release.notes
+    - git commit -m"Add release notes for ${BUILD_NAME}"
+    - if [[ $MAKE_TAG ]]; then git push origin master ; fi
+    - cp ../changes/requirements.txt config/requirements.txt
+    - cp ../changes/diracos.json config/diracos.json
+    - git add config/requirements.txt
+    - git add config/diracos.json
+    - git commit -m"Update requirements.txt and diracos.json for release ${BUILD_NAME}"
+    - git tag ${BUILD_NAME}
+    - if [[ $MAKE_TAG ]]; then git push origin --tags ; fi
+    - echo "GITHUBTOKEN = \"$GITHUBTOKEN\"" >& GitTokens.py
+    - export PYTHONPATH=$(pwd)
+    - if [[ $MAKE_TAG ]]; then python ./docs/Tools/GetReleaseNotes.py --PRInfo ../changes/PRs.txt --versionInfo bundle/diracos/versions.txt --newTag ${BUILD_NAME} ; fi
