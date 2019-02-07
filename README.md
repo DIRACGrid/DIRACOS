@@ -43,19 +43,25 @@ DIRACOS aims at bringing in one archive all the dependencies needed by DIRAC.
   * [ Symlinks](docs/50_troubleshoot.md#symlinks)
 - [ Test DIRACOS as a User](docs/60_useDIRACOS.md#test-diracos-as-a-user)
 - [ Make a new release](docs/70_release.md#make-a-new-release)
-  * [ Updating the CHANGELOG](docs/70_release.md#updating-the-changelog)
-  * [ Make a release branch](docs/70_release.md#make-a-release-branch)
-  * [ Fix the pip requirements versions](docs/70_release.md#fix-the-pip-requirements-versions)
-    + [ About git packages](docs/70_release.md#about-git-packages)
-  * [ Build DIRACOS](docs/70_release.md#build-diracos)
-  * [ Deploy the archive](docs/70_release.md#deploy-the-archive)
+  * [ Versioning](docs/70_release.md#versioning)
+  * [ Manual execution of steps](docs/70_release.md#manual-execution-of-steps)
+    + [ Get list of PRs and update release notes](docs/70_release.md#get-list-of-prs-and-update-release-notes)
+    + [ Make a release branch](docs/70_release.md#make-a-release-branch)
+    + [ Fix the pip requirements versions](docs/70_release.md#fix-the-pip-requirements-versions)
+      + [ About git packages](docs/70_release.md#about-git-packages)
+    + [ Build DIRACOS](docs/70_release.md#build-diracos)
+    + [ Deploy the archive](docs/70_release.md#deploy-the-archive)
+  * [ Automatic generation of a release](docs/70_release.md#automatic-generation-of-a-release)
+    + [ New Release](docs/70_release.md#new-release)
+    + [ Test Build](docs/70_release.md#test-build)
+
 
 
 
 Note: summary generated with
 ```
 # the pages are sorted thanks to the numbers in front
-for doc in $(find docs -type f | sort -n );
+for doc in $(find docs -type f -name '*.md'| sort -n );
 do grep '^#' $doc | while read title;
    do
      # The text is the title, with an indentation level depending on the depth, with square brackets
