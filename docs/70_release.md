@@ -1,4 +1,13 @@
 # Make a new release
+
+## Versioning
+
+Each version has 3 digits: version X.Y.Z:
+
+* X will only change if we change the base build system. For example if we go to CC7 as base, X goes to 2
+* Y changes when we change major version of packages inside (be it rpm or python)
+* Z changes when we change minor version of packages inside
+
 Each release can done manually or automatically and consists of the following steps:
 
 ## Manual execution of steps
@@ -19,9 +28,9 @@ Documentation on how to use it can be found [here](https://dirac.readthedocs.io/
 Once you have added this list to the release.notes, commit and push to the master branch.
 
 ```
-git add release.notes
-git commit -m "release.notes update for version XYZ"
-git push origin master
+   git add release.notes
+   git commit -m "release.notes update for version XYZ"
+   git push origin master
 ```
 
 ### Make a release branch
@@ -122,10 +131,9 @@ This will do all the steps desribed in the previous section on manual release. N
 ### Test Build
 If you push a branch with the name `test_build` the CI will automatically generate a build with the name  `test_build`, the absence of the `rel-*` prefix is the sign to trigger just a build.
 ```
-git clone git@github.com:DIRACGrid/DIRACOS.git
-cd DIRACOS
-git checkout -b test_build
-git push origin test_build
-
+   git clone git@github.com:DIRACGrid/DIRACOS.git
+   cd DIRACOS
+   git checkout -b test_build
+   git push origin test_build
 ```
 This will create a build of DIRACOS, and upload the tarball to the DIRACOS webpage. ***No tag will be performed!***
