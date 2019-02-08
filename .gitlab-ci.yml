@@ -185,14 +185,14 @@ push_tag:
     - cp ../changes/release.notes release.notes
     - git add release.notes
     - git commit -m"Add release notes for ${BUILD_NAME}"
-    - if [[ $MAKE_TAG ]]; then git push origin master ; fi
+    - if $MAKE_TAG ; then git push origin master ; fi
     - cp ../changes/requirements.txt config/requirements.txt
     - cp ../changes/diracos.json config/diracos.json
     - git add config/requirements.txt
     - git add config/diracos.json
     - git commit -m"Update requirements.txt and diracos.json for release ${BUILD_NAME}"
     - git tag ${BUILD_NAME}
-    - if [[ $MAKE_TAG ]]; then git push origin --tags ; fi
+    - if $MAKE_TAG ; then git push origin --tags ; fi
     - echo "GITHUBTOKEN = \"$GITHUBTOKEN\"" >& GitTokens.py
     - export PYTHONPATH=$(pwd)
-    - if [[ $MAKE_TAG ]]; then python ./docs/Tools/GetReleaseNotes.py --PRInfo ../changes/PRs.txt --versionInfo bundle/diracos/versions.txt --newTag ${BUILD_NAME} ; fi
+    - if $MAKE_TAG ; then python ./docs/Tools/GetReleaseNotes.py --PRInfo ../changes/PRs.txt --versionInfo bundle/diracos/versions.txt --newTag ${BUILD_NAME} ; fi
