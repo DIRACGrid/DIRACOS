@@ -38,4 +38,4 @@ Only SLC6 and CC7 are supported. We have automated tests for the LTS Ubuntu and 
 
 ### Trick
 
-On the latest Fedora, we noticed that adding a `LD_PRELOAD` fixes the tests, but again, use at your own risk, and do not ask for support
+If the tests are green, you can check gitlab-ci.yml to see what are the hooks we use to make the tests work on Fedora and Ubuntu. But again, use at your own risk, and do not ask for support.
