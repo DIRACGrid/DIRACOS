@@ -58,6 +58,7 @@ compile:
     - dos-build-all-rpms config/diracos.json
     - dos-fix-pip-versions config/diracos.json
     - mkdir -p public/releases
+    - mkdir -p public/RPMs
     - if [[ "${CI_COMMIT_REF_NAME}" == "master" ]]; then cp /var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt public/releases/requirements_master.txt ; fi
     - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt changes/requirements.txt
     - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt config/requirements.txt
@@ -66,6 +67,10 @@ compile:
     - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/diracos-${BUILD_NAME}.tar.gz public/releases/diracos-${BUILD_NAME}.tar.gz
     - cd public/releases
     - md5sum diracos-${BUILD_NAME}.tar.gz | awk {'print $1'} > diracos-${BUILD_NAME}.md5
+    - cd ../..
+    - tar -zcf public/RPMs/diracos-${BUILD_NAME}-RPMs.tar.gz /diracos_repo
+    - cd public/RPMs/
+    - md5sum diracos-${BUILD_NAME}-RPMs.tar.gz | awk {'print $1'} > diracos-${BUILD_NAME}-RPMs.md5
   artifacts:
     paths:
       - public
