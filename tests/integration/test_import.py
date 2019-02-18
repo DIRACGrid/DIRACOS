@@ -64,6 +64,7 @@ moduleNames = [
     'itertools',
     'json',
     'logging',
+    'M2Crypto',
     'math',
     'matplotlib',
     'mock',
