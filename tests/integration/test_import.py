@@ -52,7 +52,6 @@ moduleNames = [
     'gfal2',
     'git',
     'glob',
-    'GSI',
     'gzip',
     'hashlib',
     'httplib',
