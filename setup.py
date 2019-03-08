@@ -9,7 +9,7 @@ base_dir = os.path.dirname(__file__)
 setup(
     name='diracos',
     description='Tools to build DIRACOS',
-    version="0.0.1",
+    version="1.0.0",
     author='Christophe Haen',
     author_email='christophe.haen@cern.ch',
     url='https://github.com/DIRACGrid/DIRACOS',
@@ -23,5 +23,6 @@ setup(
                             'dos-fix-pip-versions=scripts.fixPipRequirementsVersions:main'
                              ],
     },
-    packages=find_packages()
+    packages=find_packages(),
+    package_data = {'diracos': ['scriptTemplates/*']},
 )

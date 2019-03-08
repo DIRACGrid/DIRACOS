@@ -11,15 +11,16 @@ def main():
   jsonConf = sys.argv[1]
 
   cfg = Conf.load(jsonConf)
-  #pprint.pprint(allPackages)
 
   mockInstallConfig = cfg['mockInstallConfig']
   mockInstallRoot = cfg['mockInstallRoot']
-  pipRequirements=  cfg['pipRequirements']
+  pipRequirements = cfg['pipRequirements']
+  pipBuildDependencies = cfg['pipBuildDependencies']
 
+  fixedVersionFile = diracoslib.fixPipRequirementsVersions(
+      mockInstallConfig, mockInstallRoot, pipRequirements, pipBuildDependencies)
+  print "Fixed version file in %s" % fixedVersionFile
 
-  fixedVersionFile = diracoslib.fixPipRequirementsVersions(mockInstallConfig, mockInstallRoot, pipRequirements)
-  print "Fixed version file in %s"%fixedVersionFile
 
 if __name__ == '__main__':
   main()

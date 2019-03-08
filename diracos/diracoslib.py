@@ -11,6 +11,9 @@ import subprocess
 import tempfile
 from yum import rpmUtils
 
+from diracos import BUILD_PYTHON_MODULE_SH_TPL_PATH, FIX_PIP_REQUIREMENTS_VERSIONS_SH_TPL_PATH,\
+    DIRACOSRC_TPL_PATH, PYTHON_BUNDLE_LIB_PATH, BUNDLE_DIRACOS_SCRIPT_SH_TPL_PATH
+
 
 def _downloadFile(url, dest):
   """
@@ -473,7 +476,6 @@ def buildPackage(packageCfg):
     _executeRoutine(routineFile, **packageCfg)
   else:
 
-    #preRoutine = packageCfg.get('preRoutine')
     if os.path.exists(preRoutineFile):
       # run preRoutine
       _executeRoutine(preRoutineFile, **packageCfg)
@@ -491,44 +493,6 @@ def buildPackage(packageCfg):
     if postRoutine:
       routineFile = os.path.join(packageCfg['routineDir'], 'post-%s.py' % packageCfg['name'])
       _executeRoutine(routineFile, **packageCfg)
-
-
-
-# This is the template file used to generate the shell script to build the python modules
-BUILD_PYTHON_MODULE_SH_TPL = """#!/bin/bash
-# This script is normally called automatically with the arguments taken from the json configuration file
-
-PIP_BUILD_DEPENDENCIES="%(pipBuildDependencies)s"
-PIP_DIRAC=/tmp/pipDirac
-
-echo "Installing pip"
-cd /tmp
-curl -O -L https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
-
-echo "Preparing to build pythong packages"
-
-echo "Pip build dependencies $PIP_BUILD_DEPENDENCIES"
-
-echo "Installing dependency"
-yum install $PIP_BUILD_DEPENDENCIES
-
-yum install python2-virtualenv
-
-# We use the --always-copy option in order not to have
-# symlinks to the system.
-# However, we cannot just do virtualenv --always-copy /tmp/pipDirac
-# See: https://github.com/pypa/virtualenv/issues/565#issuecomment-305002914
-
-mkdir $PIP_DIRAC
-cd $PIP_DIRAC
-virtualenv .
-cd /tmp/
-
-source $PIP_DIRAC/bin/activate
-pip install -r /tmp/requirements.txt
-virtualenv --relocatable $PIP_DIRAC
-"""
 
 
 def buildPythonModules(
@@ -567,10 +531,14 @@ def buildPythonModules(
   else:
     _downloadFile(pipRequirementFile, pipRequirementInMock)
 
+  # Read the content of the template file
+  with open(BUILD_PYTHON_MODULE_SH_TPL_PATH, 'r') as tplFile:
+    build_python_module_sh_tpl = ''.join(tplFile.readlines())
+
   shellBuildScript = os.path.join(mockInstallRoot, 'root/tmp/buildPythonModules.sh')
   with open(shellBuildScript, 'w') as sbs:
     sbs.write(
-        BUILD_PYTHON_MODULE_SH_TPL % {
+        build_python_module_sh_tpl % {
             'pipBuildDependencies': ' '.join(pipBuildDependencies)})
   os.chmod(shellBuildScript, 0o755)
 
@@ -578,8 +546,6 @@ def buildPythonModules(
   logging.debug("mockInstallConfig %s", mockInstallConfig)
   logging.debug("pipRequirementFile %s", pipRequirementFile)
   logging.debug("pipBuildDependencies %s", pipBuildDependencies)
-
-  #shellArgs = ' '.join(['root/tmp/buildPythonModules.sh', pipRequirementFile] + pipBuildDependencies)
 
   pipBuildCmd = ['mock', '-r', mockInstallConfig, '--shell', '/tmp/buildPythonModules.sh']
   logging.debug("building python packages with: %s", pipBuildCmd)
@@ -603,72 +569,34 @@ def bundleDIRACOS(fullCfg):
 
   logging.info("Bootstraping packaging of diracos")
 
-  # We copy the bundlelib and the json conf in the mock environment and run that
+  # We copy the bundlelib, the shell templates and the json conf in the /tmp folder
+  # of the mock environment and run the bundlelib.py
 
   mockInstallRoot = fullCfg['mockInstallRoot']
   mockInstallConfig = fullCfg['mockInstallConfig']
 
-  jsonConfPath = os.path.join(mockInstallRoot, 'root/tmp/conf.json')
-  bundlelibDestPath = os.path.join(mockInstallRoot, 'root/tmp/bundlelib.py')
-  bundlelibSrcPath = os.path.join(os.path.dirname(__file__), 'bundlelib.py')
+  mockTmpPath = os.path.join(mockInstallRoot, 'root/tmp')
 
-  shutil.copyfile(bundlelibSrcPath, bundlelibDestPath)
-  os.chmod(bundlelibDestPath, 0o755)
+  jsonConfPath = os.path.join(mockTmpPath, 'conf.json')
 
   with open(jsonConfPath, 'w') as jc:
     json.dump(fullCfg, jc)
+
+  for fileToCopy in (PYTHON_BUNDLE_LIB_PATH, BUNDLE_DIRACOS_SCRIPT_SH_TPL_PATH, DIRACOSRC_TPL_PATH):
+    fn = os.path.basename(fileToCopy)
+    destPathInMock = os.path.join(mockTmpPath, fn)
+    shutil.copyfile(fileToCopy, destPathInMock)
+    # Not strictly needed, but make it executable
+    os.chmod(destPathInMock, 0o755)
 
   bundleCmd = ['mock', '-r', mockInstallConfig, '--shell', 'python /tmp/bundlelib.py']
   subprocess.check_call(bundleCmd)
 
 
-FIX_PIP_REQUIREMENTS_VERSIONS_SH_TPL = """#!/bin/bash
-# This script is normally called automatically with the arguments taken from the json configuration file
-
-
-# This is the file containing the loose requirements
-# It was copied there by fixPipRequirementsVersions
-PIP_REQUIREMENTS_LOOSE=/tmp/loose_requirements.txt
-
-echo "Installing pip"
-cd /tmp
-curl -O -L https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
-
-echo "Fixing the version"
-
-# First, copy the git requirements to the target file
-grep 'git+' loose_requirements.txt > fixed_requirements.txt
-
-# Add the strict versions
-grep '==' loose_requirements.txt >> fixed_requirements.txt
-
-# Transform the '<=' requirements into '=='
-grep '<=' loose_requirements.txt | sed 's/<=/==/g' >> fixed_requirements.txt
-
-# For all the '>=', check the latest versions known to pip, and use that one
-for pkg in $(grep '>=' loose_requirements.txt | awk -F '[>=]' {'print $1'});
-do
-  # When asking pip to install version 0.0.0, it will fail and list you which available versions there are
-  latest=$(pip install $pkg==0.0.0 2>&1 | grep 'from versions' | awk -F '[,:]' {'print $NF'} | sed -e 's/)//g' -e 's/ //g');
-  echo "$pkg==$latest";
-done >> fixed_requirements.txt
-
-
-# For all the non specified version, check the latest versions known to pip, and use that one
-for pkg in $(grep -vE '(=|#|git)' loose_requirements.txt |  awk  {'print $1'});
-do
-  # When asking pip to install version 0.0.0, it will fail and list you which available versions there are
-  latest=$(pip install $pkg==0.0.0 2>&1 | grep 'from versions' | awk -F '[,:]' {'print $NF'} | sed -e 's/)//g' -e 's/ //g');
-  echo "$pkg==$latest";
-done >> fixed_requirements.txt
-
-"""
-
-
 def fixPipRequirementsVersions(mockInstallConfig,
                                mockInstallRoot,
-                               pipRequirementFile):
+                               pipRequirementFile,
+                               pipBuildDependencies):
   """
       Takes a pip requirements file, and prints it with fixed versions.
       The versions are tacken from the mock environent
@@ -682,12 +610,10 @@ def fixPipRequirementsVersions(mockInstallConfig,
       :param mockInstallConf: path to the mock config file in which to perform the build
       :param mockInstallRoot: root path of the mock installation
       :param pipRequirementFile: url/path to the requirements.txt
+      :param pipBuildDependencies: list of RPM packages to install prior to compiling the version.
 
       :returns: path to the requirements file with fixed versions
   """
-
-
-
   # First, init the environment
 
   mockInitCmd = ['mock', '-r', mockInstallConfig, '--init']
@@ -708,9 +634,12 @@ def fixPipRequirementsVersions(mockInstallConfig,
 
   # We copy the script to fix the versions in the mock environment
 
+  with open(FIX_PIP_REQUIREMENTS_VERSIONS_SH_TPL_PATH, 'r') as tplFile:
+    fix_pip_requirements_versions_sh_tpl = ''.join(tplFile.readlines())
+
   shellFixVersionsScript = os.path.join(mockInstallRoot, 'root/tmp/fixPipVersions.sh')
   with open(shellFixVersionsScript, 'w') as sbs:
-    sbs.write(FIX_PIP_REQUIREMENTS_VERSIONS_SH_TPL)
+    sbs.write(fix_pip_requirements_versions_sh_tpl % {'pipBuildDependencies': ' '.join(pipBuildDependencies)})
   os.chmod(shellFixVersionsScript, 0o755)
 
   fixVersionsCmd = ['mock', '-r', mockInstallConfig, '--shell', '/tmp/fixPipVersions.sh']
