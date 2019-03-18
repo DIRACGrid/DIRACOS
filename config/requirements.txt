@@ -38,4 +38,5 @@ suds-jurko>=0.6
 hypothesis
 python-json-logger>=0.1.8
 cx_Oracle
+tornado>=5.0.0,<6.0.0
 
