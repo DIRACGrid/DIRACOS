@@ -17,7 +17,6 @@ DIRACOS aims at bringing in one archive all the dependencies needed by DIRAC.
   * [ Altering the normal build workflow](docs/10_RPMs.md#altering-the-normal-build-workflow)
   * [ Caching mechanism](docs/10_RPMs.md#caching-mechanism)
   * [ Adding an RPM package](docs/10_RPMs.md#adding-an-rpm-package)
-  * [ runit special case](docs/10_RPMs.md#runit-special-case)
 - [ Python packages](docs/20_pythonPackages.md#python-packages)
   * [ Adding a python package](docs/20_pythonPackages.md#adding-a-python-package)
 - [ Generate a new diracos](docs/30_generatingDIRACOS.md#generate-a-new-diracos)

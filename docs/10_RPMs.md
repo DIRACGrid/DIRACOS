@@ -94,39 +94,3 @@ Common locations for packages include:
 
 
 Note: For any middleware package, rather use the source repo (for example http://dmc-repo.web.cern.ch/d) than derived (like EPEL)
-
-
-## runit special case
-
-Since there is no SRPM for runit, I made one, starting from `https://github.com/imeyer/runit-rpm.git`
-You can do it on any machine where mock is available, but you might as well use the same setup as the one for building DIRACOS..
-
-```
-  # Clone the repository
-  git clone https://github.com/imeyer/runit-rpm.git
-  cd runit-rpm
-
-  # download the sources of runit
-  curl -O -L http://smarden.org/runit/runit-2.1.2.tar.gz
-
-  # We could have patched the SRPM while building DIRACOS, but since we are at it anyway...
-  # extract the sources, and make sure that all the binaries we need are compiled
-  tar xvzf runit-2.1.2.tar.gz
-
-  # edit the first line of the Makefile so that it contains runsvctrl and runsvstat
-  # head -n 1 admin/runit-2.1.2/src/Makefile
-  # IT=chpst runit runit-init runsv runsvchdir runsvdir sv svlogd utmpset runsvstat runsvctrl
-
-  # Also add them in admin/runit-2.1.2/package/commands
-
-  # Add them in the %files section of the runit.spec
-
-  # retar the sources
-  tar cvzf runit-2.1.2.tar.gz admin/
-
-  # build the srpm using mock
-  mock -r epel-6-x86_64 --buildsrpm --sources=/tmp/runit/runit-rpm/ --spec /tmp/runit/runit-rpm/runit.spec
-
-  # result is /var/lib/mock/epel-6-x86_64/result/runit-2.1.2-1.el6.src.rpm
-
-```
