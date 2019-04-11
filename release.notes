@@ -1,3 +1,21 @@
+[v1r1]
+
+FIX: (#64) Use BASH_SOURCE instead of first argument in diracosrc
+CHANGE: (#67) take fts3-rest from pipy instead of github. Replace coverall with codecov.
+CHANGE: (#67) reorganizing the diracos tools for better readability of the scripts
+CHANGE: (#67) use pip-tools to compile the python package versions, and use pip freeze for listing all the packages shipped
+NEW: (#68) add Tornado to the python requirements list
+CHANGE: (#70) remove runit from DIRACOS
+NEW: (#55) if DIRACOS env variable is not defined, diracosrc infers it as its current location
+NEW: (#57) Extend the CI to produce tags, releases and builds based on branch name
+NEW: (#58) Document release versioning scheme
+FIX: (#60) fix fedora's tests for F29
+FIX: (#61) correct if conditions in CI yml
+FIX: (#62) DIRACOS inference was buggy
+NEW: (#63) after a successful build upload the tar of RPMs to the DIRACOS webpage
+
+
+
 [1.0.0]
 
 NEW: (#38) add runit
