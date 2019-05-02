@@ -1,6 +1,9 @@
 #!/bin/bash
 # This script is normally called automatically with the arguments taken from the json configuration file
 
+# Exit directly in case of errors
+set -e
+
 PIP_BUILD_DEPENDENCIES="%(pipBuildDependencies)s"
 PIP_DIRAC=/tmp/pipDirac
 
