@@ -1,6 +1,8 @@
 #!/bin/bash
 # This script is normally called automatically with the arguments taken from the json configuration file
 
+# Exit directly in case of errors
+set -e
 
 # This is the file containing the loose requirements
 # It was copied there by fixPipRequirementsVersions

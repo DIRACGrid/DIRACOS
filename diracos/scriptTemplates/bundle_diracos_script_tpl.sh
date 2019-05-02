@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Exit directly in case of errors
+set -e
 
 # The list of PKGs we want to distribute.
 # If not given as parameter, all the rpms in the x86_64 and noarch subfolder
