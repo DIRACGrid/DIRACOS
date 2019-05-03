@@ -22,8 +22,12 @@ mkdir $DIRACOS
 cd $DIRACOS
 for i in $PKG_URLS; do curl -L $i | rpm2cpio | cpio -dvim; done
 
+# We need to copy the python modules using rsync
+# because some directory are overwriten by files
+yum install -y rsync
+
 echo "Copying python modules"
-cp -r /tmp/pipDirac/lib/* $DIRACOS/usr/lib64/
+rsync -zvr /tmp/pipDirac/lib/ $DIRACOS/usr/lib64/
 cp -r /tmp/pipDirac/bin/ $DIRACOS/usr/
 
 echo "Deleting empty directories"
