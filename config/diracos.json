@@ -520,9 +520,7 @@
                   "buildOnly": true
                },
                {
-                  "comment": "Carreful, testing package",
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-2.15.4-1.el6.src.rpm",
-                  "src_old": "http://dmc-repo.web.cern.ch/dmc-repo/testing/el6/x86_64/gfal2-2.15.2-r1803011640.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-2.16.1-1.el6.src.rpm",
                   "excludePatterns": [
                      ".*-doc-.*",
                      ".*-debuginfo-.*",
