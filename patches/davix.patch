@@ -1,28 +1,36 @@
-diff -u -r davix-orig/davix.spec davix-patched/davix.spec
---- davix-orig/davix.spec	2017-05-17 09:55:19.000000000 +0200
-+++ davix-patched/davix.spec	2018-03-27 15:34:37.202090474 +0200
-@@ -25,11 +25,6 @@
+diff -u -r original/davix.spec modified/davix.spec
+--- original/davix.spec 2019-03-20 11:54:36.000000000 +0100
++++ modified/davix.spec 2019-05-08 17:37:46.416589447 +0200
+@@ -25,10 +25,6 @@
  # davix-copy dependencies
  BuildRequires:                  gsoap-devel
-
+ BuildRequires:                  libuuid-devel
 -# unit tests and abi check
 -%if %{?fedora}%{!?fedora:0} >= 10 || %{?rhel}%{!?rhel:0} >= 6
 -BuildRequires:                  abi-compliance-checker
 -%endif
--BuildRequires:                  gtest-devel
 
  Requires:                       %{name}-libs%{?_isa} = %{version}-%{release}
-
-@@ -97,12 +92,6 @@
+ Requires:                       libuuid
+@@ -86,18 +82,15 @@
  make %{?_smp_mflags}
  make doc
 
 -%check
 -%if %{?fedora}%{!?fedora:0} >= 10 || %{?rhel}%{!?rhel:0} >= 6
--make abi-check
+-#make abi-check
 -%endif
 -ctest -V -T Test
--
+
 
  %install
  rm -rf %{buildroot}
+ make DESTDIR=%{buildroot} install
+
+-%ldconfig_scriptlets libs
++%post libs -p /sbin/ldconfig
++
++%postun libs -p /sbin/ldconfig
+
+ %files
+ %{_bindir}/*
