@@ -529,7 +529,7 @@
                   "name": "gfal2"
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-python-1.9.3-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-python-1.9.5-1.el6.src.rpm",
                   "name": "gfal2-python"
                },
                {
