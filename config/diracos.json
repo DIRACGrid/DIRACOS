@@ -118,6 +118,11 @@
                   "name": "boost"
                },
                {
+                  "comment": "Needed for querying the BDII",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/openldap-2.4.40-16.el6.src.rpm",
+                  "name": "openldap"
+               },
+               {
                   "comment": "Needed by PyQt4 and git and needs python ABI",
                   "src": "https://diracos.web.cern.ch/diracos/SRPM/asciidoc-8.4.5-4.1.el6.src.rpm",
                   "name": "asciidoc",
