@@ -131,7 +131,7 @@ fedora-latest:
   allow_failure: true
   before_script:
     # Needed for ARC
-    - yum install -y libnsl
+    - yum install -y libnsl libxcrypt-compat
 
 ubuntu-latest:
   extends: .run_test
