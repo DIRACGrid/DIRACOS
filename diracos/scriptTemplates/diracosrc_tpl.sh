@@ -20,3 +20,16 @@ export PATH
 
 # Silence the python warnings
 export PYTHONWARNINGS="ignore"
+
+# ARC Computing Element
+ARC_PLUGIN_PATH=$DIRACOS/usr/lib64/arc;
+export ARC_PLUGIN_PATH;
+
+# Gfal configuration
+GFAL_CONFIG_DIR=$DIRACOS/etc/gfal2.d;
+export GFAL_CONFIG_DIR;
+
+
+# Gfal plugins
+GFAL_PLUGIN_DIR=$DIRACOS/usr/lib64/gfal2-plugins/;
+export GFAL_PLUGIN_DIR;
