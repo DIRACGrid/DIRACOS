@@ -119,11 +119,15 @@ SLC6:
   extends: .run_test
   image: cern/slc6-base
   before_script:
-    - yum install tar -y
+    # graphical libraries needed for rrdtool
+    - yum install -y tar freetype fontconfig pixman libXrender
 
 CC7:
   extends: .run_test
   image: cern/cc7-base
+  before_script:
+    # graphical libraries needed for rrdtool
+    - yum install -y freetype fontconfig pixman libXrender
 
 fedora-latest:
   extends: .run_test
