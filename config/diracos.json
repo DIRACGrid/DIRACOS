@@ -667,6 +667,11 @@
                {
                   "src": "https://diracos.web.cern.ch/diracos/SRPM/curl-7.19.7-53.el6_9.src.rpm",
                   "name": "curl"
+               },
+               {
+                  "comment": "Needed by ssh for SSHCE",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/fipscheck-1.2.0-7.el6.src.rpm",
+                  "name": "fipscheck"
                }
             ]
          },
