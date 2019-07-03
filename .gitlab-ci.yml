@@ -202,7 +202,7 @@ push_tag:
     - git add config/requirements.txt
     - git add config/diracos.json
     - git commit -m"Update requirements.txt and diracos.json for release ${BUILD_NAME}"
-    - git tag ${BUILD_NAME}
+    - git tag -a ${BUILD_NAME} -m "${BUILD_NAME}"
     - if $MAKE_TAG ; then git push origin --tags ; fi
     - echo "GITHUBTOKEN = \"$GITHUBTOKEN\"" >& GitTokens.py
     - export PYTHONPATH=$(pwd)
