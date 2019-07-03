@@ -1,3 +1,21 @@
+[v1r2]
+
+NEW: (#71) Explicitly require M2Crypto 0.32.0
+FIX: (#71) bash scripts exit on errors
+FIX: (#72) use rsync to copy python modules in diracos
+CHANGE: (#73) Davix 0.7.2, gfal2 2.16.1, gfal2-python 1.9.5
+NEW: (#76) Add openldap to bundle
+FIX: (#79) Add missing libxcrypt-compat package for import_test.py under Fedora 30
+CHANGE: (#80) Freeze the typing module to version 3.6.6., because newer version cause an exception in hypothesis
+NEW: (#81) specify ARC and GFAL plugins locations in diracosrc
+NEW: (#82) more binary tests
+FIX: (#84) add fipscheck as dependency of ssh
+FIX: (#84) add graphic libraries to SLC6 & CC7 docker images for rrdtools tests
+CHANGE: (#85) Change base container to centos6 and enable EPEL
+CHANGE: (#86) Change tag from Lightweight to Annotated
+
+
+
 [v1r1]
 
 FIX: (#64) Use BASH_SOURCE instead of first argument in diracosrc
