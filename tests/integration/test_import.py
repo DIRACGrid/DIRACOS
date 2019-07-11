@@ -18,9 +18,23 @@ parametrize = pytest.mark.parametrize
 # find . -name '*.py' -exec grep '^from ' {} \; | grep -v DIRAC | awk
 # {'print $2'} | sort -u | grep -v '\.'
 
+# Notes that these scripts will make some false positive appear
+# As of now, they are
+# config
+# diracdoctools
+# diracdoctools.cmd
+# dont_import_two
+# local_stuff
+# modules_in_one_line
+# more_local_stuff
+# some_third_party_lib
+# some_third_party_other_lib
+
 
 moduleNames = [
     'arc',
+    'argparse',
+    'array',
     'ast',
     'atexit',
     'base64',
@@ -34,20 +48,22 @@ moduleNames = [
     'cmd',
     'collections',
     'commands',
-    'json',
+    'contextlib',
     'copy',
     'cStringIO',
     'csv',
     'cx_Oracle',
     'datetime',
-    'decimal',
     'difflib',
     'distutils.spawn',
     'elasticsearch',
     'elasticsearch_dsl',
     'errno',
+    'fcntl',
+    'filecmp',
     'fnmatch',
     'functools',
+    '__future__',
     'getopt',
     'getpass',
     'gfal2',
@@ -62,6 +78,7 @@ moduleNames = [
     'importlib',
     'inspect',
     'io',
+    'irods',
     'itertools',
     'json',
     'logging',
@@ -77,11 +94,13 @@ moduleNames = [
     'os',
     'os.path',
     'pickle',
+    'pilotTools',
     'pkgutil',
     'platform',
     'pprint',
     'psutil',
     'pwd',
+    'pyasn1_modules',
     'pylab',
     'pyparsing',
     'pytest',
@@ -97,6 +116,7 @@ moduleNames = [
     'shlex',
     'shutil',
     'signal',
+    'six',
     'smtplib',
     'socket',
     'SocketServer',
@@ -107,15 +127,15 @@ moduleNames = [
     'stomp',
     'string',
     'StringIO',
+    '_strptime',
     'struct',
     'subprocess',
     'suds',
-    'suds.client',
-    'suds.transport',
     'sys',
     'syslog',
     'tarfile',
     'tempfile',
+    'textwrap',
     'thread',
     'threading',
     'time',
@@ -125,12 +145,10 @@ moduleNames = [
     'urllib',
     'urllib2',
     'urlparse',
-    'uuid',
-    'xml.sax',
     'xml.dom.minidom',
-    'XRootD',
+    'xml.sax',
     'zipfile',
-    'zlib',
+    'zlib'
 ]
 
 # List here the modules that are allowed to Fail.
