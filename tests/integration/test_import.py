@@ -26,6 +26,7 @@ moduleNames = [
     'base64',
     'BaseHTTPServer',
     'binascii',
+    'builtins',
     'bz2',
     'calendar',
     'certifi',
