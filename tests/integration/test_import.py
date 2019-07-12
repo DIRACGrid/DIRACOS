@@ -94,7 +94,6 @@ moduleNames = [
     'os',
     'os.path',
     'pickle',
-    'pilotTools',
     'pkgutil',
     'platform',
     'pprint',
