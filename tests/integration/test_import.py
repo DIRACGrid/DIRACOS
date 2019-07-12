@@ -78,7 +78,6 @@ moduleNames = [
     'importlib',
     'inspect',
     'io',
-    'irods',
     'itertools',
     'json',
     'logging',
