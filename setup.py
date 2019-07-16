@@ -20,9 +20,10 @@ setup(
                             'dos-build-python-modules=scripts.buildPythonModules:main',
                             'dos-bundle=scripts.bundleDiracOS:main',
                             'dos-dump-config=scripts.dumpConfig:main',
-                            'dos-fix-pip-versions=scripts.fixPipRequirementsVersions:main'
-                             ],
+                            'dos-fix-pip-versions=scripts.fixPipRequirementsVersions:main',
+                            'dos-build-extension=scripts.buildDiracOSExtension:main',
+                            ],
     },
     packages=find_packages(),
-    package_data = {'diracos': ['scriptTemplates/*']},
+    package_data={'diracos': ['scriptTemplates/*']},
 )

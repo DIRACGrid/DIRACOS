@@ -53,6 +53,15 @@ DIRACOS aims at bringing in one archive all the dependencies needed by DIRAC.
   * [ Automatic generation of a release](docs/70_release.md#automatic-generation-of-a-release)
     + [ New Release](docs/70_release.md#new-release)
     + [ Test Build](docs/70_release.md#test-build)
+- [ Extending DIRACOS](docs/80_extendingDIRACOS.md#extending-diracos)
+  * [ Requesting a package to be added in DIRACOS](docs/80_extendingDIRACOS.md#requesting-a-package-to-be-added-in-diracos)
+  * [ Adding pure python packages](docs/80_extendingDIRACOS.md#adding-pure-python-packages)
+    + [ Initial setup](docs/80_extendingDIRACOS.md#initial-setup)
+    + [ Configuration files](docs/80_extendingDIRACOS.md#configuration-files)
+    + [ Building the extension](docs/80_extendingDIRACOS.md#building-the-extension)
+  * [ Adding RPM packages or compiled python packages](docs/80_extendingDIRACOS.md#adding-rpm-packages-or-compiled-python-packages)
+  * [ Removing packages](docs/80_extendingDIRACOS.md#removing-packages)
+  * [ Using DIRACOS extension in your DIRAC extension](docs/80_extendingDIRACOS.md#using-diracos-extension-in-your-dirac-extension)
 
 
 

@@ -17,3 +17,6 @@ DIRACOSRC_TPL_PATH = path.join(SCRIPT_TPL_PATH, 'diracosrc_tpl.sh')
 
 # The python bundling script that we have to put in the mock environment
 PYTHON_BUNDLE_LIB_PATH = path.join(path.dirname(path.realpath(__file__)), 'bundlelib.py')
+
+# Tpl script to build a DIRACOS extension
+BUILD_DIRACOS_EXTENSION_TPL_PATH = path.join(SCRIPT_TPL_PATH, 'build_diracos_extension_tpl.sh')

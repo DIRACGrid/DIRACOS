@@ -41,7 +41,7 @@ def load(jsonFile):
         if not urlparse(fullConf[opt]).scheme:
           fullConf[opt] = os.path.abspath(os.path.join(confDirectory, fullConf[opt]))
 
-    rpmBuildConf = fullConf['rpmBuild']
+    rpmBuildConf = fullConf.get('rpmBuild', {})
 
     allPackagesConfig = []
 
