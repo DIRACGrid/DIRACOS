@@ -1,3 +1,16 @@
+[v1r3]
+
+CHANGE: (#85) Change base container to centos6 and enable EPEL
+CHANGE: (#86) Change tag from Lightweight to Annotated
+CHANGE: (#88) relax M2Crypto version
+CHANGE added python packages: future, pytest-mock, plus specifying some versions
+CHANGE: (#90) import tests are inline with the DIRAC integration branch
+CHANGE: (#91) fix version of elasticsearch to less than 7.0.0
+CHANGE: (#92) Don't test irods import
+FIX: (#92) Don't test pilotTools import
+
+
+
 [v1r2]
 
 NEW: (#71) Explicitly require M2Crypto 0.32.0
