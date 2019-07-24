@@ -1,5 +1,7 @@
 #!/bin/bash
 # This script is normally called automatically with the arguments taken from the json configuration file
+# If there are python packages to compile, the work will be done in the Mock environment
+# Otherwise it will use Conda
 
 # Exit directly in case of errors
 set -e
@@ -18,22 +20,37 @@ PIP_BUILD_DEPENDENCIES="%(pipBuildDependencies)s"
 
 
 
-echo "Installing pip"
-cd /tmp
-curl -O -L https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
+if [ ! -z $PIP_BUILD_DEPENDENCIES ];
+then
+  echo "Installing pip"
+  cd /tmp
+  curl -O -L https://bootstrap.pypa.io/get-pip.py
+  python get-pip.py
 
-echo "Installing pip-tools"
-pip install pip-tools
+  echo "Installing pip-tools"
+  pip install pip-tools
 
 
-# We need to install the dependencies such that pip-compile
-# can work
-echo "Pip build dependencies $PIP_BUILD_DEPENDENCIES"
+  # We need to install the dependencies such that pip-compile
+  # can work
+  echo "Pip build dependencies $PIP_BUILD_DEPENDENCIES"
 
-echo "Installing dependency"
-yum install -y $PIP_BUILD_DEPENDENCIES
+  echo "Installing dependency"
+  yum install -y $PIP_BUILD_DEPENDENCIES
 
+else
+  echo "No dependencies to be installed, using Conda"
+
+  # The reason for using Conda is that we need pip-tools
+  # which works only from python 2.7
+  # but centos6 (which is the base for our build) has only 2.6
+  cd /tmp/
+  curl -O -L https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh
+  chmod +x Miniconda2-latest-Linux-x86_64.sh
+  ./Miniconda2-latest-Linux-x86_64.sh -b -p /tmp/condaFixVersions
+  PATH=/tmp/condaFixVersions/bin:$PATH
+  pip install pip-tools
+fi
 
 echo "Fixing the version"
 
@@ -43,6 +60,10 @@ echo "Fixing the version"
 grep -v 'git+' $PIP_REQUIREMENTS_LOOSE > $PIP_REQUIREMENTS_FIXED
 
 # If there are packages from git, we can't compile them, so print a warning
+
+# We need to disable the 'exit on failure' feature because
+# grep will return an error if not finding any git+https package
+set +e
 
 gitPackages=$(grep 'git+https' $PIP_REQUIREMENTS_LOOSE)
 # gitpackageFound is 0 if packages were found
@@ -57,6 +78,8 @@ then
   done;
 fi
 
+# Exit on failure again
+set -e
 
 # Now, compile all the non packages
 # The change is done in place
@@ -70,32 +93,14 @@ then
 fi
 
 # add back the git packages
-
+set +e
 grep 'git+https' $PIP_REQUIREMENTS_LOOSE >> $PIP_REQUIREMENTS_FIXED
+set -e
 
 
-# # First, copy the git requirements to the target file
-# grep 'git+' PIP_REQUIREMENTS_LOOSE > fixed_requirements.txt
 
-# # Add the strict versions
-# grep '==' PIP_REQUIREMENTS_LOOSE >> fixed_requirements.txt
-
-# # Transform the '<=' requirements into '=='
-# grep '<=' loose_requirements.txt | sed 's/<=/==/g' >> fixed_requirements.txt
-
-# # For all the '>=', check the latest versions known to pip, and use that one
-# for pkg in $(grep '>=' loose_requirements.txt | awk -F '[>=]' {'print $1'});
-# do
-#   # When asking pip to install version 0.0.0, it will fail and list you which available versions there are
-#   latest=$(pip install $pkg==0.0.0 2>&1 | grep 'from versions' | awk -F '[,:]' {'print $NF'} | sed -e 's/)//g' -e 's/ //g');
-#   echo "$pkg==$latest";
-# done >> fixed_requirements.txt
-
-
-# # For all the non specified version, check the latest versions known to pip, and use that one
-# for pkg in $(grep -vE '(=|#|git)' loose_requirements.txt |  awk  {'print $1'});
-# do
-#   # When asking pip to install version 0.0.0, it will fail and list you which available versions there are
-#   latest=$(pip install $pkg==0.0.0 2>&1 | grep 'from versions' | awk -F '[,:]' {'print $NF'} | sed -e 's/)//g' -e 's/ //g');
-#   echo "$pkg==$latest";
-# done >> fixed_requirements.txt
+if [ -z $PIP_BUILD_DEPENDENCIES ];
+then
+  echo "Removing conda"
+  rm -rf /tmp/condaFixVersions
+fi

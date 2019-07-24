@@ -12,7 +12,7 @@ import tempfile
 from yum import rpmUtils
 
 from diracos import BUILD_PYTHON_MODULE_SH_TPL_PATH, FIX_PIP_REQUIREMENTS_VERSIONS_SH_TPL_PATH,\
-    DIRACOSRC_TPL_PATH, PYTHON_BUNDLE_LIB_PATH, BUNDLE_DIRACOS_SCRIPT_SH_TPL_PATH
+    DIRACOSRC_TPL_PATH, PYTHON_BUNDLE_LIB_PATH, BUNDLE_DIRACOS_SCRIPT_SH_TPL_PATH, BUILD_DIRACOS_EXTENSION_TPL_PATH
 
 
 def _downloadFile(url, dest):
@@ -561,8 +561,6 @@ def bundleDIRACOS(fullCfg):
       It copies the configuration and a few python files inside the mock environment, so they can be used
       in isolation.
 
-
-
     :param fullCfg: full configuration loaded
 
   """
@@ -598,14 +596,15 @@ def fixPipRequirementsVersions(mockInstallConfig,
                                pipRequirementFile,
                                pipBuildDependencies):
   """
-      Takes a pip requirements file, and prints it with fixed versions.
-      The versions are tacken from the mock environent
 
       * packages from git are left untouched
       * requirements '==' are left untouched
       * requirements '<=' are fixed to '=='
       * requirements '>=' are fixed to the latest version available
       * requirements with no version are fixed to the latest available
+
+      If there are packages to build, we fix the version inside the Mock environment,
+      otherwise we use the local /tmp/ and Conda (because we need python 2.7)
 
       :param mockInstallConf: path to the mock config file in which to perform the build
       :param mockInstallRoot: root path of the mock installation
@@ -614,35 +613,106 @@ def fixPipRequirementsVersions(mockInstallConfig,
 
       :returns: path to the requirements file with fixed versions
   """
+
   # First, init the environment
 
-  mockInitCmd = ['mock', '-r', mockInstallConfig, '--init']
-  logging.debug("Initializing environment with: %s", mockInitCmd)
+  if pipBuildDependencies:
 
-  subprocess.check_call(mockInitCmd)
+    mockInitCmd = ['mock', '-r', mockInstallConfig, '--init']
+    logging.debug("Initializing environment with: %s", mockInitCmd)
+
+    subprocess.check_call(mockInitCmd)
+
+    # Place the original requirements.txt and the scripts inside the mock environment
+    pipRequirementInBuildEnv = os.path.join(mockInstallRoot, 'root/tmp/loose_requirements.txt')
+    shellFixVersionsScript = os.path.join(mockInstallRoot, 'root/tmp/fixPipVersions.sh')
+    fixVersionsCmd = ['mock', '-r', mockInstallConfig, '--shell', '/tmp/fixPipVersions.sh']
+    fixedVersionPath = os.path.join(mockInstallRoot, 'root/tmp/fixed_requirements.txt')
+
+  else:
+    # Set it to an empty dict if evalued to false
+    pipBuildDependencies = {}
+
+    # Place the original requirements.txt and the scripts in local /tmp
+    pipRequirementInBuildEnv = '/tmp/loose_requirements.txt'
+    shellFixVersionsScript = '/tmp/fixPipVersions.sh'
+    fixVersionsCmd = ['/tmp/fixPipVersions.sh']
+    fixedVersionPath = '/tmp/fixed_requirements.txt'
 
   logging.info("Fixing versions of requirements file")
 
-  # We need to put the requirments.txt in the mock directory.
-  # if it is a file, we copy it, if not, we download it
-  # The destination is always /tmp/loose_requirements.txt
-  pipRequirementInMock = os.path.join(mockInstallRoot, 'root/tmp/loose_requirements.txt')
+  # if requirements.txt is a file, we copy it, if not, we download it
+  # The destination is always /tmp/loose_requirements.txt (inside the Mock environment or not)
   if os.path.isfile(pipRequirementFile):
-    shutil.copy(pipRequirementFile, pipRequirementInMock)
+    shutil.copy(pipRequirementFile, pipRequirementInBuildEnv)
   else:
-    _downloadFile(pipRequirementFile, pipRequirementInMock)
+    _downloadFile(pipRequirementFile, pipRequirementInBuildEnv)
 
-  # We copy the script to fix the versions in the mock environment
+  # We write the script to fix the versions
 
   with open(FIX_PIP_REQUIREMENTS_VERSIONS_SH_TPL_PATH, 'r') as tplFile:
     fix_pip_requirements_versions_sh_tpl = ''.join(tplFile.readlines())
 
-  shellFixVersionsScript = os.path.join(mockInstallRoot, 'root/tmp/fixPipVersions.sh')
   with open(shellFixVersionsScript, 'w') as sbs:
     sbs.write(fix_pip_requirements_versions_sh_tpl % {'pipBuildDependencies': ' '.join(pipBuildDependencies)})
   os.chmod(shellFixVersionsScript, 0o755)
 
-  fixVersionsCmd = ['mock', '-r', mockInstallConfig, '--shell', '/tmp/fixPipVersions.sh']
   subprocess.check_call(fixVersionsCmd)
 
-  return os.path.join(mockInstallRoot, 'root/tmp/fixed_requirements.txt')
+  return fixedVersionPath
+
+
+def buildDiracOSExtension(extensionName, diracOsVersion, diracOsExtVersion, pipRequirementFile):
+  """
+      Build a DIRACOS extension.
+      This currently allows only for adding pure python packages to the extension.
+
+      It works by downloading a version of DIRACOS, setting it up in the environment,
+      and using pip (from DIRACOS) to install the extensions. A new tarball is generated
+      following the naming convention "<extensionName>diracos-<version>.tar.gz"
+
+      :param extensionName: name of the extension
+      :param diracOsVersion: version of DIRACOS on which to build the extension
+      :param diracOsExtVersion: version of the extension we are building
+      :param pipRequirementFile: path to the requirements.txt
+
+      :returns: path to the tar file.
+  """
+
+  # The build happens in a temporary directory, no need for Mock since no build is needed
+
+  # Creating a temporary directory.
+  # We do not need to be in a mock environment, so just do it here
+  tmpDir = tempfile.mkdtemp()
+
+  # We need to put the requirments.txt in the proper directory.
+  # if it is a file, we copy it, if not, we download it
+  # The destination is always requirements.txt
+
+  pipRequirementInTmp = os.path.join(tmpDir, 'requirements.txt')
+  logging.info("Putting requirements file in %s", pipRequirementInTmp)
+  if os.path.isfile(pipRequirementFile):
+    logging.info("using standard file copy")
+    shutil.copy(pipRequirementFile, pipRequirementInTmp)
+  else:
+    logging.info("Donwloading...")
+    _downloadFile(pipRequirementFile, pipRequirementInTmp)
+
+  # Generate the script to build the extension
+
+  with open(BUILD_DIRACOS_EXTENSION_TPL_PATH, 'r') as tplFile:
+    build_diracos_extension_tpl = ''.join(tplFile.readlines())
+
+  buildExtensionScript = os.path.join(tmpDir, 'build_diracos_extension.sh')
+  with open(buildExtensionScript, 'w') as bes:
+    bes.write(build_diracos_extension_tpl % {'extensionName': extensionName,
+                                             'diracOsVersion': diracOsVersion,
+                                             'diracOsExtVersion': diracOsExtVersion,
+                                             'tmpDir': tmpDir,
+                                             })
+  os.chmod(buildExtensionScript, 0o755)
+
+  buildExtensionCmd = [buildExtensionScript]
+  subprocess.check_call(buildExtensionCmd)
+
+  return os.path.join(tmpDir, '%sdiracos-%s.tar.gz' % (extensionName, diracOsExtVersion))

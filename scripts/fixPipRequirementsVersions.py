@@ -12,11 +12,12 @@ def main():
 
   cfg = Conf.load(jsonConf)
 
-  mockInstallConfig = cfg['mockInstallConfig']
-  mockInstallRoot = cfg['mockInstallRoot']
+  mockInstallConfig = cfg.get('mockInstallConfig')
+  mockInstallRoot = cfg.get('mockInstallRoot')
   pipRequirements = cfg['pipRequirements']
-  pipBuildDependencies = cfg['pipBuildDependencies']
+  pipBuildDependencies = cfg.get('pipBuildDependencies')
 
+  # No need to do it in mock if there are no build dependencies
   fixedVersionFile = diracoslib.fixPipRequirementsVersions(
       mockInstallConfig, mockInstallRoot, pipRequirements, pipBuildDependencies)
   print "Fixed version file in %s" % fixedVersionFile

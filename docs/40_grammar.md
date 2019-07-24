@@ -31,7 +31,7 @@ In order to simplify the configuration and make it more readable, the packages t
                    "name" : "pkg2",
                    "opt1" : 3
                 }
-            ]  
+            ]
          }
      ]
   }
@@ -90,4 +90,9 @@ Any other options will be read and passed to the build functions. Usefull exampl
 * `pipBuildDependencies`: list of rpm packages required to perform the pip install
 * `pipRequirements`: url/path to the requirements.txt file to feed pip
 * `removedFolders`: list of absolute path of folders that are considered useless and can be removed at the end of the build
-* `version`: version of dirac os being built (just a tag...)
+* `version`: version of dirac os (or diracos extension) being built (just a tag...)
+
+## Extension specific options
+
+* `extensionName`: name of the extension. This name will be prepended to the extension tarfile
+* `diracOsVersion`: version of DIRACOS on top of which to build the extension
