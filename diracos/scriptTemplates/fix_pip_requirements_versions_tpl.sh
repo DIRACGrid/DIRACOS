@@ -20,7 +20,7 @@ PIP_BUILD_DEPENDENCIES="%(pipBuildDependencies)s"
 
 
 
-if [ ! -z $PIP_BUILD_DEPENDENCIES ];
+if [ ! -z "$PIP_BUILD_DEPENDENCIES" ];
 then
   echo "Installing pip"
   cd /tmp
@@ -99,7 +99,7 @@ set -e
 
 
 
-if [ -z $PIP_BUILD_DEPENDENCIES ];
+if [ -z "$PIP_BUILD_DEPENDENCIES" ];
 then
   echo "Removing conda"
   rm -rf /tmp/condaFixVersions
