@@ -444,7 +444,8 @@
                   "buildOnly": true
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/xrootd-4.8.3-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/xrootd-4.10.0-1.el7.src.rpm",
+                  "comment": "The SRPM for scl6 and cc7 are the same, and they only provide cc7",
                   "name": "xrootd",
                   "pkgList": [
                      "xrootd",
