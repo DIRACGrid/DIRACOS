@@ -1,132 +1,75 @@
---- xrootd-orig/xrootd.spec	2018-05-03 08:20:43.000000000 +0200
-+++ xrootd-patched/xrootd.spec	2018-06-28 14:13:38.010637407 +0200
-@@ -37,18 +37,6 @@
- BuildRequires:	systemd
- %endif
- BuildRequires:	python2-devel
--%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 8
--BuildRequires:	python3-devel
--%endif
--%if %{?rhel}%{!?rhel:0} == 7
--BuildRequires:	python34-devel
--%endif
--%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 7
--BuildRequires:	python2-sphinx
--%endif
--%if %{?rhel}%{!?rhel:0} == 6
--BuildRequires:	python-sphinx10
--%endif
- %if %{?fedora}%{!?fedora:0} >= 24
- BuildRequires:	librados-devel
- BuildRequires:	libradosstriper-devel
-@@ -216,18 +204,6 @@
+diff -r -u original/xrootd.spec modified/xrootd.spec
+--- original/xrootd.spec	2019-07-15 09:31:42.000000000 +0000
++++ modified/xrootd.spec	2019-09-26 11:25:07.119885691 +0000
+@@ -77,11 +77,6 @@
+ BuildRequires: json-c-devel
  
- %description -n python2-%{name}
- This package contains Python 2 bindings for xrootd.
--
--%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 7
--%package -n python%{python3_pkgversion}-%{name}
--Summary:	Python 3 bindings for xrootd
--%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
--Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
--Requires:	%{name}-client-libs%{?_isa} = %{epoch}:%{version}-%{release}
--
--%description -n python%{python3_pkgversion}-%{name}
--This package contains Python 3 bindings for xrootd.
+ BuildRequires: python2-devel
+-%if %{?fedora}%{!?fedora:0} >= 13
+-BuildRequires: python3-devel
+-%else
+-BuildRequires: python%{python3_pkgversion}-devel
 -%endif
+ 
+ BuildRequires: openssl-devel
+ 
+@@ -300,21 +295,6 @@
+ %description -n python2-xrootd
+ Python 2 bindings for XRootD
+ 
+-%if %{?_with_python3:1}%{!?_with_python3:0}
+-#-------------------------------------------------------------------------------
+-# python3
+-#-------------------------------------------------------------------------------
+-%package -n python3-%{name}
+-Summary:       Python 3 bindings for XRootD
+-Group:         Development/Libraries
+-%if %{?fedora}%{!?fedora:0} >= 13
+-%{?python_provide:%python_provide python3-%{name}}
+-%endif
+-Requires:      %{name}-client-libs%{?_isa} = %{epoch}:%{version}-%{release}
 -
- %package doc
- Summary:	Developer documentation for the xrootd libraries
- BuildArch:	noarch
-@@ -246,12 +222,6 @@
- make %{?_smp_mflags}
+-%description -n python3-xrootd
+-Python 3 bindings for XRootD
+-%endif
+ 
+ #-------------------------------------------------------------------------------
+ # doc
+@@ -464,12 +444,6 @@
  popd
+ %endif
  
--%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 7
+-%if %{?_with_python3:1}%{!?_with_python3:0}
+-# build python3 bindings
 -pushd build/bindings/python
 -%py3_build
 -popd
 -%endif
--
- pushd packaging/common
- make -f /usr/share/selinux/devel/Makefile
- popd
-@@ -260,13 +230,6 @@
  
- export PYTHONPATH=$(cd build/bindings/python/build/lib.*-%{python2_version} ; pwd)
- export LD_LIBRARY_PATH=${PWD}/build/src/XrdCl:${PWD}/build/src
--pushd bindings/python/docs
--%if %{?rhel}%{!?rhel:0} == 6
--make html SPHINXBUILD=sphinx-1.0-build
--%else
--make html
--%endif
--popd
+ #-------------------------------------------------------------------------------
+ # Installation
+@@ -586,12 +560,6 @@
+ install -m 644 -p packaging/common/xrootd.pp \
+     %{buildroot}%{_datadir}/selinux/packages/%{name}/%{name}.pp
  
- %install
- rm -rf %{buildroot}
-@@ -275,12 +238,6 @@
- make install DESTDIR=%{buildroot}
- popd
- 
--%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 7
+-%if %{?_with_python3:1}%{!?_with_python3:0}
+-# install python3 bindings
 -pushd build/bindings/python
 -%py3_install
 -popd
 -%endif
--
- # Service start-up scripts / unit files
- %if %{use_systemd}
- mkdir -p %{buildroot}%{_unitdir}
-@@ -352,28 +309,6 @@
- install -m 644 -p packaging/common/%{name}.pp \
-     %{buildroot}%{_datadir}/selinux/packages/%{name}
  
--# Documentation
--mkdir -p %{buildroot}%{_pkgdocdir}
--cp -pr doxydoc/html %{buildroot}%{_pkgdocdir}
--
--cp -pr bindings/python/docs/build/html %{buildroot}%{_pkgdocdir}/python
--rm %{buildroot}%{_pkgdocdir}/python/.buildinfo
--
--%ldconfig_scriptlets libs
--
--%ldconfig_scriptlets client-libs
--
--%ldconfig_scriptlets server-libs
--
--%if %{?fedora}%{!?fedora:0} >= 24
--%ldconfig_scriptlets ceph
--%endif
--
--%pre server
--getent group %{name} >/dev/null || groupadd -r %{name}
--getent passwd %{name} >/dev/null || useradd -r -g %{name} -s /sbin/nologin \
--  -d %{_localstatedir}/spool/%{name} -c "XRootD runtime user" %{name}
--
- # Remove obsolete service
- /sbin/service olbd stop >/dev/null 2>&1 || :
- /sbin/chkconfig --del olbd >/dev/null 2>&1 || :
-@@ -515,7 +450,6 @@
- %{_libdir}/libXrdCksCalczcrc32-4.so
- %{_libdir}/libXrdCryptossl-4.so
- %{_libdir}/libXrdSec*-4.so
--%license COPYING* LICENSE
+ %clean
+ rm -rf $RPM_BUILD_ROOT
+@@ -880,11 +848,6 @@
+ %files -n python2-%{name} -f xrootd/build/PYTHON_INSTALLED_FILES
+ %defattr(-,root,root,-)
  
- %files devel
- %{_bindir}/xrootd-config
-@@ -627,14 +561,6 @@
- %files -n python2-%{name}
- %{python2_sitearch}/*
- 
--%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 7
--%files -n python%{python3_pkgversion}-%{name}
+-%if %{?_with_python3:1}%{!?_with_python3:0}
+-%files -n python3-%{name}
+-%defattr(-,root,root,-)
 -%{python3_sitearch}/*
 -%endif
--
--%files doc
--%doc %{_pkgdocdir}
--
- %changelog
- * Thu May 03 2018 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:4.8.3-1
- - Update to version 4.8.3
+ 
+ %files doc
+ %defattr(-,root,root,-)
