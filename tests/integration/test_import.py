@@ -128,6 +128,7 @@ moduleNames = [
     '_strptime',
     'struct',
     'subprocess',
+    'subprocess32',
     'suds',
     'sys',
     'syslog',
@@ -162,60 +163,6 @@ GRAPHIC_MODULES = [
 
 diracosPath = os.environ['DIRACOS']
 
-
-#
-# def isRunningInContainer():
-#   """ Test whether we are running in container or not
-#       The test is a bit poor, but well...
-#
-#       :returns: True/False
-#   """
-#
-#   # The idea here would be to skip X related tests if we run in a container
-#   # That might however not be enough, maybe the libraries are just not installed.
-#   # So not too sure. In any case, there is a way to check whether we are in docker
-#   # which is to look at /proc/1/cgroup
-#   #
-#   # On a container, it looks something like that
-#   #   [root@079e3064e191 /]# cat /proc/1/cgroup
-#   #   11:pids:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#   #   10:freezer:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#   #   9:blkio:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#   #   8:perf_event:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#   #   7:net_cls,net_prio:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#   #   6:cpuset:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#   #   5:hugetlb:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#   #   4:devices:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#   #   3:cpu,cpuacct:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#   #   2:memory:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#   #   1:name=systemd:/system.slice/docker-079e3064e191183eac581081b01e7925dd8b8b5828b3931aa500d87c20aa3256.scope
-#
-#   # On a normal host, it looks something like that
-#   #   [root@pclhcb31 ~]# cat /proc/1/cgroup
-#   #   11:pids:/init.scope
-#   #   10:freezer:/
-#   #   9:blkio:/init.scope
-#   #   8:perf_event:/
-#   #   7:net_cls,net_prio:/
-#   #   6:cpuset:/
-#   #   5:hugetlb:/
-#   #   4:devices:/init.scope
-#   #   3:cpu,cpuacct:/init.scope
-#   #   2:memory:/init.scope
-#   #   1:name=systemd:/init.scope
-#
-#
-#   cgroupFile = '/proc/1/cgroup'
-#   try:
-#     with open(cgroupFile, 'r') as cgroupfd:
-#       allText = ''.join(cgroupfd.readlines())
-#     return 'docker' in allText
-#   except:
-#     print "Could not open %s"%cgroupFile
-#
-#   return False
-#
-# inContainer = isRunningInContainer()
 
 @parametrize('moduleName', moduleNames)
 def test_module(moduleName):

@@ -38,6 +38,7 @@ simplejson>=3.8.1
 six>=1.10
 sqlalchemy>=1.0.9
 stomp.py>=3.1.5
+subprocess32
 suds-jurko>=0.6
 # typing comes in via m2crypto. newer versions of typing caused an error in hypothesis
 typing==3.6.6
