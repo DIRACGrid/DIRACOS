@@ -1,3 +1,13 @@
+[v1r4]
+
+CHANGE: (#98) xrootd version from 4.8.3 to 4.10.0
+NEW: (#98) subprocess32 as explicit python requirement
+NEW: (#94) DIRACOS: Add tools to build pure python extensions
+CHANGE: (#94) DIRACOS: package scritps and tests under diracos package
+FIX: (#95) DIRACOS: surround list variable with quotes in script template
+
+
+
 [v1r3]
 
 CHANGE: (#85) Change base container to centos6 and enable EPEL
