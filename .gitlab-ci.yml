@@ -143,6 +143,47 @@ ubuntu-latest:
   image: ubuntu:latest
   allow_failure: true
 
+########### CHRIS
+# Run the dyn tests as a separate test for the time being, so to allow it to fail
+# later on, merge it with .run_test
+
+# Download the integration code of DIRAC, and dynamically check the dependencies
+.run_dyn_test:
+  stage: test
+  dependencies:
+    - compile
+  tags:
+    - docker
+  except:
+    - tags
+  script:
+    - curl --output /tmp/integration.zip -L https://github.com/DIRACGrid/DIRAC/archive/integration.zip
+    - unzip -d /tmp/  /tmp/integration.zip
+    - source ./docs/Tools/CreateName.sh
+    - tar xf public/releases/diracos-${BUILD_NAME}.tar.gz -C /tmp
+    - export DIRACOS=/tmp/diracos
+    - source $DIRACOS/diracosrc
+    - pip install findimports
+    - DIRAC=/tmp/DIRAC-integration/ pytest tests/integration/test_dyn_import.py
+
+SLC6:
+  extends: .run_dyn_test
+  image: cern/slc6-base
+  before_script:
+    # graphical libraries needed for rrdtool
+    - yum install -y tar freetype fontconfig pixman libXrender
+  allow_failure: true
+
+CC7:
+  extends: .run_dyn_test
+  image: cern/cc7-base
+  before_script:
+    # graphical libraries needed for rrdtool
+    - yum install -y freetype fontconfig pixman libXrender
+  allow_failure: true
+
+#######################################################################################
+
 
 # Deploy to EOS folder
 deployment:
