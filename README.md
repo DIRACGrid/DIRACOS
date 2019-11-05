@@ -2,7 +2,7 @@
 
 [![pipeline status](https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/badges/master/pipeline.svg)](https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/pipelines)
 
-DIRACOS aims at bringing in one archive all the dependencies needed by DIRAC.
+DIRACOS aims at bringing in one archive all the dependencies needed by DIRAC to run Agents, Services and clients. It is not intended to perform interactive tasks (debugging, file editing, etc). We are aware than some "basic" tools won't work (less, emacs, etc). They won't be fixed.
 
 
 - [ Principle](docs/0_concepts.md#principle)
