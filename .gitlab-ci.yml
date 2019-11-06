@@ -166,20 +166,20 @@ ubuntu-latest:
     - pip install findimports
     - DIRAC=/tmp/DIRAC-integration/ pytest tests/integration/test_dyn_import.py
 
-SLC6:
+dyn_SLC6:
   extends: .run_dyn_test
   image: cern/slc6-base
   before_script:
     # graphical libraries needed for rrdtool
-    - yum install -y tar freetype fontconfig pixman libXrender
+    - yum install -y tar freetype fontconfig pixman libXrender unzip
   allow_failure: true
 
-CC7:
+dyn_CC7:
   extends: .run_dyn_test
   image: cern/cc7-base
   before_script:
     # graphical libraries needed for rrdtool
-    - yum install -y freetype fontconfig pixman libXrender
+    - yum install -y freetype fontconfig pixman libXrender unzip
   allow_failure: true
 
 #######################################################################################
