@@ -135,8 +135,14 @@ fedora-latest:
   image: fedora:latest
   allow_failure: true
   before_script:
-    # Needed for ARC
-    - yum install -y libnsl libxcrypt-compat
+    # libnsl libxcrypt-compat: needed for ARC
+    # compat-openssl10: needed for ssh
+    - yum install -y libnsl libxcrypt-compat compat-openssl10
+    # trick for ssh to work, with compat-openssl10
+    # https://bugzilla.redhat.com/show_bug.cgi?id=1694850
+    - export OPENSSL_CONF=/etc/pki/openssl10.cnf
+
+
 
 ubuntu-latest:
   extends: .run_test
