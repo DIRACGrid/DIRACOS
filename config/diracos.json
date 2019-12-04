@@ -667,7 +667,7 @@
                   "buildOnly": true
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/mysql-community-5.7.21-1.el6.src.rpm",
+                  "src": "http://repo.mysql.com/yum/mysql-5.7-community/el/6/SRPMS/mysql-community-5.7.28-1.el6.src.rpm",
                   "name": "mysql-community",
                   "pkgList": [
                      "mysql-community-devel",
