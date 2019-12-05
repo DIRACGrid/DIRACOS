@@ -150,6 +150,7 @@ moduleNames = [
     'urlparse',
     'xml.dom.minidom',
     'xml.sax',
+    'xxhash',
     'zipfile',
     'zlib'
 ]
