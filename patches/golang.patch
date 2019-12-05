@@ -1,0 +1,25 @@
+From e29480a71cd5786ce3cba833e6e5bcf551125ceb Mon Sep 17 00:00:00 2001
+From: Chris Burr <christopher.burr@cern.ch>
+Date: Thu, 5 Dec 2019 13:29:16 +0000
+Subject: [PATCH] Remove subversion dependency
+
+---
+ golang/golang.spec |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/golang/golang.spec b/golang/golang.spec
+index 49459f1..f8de0a5 100644
+--- a/golang.spec
++++ b/golang.spec
+@@ -305,7 +305,7 @@ Requires(preun): %{_sbindir}/update-alternatives
+ # This is an odd issue, still looking for a better fix.
+ Requires:       glibc
+ Requires:       gcc
+-Requires:       git, subversion, mercurial
++Requires:       git, mercurial
+ %description    bin
+ %{summary}
+ 
+-- 
+1.7.1
+
