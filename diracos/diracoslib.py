@@ -286,6 +286,7 @@ def _buildFromSRPM(packageCfg):
 
   # Get the configuration needed
 
+  dosPkgName = packageCfg['name']
   srpmFile = packageCfg['src']
   repository = packageCfg['repo']
   mockConfig = packageCfg['mockConfig']
@@ -322,8 +323,7 @@ def _buildFromSRPM(packageCfg):
   # If no patchFile is specified but we have a patchDir,
   # try to find a patch file called like the package
   if not patchFile and patchDir:
-
-    potentialPatchFile = os.path.join(patchDir, '%s.patch' % pkgName)
+    potentialPatchFile = os.path.join(patchDir, '%s.patch' % dosPkgName)
     logging.debug("Checking existance of %s", potentialPatchFile)
     if os.path.isfile(potentialPatchFile):
       logging.debug("patch file found")
