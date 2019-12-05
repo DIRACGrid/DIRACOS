@@ -42,4 +42,10 @@ if ! (git --exec-path | grep "${DIRAC}"); then
   rc=1;
 fi
 
+# For singularity
+if !singularity version; then
+  echo "singularity version not working";
+  rc=1;
+fi
+
 exit $rc
