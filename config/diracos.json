@@ -640,7 +640,7 @@
                   "name": "zlib"
                },
                {
-                  "comment": "For backports.lzma",
+                  "comment": "For backports.lzma, required to read compressed files with uproot",
                   "src": "http://vault.centos.org/6.10/os/Source/SPackages/xz-4.999.9-0.5.beta.20091007git.el6.src.rpm",
                   "name": "xz",
                   "pkgList": [
