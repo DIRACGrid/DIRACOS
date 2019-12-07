@@ -686,28 +686,6 @@
                   ]
                },
                {
-                  "comment": "Older go is required to build newer golang versions",
-                  "src": "http://springdale.math.ias.edu/data/puias/computational/6/SRPMS/golang-1.5.1-0.sdl6.src.rpm",
-                  "name": "golang-old",
-                  "buildOnly": true
-               },
-               {
-                  "comment": "For running golang",
-                  "src": "http://vault.centos.org/6.10/os/Source/SPackages/mercurial-1.4-5.el6_9.src.rpm",
-                  "name": "mercurial",
-                  "buildOnly": true
-               },
-               {
-                  "comment": "To build singularity",
-                  "src": "http://download-ib01.fedoraproject.org/pub/epel/6/SRPMS/Packages/g/golang-1.13.3-1.el6.src.rpm",
-                  "name": "golang",
-                  "buildOnly": true
-               },
-               {
-                  "src": "http://download-ib01.fedoraproject.org/pub/epel/6/SRPMS/Packages/s/singularity-3.4.2-1.1.el6.src.rpm",
-                  "name": "singularity"
-               },
-               {
                   "src": "https://diracos.web.cern.ch/diracos/SRPM/curl-7.19.7-53.el6_9.src.rpm",
                   "name": "curl"
                },
@@ -737,6 +715,45 @@
                   "comment": "There are a few deps for the BKK that do not need to be recompiled, so I just added them as a dependency to the RPM",
                   "src": "https://diracos.web.cern.ch/diracos/SRPM/PyQt4-4.6.2-9.el6.src.rpm",
                   "name": "PyQt4"
+               }
+            ]
+         },
+         {
+            "name": "singularity",
+            "packages": [
+               {
+                  "comment": "Older go is required to build newer golang versions and prebuilt RPM is needed to avoid bootstrapping issues",
+                  "src": "http://springdale.math.ias.edu/data/puias/computational/6/x86_64//golang-1.5.1-0.sdl6.x86_64.rpm",
+                  "name": "golang-old",
+                  "buildOnly": true
+               },
+               {
+                  "comment": "Dependency of golang-old",
+                  "src": "http://springdale.math.ias.edu/data/puias/computational/6/x86_64//golang-bin-1.5.1-0.sdl6.x86_64.rpm",
+                  "name": "golang-bin-old",
+                  "buildOnly": true
+               },
+               {
+                  "comment": "Dependency of golang-old",
+                  "src": "http://springdale.math.ias.edu/data/puias/computational/6/x86_64//golang-src-1.5.1-0.sdl6.noarch.rpm",
+                  "name": "golang-src-old",
+                  "buildOnly": true
+               },
+               {
+                  "comment": "For running golang",
+                  "src": "http://vault.centos.org/6.10/os/Source/SPackages/mercurial-1.4-5.el6_9.src.rpm",
+                  "name": "mercurial",
+                  "buildOnly": true
+               },
+               {
+                  "comment": "To build singularity",
+                  "src": "http://download-ib01.fedoraproject.org/pub/epel/6/SRPMS/Packages/g/golang-1.13.3-1.el6.src.rpm",
+                  "name": "golang",
+                  "buildOnly": true
+               },
+               {
+                  "src": "http://download-ib01.fedoraproject.org/pub/epel/6/SRPMS/Packages/s/singularity-3.4.2-1.1.el6.src.rpm",
+                  "name": "singularity"
                }
             ]
          }

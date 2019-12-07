@@ -482,8 +482,18 @@ def buildPackage(packageCfg):
 
     _root, srcExtension = os.path.splitext(src)
 
-    if srcExtension == '.rpm':  # In fact, it is .src.rpm
+    if srcExtension == '.src.rpm':  # In fact, it is .src.rpm
       _buildFromSRPM(packageCfg)
+    elif srcExtension == '.rpm':  # prebuilt RPM
+      repository = packageCfg['repo']
+      rpmUrl = packageCfg['src']
+      buildOnly = packageCfg.get('buildOnly', False)
+      rpmDestDir = repository
+      # We only build, so we copy the rpms to a special directory
+      if buildOnly:
+        rpmDestDir = os.path.join(rpmDestDir, 'buildOnly')
+      _downloadFile(rpmUrl, rpmDestDir)
+      _createRepo(repository)
     elif srcExtension == '':  # fedpkg
       _buildFromFedpkg(packageCfg)
     else:
