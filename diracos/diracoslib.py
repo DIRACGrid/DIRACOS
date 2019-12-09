@@ -493,6 +493,8 @@ def buildPackage(packageCfg):
         # We only build, so we copy the rpms to a special directory
         if buildOnly:
           rpmDestDir = os.path.join(rpmDestDir, 'buildOnly')
+        else:
+          raise NotImplementedError('Prebuilt RPMs are supported when buildOnly=True')
         _downloadFile(rpmUrl, rpmDestDir)
         _createRepo(repository)
     elif srcExtension == '':  # fedpkg
