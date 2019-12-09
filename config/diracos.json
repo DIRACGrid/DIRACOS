@@ -640,6 +640,17 @@
                   "name": "zlib"
                },
                {
+                  "comment": "For backports.lzma, required to read compressed files with uproot",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/xz-4.999.9-0.5.beta.20091007git.el6.src.rpm",
+                  "name": "xz",
+                  "pkgList": [
+                     "xz",
+                     "xz-libs",
+                     "xz-devel",
+                     "xz-lzma-compat"
+                  ]
+               },
+               {
                   "comment": "Externals have 6.1",
                   "src": "https://diracos.web.cern.ch/diracos/SRPM/ncurses-5.7-4.20090207.el6.src.rpm",
                   "name": "ncurses"
@@ -656,7 +667,7 @@
                   "buildOnly": true
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/mysql-community-5.7.21-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/mysql-community-5.7.28-1.el6.src.rpm",
                   "name": "mysql-community",
                   "pkgList": [
                      "mysql-community-devel",

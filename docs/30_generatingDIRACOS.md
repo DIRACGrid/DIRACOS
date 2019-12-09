@@ -8,7 +8,7 @@ It must be run from an SLC6 machine (or container).
 
 CAUTION: if inside Docker, special care must be taken (https://github.com/rpm-software-management/mock/wiki#mock-inside-docker)
 ```
-  docker run --privileged --cap-add=SYS_ADMIN -it cern/slc6-base bash
+  docker run --privileged --cap-add=SYS_ADMIN -it centos:6 bash
 ```
 
 Carefull, some compilations are a bit violent, so disabling oom killer can be needed by adding to docker run :
@@ -26,6 +26,7 @@ Also you need to make sure that your containers have enough free space (20G). Co
 
 ```
    # Install the few tools needed
+   yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
    yum install -y mock rpm-build fedora-packager createrepo python-pip
 
    # Create the basic structure of your yum repository
@@ -36,7 +37,7 @@ Also you need to make sure that your containers have enough free space (20G). Co
    curl -o $DIRACOS_REPO/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm -L https://diracos.web.cern.ch/diracos/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm
    curl -o $DIRACOS_REPO/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm -L https://diracos.web.cern.ch/diracos/bootstrap/pigz-2.3.4-1.el6.x86_64.rpm
 
-   createrepo $DIRACOS_REPO  
+   createrepo $DIRACOS_REPO
 
    # Install the diracos machinery (currently from github)
    #pip install diracos
