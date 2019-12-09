@@ -74,3 +74,12 @@ The python scripts have `/usr/bin/env` as shebang. However, `/usr/bin/env` requi
 ## Symlinks
 
 Some RPMs will create broken symlinks. The existing ones are know, and are in the file `tests/integration/knownBrokenLinks.txt`. Shall a new one appear, this test should trigger, and you should either fix it, or add it to the list.
+
+## Singularity
+
+Singularity needs to be built from source to disable `setuid` support and make the binaries smaller by stripping debugging information.
+It is tricky to build within DIRACOS due to it's dependency on `golang` as recent versions depend on `subversion` (for pulling dependencies).
+As `subversion` has a lot of Python dependencies which it cause many errors of the form [`Requires: python(abi) = 2.6`](#error-requires-pythonabi--26) which eventually become circular dependencies when trying to rebuild everythin for Python 2.7.
+Additionaly, compiling `golang` to remove the `subversion` dependency requires an existing `golang` package. Fortunately older `golang` pakcages don't require `subversion`, but does still require an existing `golang`.
+This is avoided using prebuilt RPMs for an old `golang` version (split into `golang`/`golang-bin`/`golang-src`) that then enables a newer `golang` package to be built with the `subversion` dependency removed.
+Singularity can then be built from source as is the case for other packages.
