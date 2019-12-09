@@ -16,7 +16,7 @@ index 49459f1..f8de0a5 100644
  Requires:       glibc
  Requires:       gcc
 -Requires:       git, subversion, mercurial
-+Requires:       git, mercurial
++Requires:       git
  %description    bin
  %{summary}
  
