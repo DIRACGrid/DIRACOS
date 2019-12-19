@@ -130,7 +130,7 @@
                },
                {
                   "comment": "For git python module. We only keep the main module, not all the addons",
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/git-1.7.1-9.el6_9.src.rpm",
+                  "src": "https://cbs.centos.org/kojifiles/packages/rh-git218-git/2.18.0/4.el7/src/rh-git218-git-2.18.0-4.el7.src.rpm",
                   "name": "git",
                   "pkgList": [
                      "git"

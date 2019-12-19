@@ -1,0 +1,98 @@
+From bc6f6f99eba96f892e84e20ef8089a8f24ba1538 Mon Sep 17 00:00:00 2001
+From: Chris Burr <christopher.burr@cern.ch>
+Date: Wed, 18 Dec 2019 13:34:37 +0100
+Subject: [PATCH] Patch for DIRACOS
+
+---
+ git.spec | 27 ++++++++++-----------------
+ 1 file changed, 10 insertions(+), 17 deletions(-)
+
+diff --git a/git.spec b/git.spec
+index e3db881..d9fda66 100644
+--- a/git.spec
++++ b/git.spec
+@@ -203,7 +203,6 @@ BuildRequires:  httpd
+ %if 0%{?fedora} && %{_arch} != s390x
+ BuildRequires:  jgit
+ %endif
+-BuildRequires:  mod_dav_svn
+ BuildRequires:  pcre
+ BuildRequires:  perl(App::Prove)
+ BuildRequires:  perl(CGI)
+@@ -223,8 +222,6 @@ BuildRequires:  python2-devel
+ %if %{with python3}
+ BuildRequires:  python3-devel
+ %endif
+-BuildRequires:  subversion
+-BuildRequires:  subversion-perl
+ BuildRequires:  time
+ 
+ Requires:       %{?scl_prefix}git-core = %{version}-%{release}
+@@ -264,7 +261,6 @@ Requires:       %{?scl_prefix}git-gui = %{version}-%{release}
+ Requires:       %{?scl_prefix}git-p4 = %{version}-%{release}
+ %endif
+ Requires:       %{?scl_prefix}git-subtree = %{version}-%{release}
+-Requires:       %{?scl_prefix}git-svn = %{version}-%{release}
+ Requires:       %{?scl_prefix}gitk = %{version}-%{release}
+ Requires:       %{?scl_prefix}perl-Git = %{version}-%{release}
+ %if ! %{defined perl_bootstrap}
+@@ -478,7 +474,7 @@ GITWEB_PROJECTROOT = %{_localstatedir}/lib/git
+ GNU_ROFF = 1
+ NO_PERL_CPAN_FALLBACKS = 1
+ %if %{with python2}
+-PYTHON_PATH = %{__python2}
++PYTHON_PATH = /usr/bin/python2.7
+ %else
+ NO_PYTHON = 1
+ %endif
+@@ -521,17 +517,17 @@ grep -rlZ '^use Git::LoadCPAN::' | xargs -r0 sed -i 's/Git::LoadCPAN:://g'
+ %build
+ %{?scl:scl enable %{scl_httpd} - << "EOF"}
+ %{?scl:export CPATH="%{cpath_dir}:${CPATH}"}
+-%make_build all %{?with_docs:doc}
++make %{?_smp_mflags} all %{?with_docs:doc}
+ 
+-%make_build -C contrib/contacts/ all %{?with_docs:doc}
++make %{?_smp_mflags} -C contrib/contacts/ all %{?with_docs:doc}
+ 
+ %if %{libsecret}
+-%make_build -C contrib/credential/libsecret/
++make %{?_smp_mflags} -C contrib/credential/libsecret/
+ %endif
+ 
+-%make_build -C contrib/diff-highlight/
++make %{?_smp_mflags} -C contrib/diff-highlight/
+ 
+-%make_build -C contrib/subtree/ all %{?with_docs:doc}
++make %{?_smp_mflags} -C contrib/subtree/ all %{?with_docs:doc}
+ 
+ # Fix shebang in a few places to silence rpmlint complaints
+ #
+@@ -747,16 +743,12 @@ GIT_SKIP_TESTS="$GIT_SKIP_TESTS t9115"
+ 
+ export GIT_SKIP_TESTS
+ 
++# Subversion support has been explicitly removed from DIRACOS
++export NO_SVN_TESTS=1
++
+ # Set LANG so various UTF-8 tests are run
+ export LANG=en_US.UTF-8
+ 
+-# Explicitly enable tests which may be skipped opportunistically
+-# (Check for variables set via test_tristate in the test suite)
+-export GIT_SVN_TEST_HTTPD=true
+-export GIT_TEST_GIT_DAEMON=true
+-export GIT_TEST_HTTPD=true
+-export GIT_TEST_SVNSERVE=true
+-
+ # Run the tests
+ %{?scl:scl enable %{scl_httpd} - << "EOF"}
+ make test || ./print-failed-test-output
+@@ -2234,3 +2226,4 @@ make test || ./print-failed-test-output
+ 
+ * Thu Jul 7 2005 Chris Wright <chris@osdl.org>
+ - initial git spec file
++-
+-- 
+2.21.0
+
