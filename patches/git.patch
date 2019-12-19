@@ -1,14 +1,14 @@
-From 1c26261d3d20f12f3237f9be4ae928d4ef39f5b5 Mon Sep 17 00:00:00 2001
+From 6bb4beda9b09385189bcdf8dff1b57a4220f8421 Mon Sep 17 00:00:00 2001
 From: Chris Burr <christopher.burr@cern.ch>
 Date: Wed, 18 Dec 2019 13:34:37 +0100
 Subject: [PATCH] Patch for DIRACOS
 
 ---
- git.spec | 35 +++++++++--------------------------
- 1 file changed, 9 insertions(+), 26 deletions(-)
+ git.spec | 39 +++++++++++++--------------------------
+ 1 file changed, 13 insertions(+), 26 deletions(-)
 
 diff --git a/git.spec b/git.spec
-index e3db881..aa13f06 100644
+index e3db881..e1d9475 100644
 --- a/git.spec
 +++ b/git.spec
 @@ -197,13 +197,11 @@ BuildRequires:  cvsps
@@ -51,7 +51,18 @@ index e3db881..aa13f06 100644
  %else
  NO_PYTHON = 1
  %endif
-@@ -521,17 +516,15 @@ grep -rlZ '^use Git::LoadCPAN::' | xargs -r0 sed -i 's/Git::LoadCPAN:://g'
+@@ -492,6 +487,10 @@ DEFAULT_TEST_TARGET = prove
+ GIT_PROVE_OPTS = --verbose --normalize %{?_smp_mflags}
+ GIT_TEST_OPTS = -x --verbose-log
+ TEST_SHELL_PATH = /bin/bash
++
++# Enable a relocatable build
++RUNTIME_PREFIX=YesPlease
++PROCFS_EXECUTABLE_PATH=/proc/self/exe
+ EOF
+ 
+ # Filter bogus perl requires
+@@ -521,17 +520,15 @@ grep -rlZ '^use Git::LoadCPAN::' | xargs -r0 sed -i 's/Git::LoadCPAN:://g'
  %build
  %{?scl:scl enable %{scl_httpd} - << "EOF"}
  %{?scl:export CPATH="%{cpath_dir}:${CPATH}"}
@@ -73,7 +84,7 @@ index e3db881..aa13f06 100644
  
  # Fix shebang in a few places to silence rpmlint complaints
  #
-@@ -587,11 +580,6 @@ install -pm 0644 %{SOURCE13} %{buildroot}%{httpdconfdir}/%{?scl_prefix}%{gitweb_
+@@ -587,11 +584,6 @@ install -pm 0644 %{SOURCE13} %{buildroot}%{httpdconfdir}/%{?scl_prefix}%{gitweb_
  sed "s|@PROJECTROOT@|%{_localstatedir}/lib/git|g" \
      %{SOURCE14} > %{buildroot}%{_sysconfdir}/gitweb.conf
  
@@ -85,7 +96,7 @@ index e3db881..aa13f06 100644
  # Clean up contrib/subtree to avoid cruft in the git-core-doc docdir
  # Move git-subtree.txt to Documentation so it can be installed later in docdir
  mv contrib/subtree/git-subtree.txt Documentation/
-@@ -747,16 +735,12 @@ GIT_SKIP_TESTS="$GIT_SKIP_TESTS t9115"
+@@ -747,16 +739,12 @@ GIT_SKIP_TESTS="$GIT_SKIP_TESTS t9115"
  
  export GIT_SKIP_TESTS
  
@@ -105,7 +116,7 @@ index e3db881..aa13f06 100644
  # Run the tests
  %{?scl:scl enable %{scl_httpd} - << "EOF"}
  make test || ./print-failed-test-output
-@@ -777,7 +761,6 @@ make test || ./print-failed-test-output
+@@ -777,7 +765,6 @@ make test || ./print-failed-test-output
  %if %{emacs_filesystem}
  %{elispdir}
  %endif
@@ -113,7 +124,7 @@ index e3db881..aa13f06 100644
  %{_datadir}/git-core/contrib/hooks/multimail
  %{_datadir}/git-core/contrib/hooks/update-paranoid
  %{_datadir}/git-core/contrib/hooks/setgitperms.perl
-@@ -794,7 +777,6 @@ make test || ./print-failed-test-output
+@@ -794,7 +781,6 @@ make test || ./print-failed-test-output
  %{!?_licensedir:%global license %doc}
  %license COPYING
  # exclude is best way here because of troubles with symlinks inside git-core/
@@ -121,7 +132,7 @@ index e3db881..aa13f06 100644
  %exclude %{_datadir}/git-core/contrib/hooks/multimail
  %exclude %{_datadir}/git-core/contrib/hooks/update-paranoid
  %exclude %{_datadir}/git-core/contrib/hooks/setgitperms.perl
-@@ -2234,3 +2216,4 @@ make test || ./print-failed-test-output
+@@ -2234,3 +2220,4 @@ make test || ./print-failed-test-output
  
  * Thu Jul 7 2005 Chris Wright <chris@osdl.org>
  - initial git spec file
