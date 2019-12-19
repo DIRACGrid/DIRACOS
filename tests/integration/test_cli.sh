@@ -36,4 +36,9 @@ if ! (ssh --help 2>&1 >/dev/null | grep -q "usage:"); then
   rc=1;
 fi
 
+# For https://github.com/DIRACGrid/DIRACOS/issues/107
+if ! (git --exec-path | grep "${DIRAC}"); then
+  echo "git --exec-path does not contain ${DIRAC}";
+fi
+
 exit $rc
