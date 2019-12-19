@@ -129,11 +129,21 @@
                   "buildOnly": true
                },
                {
+                  "comment": "Needed for git",
+                  "src": "http://download-ib01.fedoraproject.org/pub/epel/6/SRPMS/Packages/p/pcre2-10.21-22.el6.src.rpm",
+                  "name": "pcre2",
+                  "pkgList": [
+                     "pcre2",
+                     "pcre2-devel"
+                  ]
+               },
+               {
                   "comment": "For git python module. We only keep the main module, not all the addons",
                   "src": "https://cbs.centos.org/kojifiles/packages/rh-git218-git/2.18.0/4.el7/src/rh-git218-git-2.18.0-4.el7.src.rpm",
                   "name": "git",
                   "pkgList": [
-                     "git"
+                     "git",
+                     "git-core"
                   ]
                },
                {
@@ -731,6 +741,7 @@
       "initscripts",
       "chkconfig",
       "make",
+      "pcre2-devel",
       "pkgconfig",
       "coreutils",
       "java-1.7.0-oracle-devel",
