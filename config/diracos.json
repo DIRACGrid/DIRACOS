@@ -142,7 +142,6 @@
                   "src": "https://cbs.centos.org/kojifiles/packages/rh-git218-git/2.18.0/4.el7/src/rh-git218-git-2.18.0-4.el7.src.rpm",
                   "name": "git",
                   "pkgList": [
-                     "git",
                      "git-core"
                   ]
                },
