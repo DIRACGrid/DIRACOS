@@ -39,6 +39,7 @@ fi
 # For https://github.com/DIRACGrid/DIRACOS/issues/107
 if ! (git --exec-path | grep "${DIRAC}"); then
   echo "git --exec-path does not contain ${DIRAC}";
+  rc=1;
 fi
 
 exit $rc
