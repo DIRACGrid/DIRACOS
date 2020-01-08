@@ -105,6 +105,9 @@ def _resolveAllPackageDependencyURLs(requiredPkg=None, ignoredPackages=None):
   # We do not do them all at once, because we would stop at the first one that
   # requires glibc...
   for pkg in requiredPkg:
+    if pkg in ignoredPackages:
+      logging.debug("Skipping %s as it is in ignoredPackages", pkg)
+      continue
     upkg = _unrollPackageDependencies([pkg], ignoredPackages=ignoredPackages)
     logging.debug("%s requires %s", pkg, upkg)
 

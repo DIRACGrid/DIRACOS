@@ -1,0 +1,142 @@
+From 6bb4beda9b09385189bcdf8dff1b57a4220f8421 Mon Sep 17 00:00:00 2001
+From: Chris Burr <christopher.burr@cern.ch>
+Date: Wed, 18 Dec 2019 13:34:37 +0100
+Subject: [PATCH] Patch for DIRACOS
+
+---
+ git.spec | 39 +++++++++++++--------------------------
+ 1 file changed, 13 insertions(+), 26 deletions(-)
+
+diff --git a/git.spec b/git.spec
+index e3db881..e1d9475 100644
+--- a/git.spec
++++ b/git.spec
+@@ -197,13 +197,11 @@ BuildRequires:  cvsps
+ %endif
+ BuildRequires:  gnupg
+ %if 0%{?fedora} || ( 0%{?rhel} && ( 0%{?rhel} == 6 || 0%{?rhel} >= 7 && %{_arch} != ppc64 ))
+-BuildRequires:  highlight
+ %endif
+ BuildRequires:  httpd
+ %if 0%{?fedora} && %{_arch} != s390x
+ BuildRequires:  jgit
+ %endif
+-BuildRequires:  mod_dav_svn
+ BuildRequires:  pcre
+ BuildRequires:  perl(App::Prove)
+ BuildRequires:  perl(CGI)
+@@ -223,8 +221,6 @@ BuildRequires:  python2-devel
+ %if %{with python3}
+ BuildRequires:  python3-devel
+ %endif
+-BuildRequires:  subversion
+-BuildRequires:  subversion-perl
+ BuildRequires:  time
+ 
+ Requires:       %{?scl_prefix}git-core = %{version}-%{release}
+@@ -264,7 +260,6 @@ Requires:       %{?scl_prefix}git-gui = %{version}-%{release}
+ Requires:       %{?scl_prefix}git-p4 = %{version}-%{release}
+ %endif
+ Requires:       %{?scl_prefix}git-subtree = %{version}-%{release}
+-Requires:       %{?scl_prefix}git-svn = %{version}-%{release}
+ Requires:       %{?scl_prefix}gitk = %{version}-%{release}
+ Requires:       %{?scl_prefix}perl-Git = %{version}-%{release}
+ %if ! %{defined perl_bootstrap}
+@@ -478,7 +473,7 @@ GITWEB_PROJECTROOT = %{_localstatedir}/lib/git
+ GNU_ROFF = 1
+ NO_PERL_CPAN_FALLBACKS = 1
+ %if %{with python2}
+-PYTHON_PATH = %{__python2}
++PYTHON_PATH = /usr/bin/python2.7
+ %else
+ NO_PYTHON = 1
+ %endif
+@@ -492,6 +487,10 @@ DEFAULT_TEST_TARGET = prove
+ GIT_PROVE_OPTS = --verbose --normalize %{?_smp_mflags}
+ GIT_TEST_OPTS = -x --verbose-log
+ TEST_SHELL_PATH = /bin/bash
++
++# Enable a relocatable build
++RUNTIME_PREFIX=YesPlease
++PROCFS_EXECUTABLE_PATH=/proc/self/exe
+ EOF
+ 
+ # Filter bogus perl requires
+@@ -521,17 +520,15 @@ grep -rlZ '^use Git::LoadCPAN::' | xargs -r0 sed -i 's/Git::LoadCPAN:://g'
+ %build
+ %{?scl:scl enable %{scl_httpd} - << "EOF"}
+ %{?scl:export CPATH="%{cpath_dir}:${CPATH}"}
+-%make_build all %{?with_docs:doc}
++make %{?_smp_mflags} all %{?with_docs:doc}
+ 
+-%make_build -C contrib/contacts/ all %{?with_docs:doc}
++make %{?_smp_mflags} -C contrib/contacts/ all %{?with_docs:doc}
+ 
+ %if %{libsecret}
+-%make_build -C contrib/credential/libsecret/
++make %{?_smp_mflags} -C contrib/credential/libsecret/
+ %endif
+ 
+-%make_build -C contrib/diff-highlight/
+-
+-%make_build -C contrib/subtree/ all %{?with_docs:doc}
++make %{?_smp_mflags} -C contrib/subtree/ all %{?with_docs:doc}
+ 
+ # Fix shebang in a few places to silence rpmlint complaints
+ #
+@@ -587,11 +584,6 @@ install -pm 0644 %{SOURCE13} %{buildroot}%{httpdconfdir}/%{?scl_prefix}%{gitweb_
+ sed "s|@PROJECTROOT@|%{_localstatedir}/lib/git|g" \
+     %{SOURCE14} > %{buildroot}%{_sysconfdir}/gitweb.conf
+ 
+-# install contrib/diff-highlight and clean up to avoid cruft in git-core-doc
+-install -Dpm 0755 contrib/diff-highlight/diff-highlight \
+-    %{buildroot}%{_datadir}/git-core/contrib/diff-highlight
+-rm -rf contrib/diff-highlight/{Makefile,diff-highlight,*.perl,t}
+-
+ # Clean up contrib/subtree to avoid cruft in the git-core-doc docdir
+ # Move git-subtree.txt to Documentation so it can be installed later in docdir
+ mv contrib/subtree/git-subtree.txt Documentation/
+@@ -747,16 +739,12 @@ GIT_SKIP_TESTS="$GIT_SKIP_TESTS t9115"
+ 
+ export GIT_SKIP_TESTS
+ 
++# Subversion support has been explicitly removed from DIRACOS
++export NO_SVN_TESTS=1
++
+ # Set LANG so various UTF-8 tests are run
+ export LANG=en_US.UTF-8
+ 
+-# Explicitly enable tests which may be skipped opportunistically
+-# (Check for variables set via test_tristate in the test suite)
+-export GIT_SVN_TEST_HTTPD=true
+-export GIT_TEST_GIT_DAEMON=true
+-export GIT_TEST_HTTPD=true
+-export GIT_TEST_SVNSERVE=true
+-
+ # Run the tests
+ %{?scl:scl enable %{scl_httpd} - << "EOF"}
+ make test || ./print-failed-test-output
+@@ -777,7 +765,6 @@ make test || ./print-failed-test-output
+ %if %{emacs_filesystem}
+ %{elispdir}
+ %endif
+-%{_datadir}/git-core/contrib/diff-highlight
+ %{_datadir}/git-core/contrib/hooks/multimail
+ %{_datadir}/git-core/contrib/hooks/update-paranoid
+ %{_datadir}/git-core/contrib/hooks/setgitperms.perl
+@@ -794,7 +781,6 @@ make test || ./print-failed-test-output
+ %{!?_licensedir:%global license %doc}
+ %license COPYING
+ # exclude is best way here because of troubles with symlinks inside git-core/
+-%exclude %{_datadir}/git-core/contrib/diff-highlight
+ %exclude %{_datadir}/git-core/contrib/hooks/multimail
+ %exclude %{_datadir}/git-core/contrib/hooks/update-paranoid
+ %exclude %{_datadir}/git-core/contrib/hooks/setgitperms.perl
+@@ -2234,3 +2220,4 @@ make test || ./print-failed-test-output
+ 
+ * Thu Jul 7 2005 Chris Wright <chris@osdl.org>
+ - initial git spec file
++-
+-- 
+2.21.0
+
