@@ -1,3 +1,16 @@
+[v1r5]
+
+NEW: (#100) dynamically collect and test the import of DIRAC/integration
+NEW: (#103) Add xz for use with Python's backport.lzma
+NEW: (#103) Add uproot and related compression libraries for reading ROOT files
+CHANGE: (#103) Update MySQL from 5.7.21 to 5.7.28 for support with servers running MySQL 8
+CHANGE: (#108) Update git to 2.18.0
+FIX: (#108) Remove dependency on host git installation by making git relocatable
+FIX: (#108) Don't bundle entries listed in `ignoredPackages`
+CHANGE: (#109) Freeze stomp.py to 4.1.22
+
+
+
 [v1r4]
 
 CHANGE: (#98) xrootd version from 4.8.3 to 4.10.0
