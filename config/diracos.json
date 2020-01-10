@@ -747,7 +747,7 @@
                },
                {
                   "comment": "Built from source to shirink binaries and remove setuid support",
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/singularity-3.4.2-1.1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/singularity-3.5.2-1.1.el6_10.src.rpm",
                   "name": "singularity"
                }
             ]
