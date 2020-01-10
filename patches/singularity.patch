@@ -1,0 +1,46 @@
+From efea3bd5470b7770888529cb5e97bbc89317514d Mon Sep 17 00:00:00 2001
+From: Chris Burr <christopher.burr@cern.ch>
+Date: Thu, 5 Dec 2019 17:04:14 +0100
+Subject: [PATCH] Customise build for DIRACOS
+
+---
+ singularity.spec | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/singularity.spec b/singularity.spec
+index 9dcc0ed..7362894 100644
+--- a/singularity.spec
++++ b/singularity.spec
+@@ -103,6 +103,9 @@ patch -p1 <%{PATCH0}
+ # Not all of these parameters currently have an effect, but they might be
+ #  used someday.  They are the same parameters as in the configure macro.
+ ./mconfig -V %{version}-%{release} \
++        -P release-stripped \
++        --without-suid \
++        --without-network \
+         --prefix=%{_prefix} \
+         --exec-prefix=%{_exec_prefix} \
+         --bindir=%{_bindir} \
+@@ -139,19 +142,16 @@ chmod 644 $RPM_BUILD_ROOT%{_sysconfdir}/singularity/actions/*
+ %endif
+ 
+ %files
+-%attr(4755, root, root) %{_libexecdir}/singularity/bin/starter-suid
+ %{_bindir}/singularity
+ %{_bindir}/run-singularity
+ %dir %{_libexecdir}/singularity
+ %{_libexecdir}/singularity/bin/starter
+-%{_libexecdir}/singularity/cni/*
+ %dir %{_sysconfdir}/singularity
+ %config(noreplace) %{_sysconfdir}/singularity/*.conf
+ %config(noreplace) %{_sysconfdir}/singularity/*.toml
+ %config(noreplace) %{_sysconfdir}/singularity/*.json
+ %config(noreplace) %{_sysconfdir}/singularity/*.yaml
+ %config(noreplace) %{_sysconfdir}/singularity/cgroups/*
+-%config(noreplace) %{_sysconfdir}/singularity/network/*
+ %config(noreplace) %{_sysconfdir}/singularity/seccomp-profiles/*
+ %attr(755, root, root) %{_sysconfdir}/singularity/actions/exec
+ %attr(755, root, root) %{_sysconfdir}/singularity/actions/run
+-- 
+2.21.0
+
