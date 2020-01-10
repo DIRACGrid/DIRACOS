@@ -723,31 +723,31 @@
             "packages": [
                {
                   "comment": "Dependency of golang-old",
-                  "src": "http://springdale.math.ias.edu/data/puias/computational/6/x86_64//golang-bin-1.5.1-0.sdl6.x86_64.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/golang-bin-1.5.1-0.sdl6.x86_64.rpm",
                   "name": "golang-bin-old",
                   "buildOnly": true
                },
                {
                   "comment": "Dependency of golang-old",
-                  "src": "http://springdale.math.ias.edu/data/puias/computational/6/x86_64//golang-src-1.5.1-0.sdl6.noarch.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/golang-src-1.5.1-0.sdl6.noarch.rpm",
                   "name": "golang-src-old",
                   "buildOnly": true
                },
                {
                   "comment": "Older go is required to build newer golang versions and prebuilt RPM is needed to avoid bootstrapping issues",
-                  "src": "http://springdale.math.ias.edu/data/puias/computational/6/x86_64//golang-1.5.1-0.sdl6.x86_64.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/golang-1.5.1-0.sdl6.x86_64.rpm",
                   "name": "golang-old",
                   "buildOnly": true
                },
                {
                   "comment": "Required to build singularity and cannot use upstream binaries as they depend on subversion which depends on Python 2.6",
-                  "src": "http://download-ib01.fedoraproject.org/pub/epel/6/SRPMS/Packages/g/golang-1.13.3-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/golang-1.13.3-1.el6.src.rpm",
                   "name": "golang",
                   "buildOnly": true
                },
                {
                   "comment": "Built from source to shirink binaries and remove setuid support",
-                  "src": "http://download-ib01.fedoraproject.org/pub/epel/6/SRPMS/Packages/s/singularity-3.4.2-1.1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/singularity-3.5.2-1.1.el6_10.src.rpm",
                   "name": "singularity"
                }
             ]
