@@ -7,12 +7,7 @@ set -e
 PIP_BUILD_DEPENDENCIES="%(pipBuildDependencies)s"
 PIP_DIRAC=/tmp/pipDirac
 
-echo "Installing pip"
-cd /tmp
-curl -O -L https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
-
-echo "Preparing to build pythong packages"
+echo "Preparing to build python packages"
 
 echo "Pip build dependencies $PIP_BUILD_DEPENDENCIES"
 
@@ -27,10 +22,16 @@ yum install python2-virtualenv
 
 mkdir $PIP_DIRAC
 cd $PIP_DIRAC
-virtualenv .
+virtualenv --no-pip --no-setuptools .
 cd /tmp/
 
 source $PIP_DIRAC/bin/activate
+
+echo "Installing newer pip in virtualenv"
+cd /tmp
+curl -O -L https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+
 pip install -r /tmp/requirements.txt
 virtualenv --relocatable $PIP_DIRAC
 
