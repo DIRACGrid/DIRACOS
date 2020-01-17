@@ -16,7 +16,7 @@ This process relies mostly on Fedora `mock` (https://github.com/rpm-software-man
 
 ### Bootstrap issue
 
-There is a boostrap issue with mock: mock needs gdb which, when compiled with python support, needs python. The point is that we want to use pyton 2.7 (at the moment), which is different from the system python (2.6) used to compile gdb. Thus, to solve that, we need to:
+There is a boostrap issue with mock: mock needs gdb which, when compiled with python support, needs python. The point is that we want to use python 2.7 (at the moment), which is different from the system python (2.6) used to compile gdb. Thus, to solve that, we need to:
 
 1. Compile python and put it in our repository
 2. Recompile gdb without python support, or with our python
@@ -30,6 +30,10 @@ In order to avoid such headache, we just exclude EPEL alltogether, and recompile
 ### About links
 
 Some RPMs or pip packages make use of links (symbolic or hard). Every symlink pointing outside of DIRACOS itself is removed by a copy, the others are left untouched. Hard links are always replaced by a copy, because some file system do not support them (in particular CVMFS, which will probably be the main mean of distribution)
+
+### About dependencies
+
+Once the list of RPM and python packages are built, we pull all their dependencies using the `yum` resolution mechanism. However we need a stop criteria. After a lot of testing, we decided that the best criteria was to stop whenever we see the `glibc` in the dependencies. Of course, there are other packages, from which we could pull deeper. But this did not give good results (too many useless things shipped), so we decided to add the `manualDependencies` functionality for such cases.
 
 
 ## Supported platforms

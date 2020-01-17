@@ -85,6 +85,7 @@ Any other options will be read and passed to the build functions. Usefull exampl
 ## Other sections and options
 
 * `ignoredPackages`: this list contains the packages that should not be taken for a reason or another when doing the final bundling.
+* `manualDependencies`: This list contains the packages that we manually should add to the list of packages that are pulled when bundling.
 * `mockInstallConfig`: mock configuration file to use for the build of python module and packaging
 * `mockInstallRoot`: root directory where mock will work. WARNING: this value is related to the configuration in mockConfig.
 * `pipBuildDependencies`: list of rpm packages required to perform the pip install
