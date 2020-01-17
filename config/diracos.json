@@ -780,6 +780,11 @@
       "java-1.7.0-oracle-devel",
       "java-1.8.0-oracle-devel"
    ],
+   "manualDependencies": [
+      "nss-softokn",
+      "nss-softokn-freebl",
+      "nss-sysinit"
+   ],
    "removedFolders": [
       "/usr/share/doc/",
       "/usr/share/man/"
