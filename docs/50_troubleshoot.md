@@ -97,3 +97,7 @@ The packages that are in `manualDependencies` are added to the dependencies that
 ## LDD check failing
 
 The `check_ldd` test looks at the dependencies of the binaries in DIRACOS. It finds those pointing outside of DIRACOS (can be due to rpath) and those not found. There is a list of known "broken" dependencies (`tests/integration/knownMissingDependencies.txt`). Ideally, this list should be empty, but it will never be the case. So if you cannot do differently, you can always add your libraries there.
+
+## About Oracle
+
+Because of licenses reasons we cannot distribute the Oracle RPMs. Thus, if you want to use the `cx_Oracle` python library packaged in DIRACOS, you should install `oracle-instantclient-basic` and `oracle-instantclient-devel` packages on your server.
