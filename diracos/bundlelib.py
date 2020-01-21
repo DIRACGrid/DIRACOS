@@ -39,7 +39,13 @@ def _getPackageDependencies(packageSet, ignoredPackages=None):
 
 def _unrollPackageDependencies(requiredPackages, ignoredPackages=None):
   """ Starting from one or several package, get the dependencies
-      recursively until we reach glibc
+      recursively until we reach glibc.
+
+      Note that this stopping criteria may lead to a premature stop, since
+      other packages at the same level as glibc in the dependency chain
+      could be pulled futher.
+      But experience shows that this is the best stopping criteria if
+      we do not want to ship a whole distribution.
 
       :param requiredPackages: iterable of packages
       :param ignoredPackages: set of packages to always ignore
@@ -138,7 +144,13 @@ def _resolveAllPackageDependencyURLs(requiredPkg=None, ignoredPackages=None):
   return _getPackagesURLs(pkgs)
 
 
-def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredPackages=None, removedFolders=None):
+def _doBundleDIRACOS(
+        diracOsVersion,
+        requiredPkg=None,
+        repository=None,
+        ignoredPackages=None,
+        removedFolders=None,
+        manualDependencies=None):
   """
       Create the final diracos tarball.
 
@@ -148,6 +160,8 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
     :param repository: path to the repository
     :param ignoredPackages: set of packages to always ignore
     :param removedFolders: list of folders in DIRACOS we can remove at the end of the build
+    :param manualDependencies: set of dependencies that we have to manually add.
+                              See the doc for details about this feature.
 
   """
 
@@ -164,6 +178,9 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
     # Take the package name, only if it is not a doc and debuginfo
     requiredPkg = set([rpmUtils.miscutils.splitFilename(rpm)[0]
                        for rpm in allRPMs if '-doc-' not in rpm and 'debuginfo' not in rpm])
+
+  # Adding the list of packages that needs to pulled manually
+  requiredPkg = requiredPkg.union(manualDependencies)
 
   urlList = _resolveAllPackageDependencyURLs(requiredPkg=requiredPkg,
                                              ignoredPackages=ignoredPackages)
@@ -208,7 +225,7 @@ def _doBundleDIRACOS(diracOsVersion, requiredPkg=None, repository=None, ignoredP
 
 
 def main():
-  """ main method when started as a script """
+  """ main method when started as a script  """
   logging.basicConfig(level=logging.DEBUG)
 
   jsonConf = '/tmp/conf.json'
@@ -218,11 +235,14 @@ def main():
     ignoredPkg = set(cfg['ignoredPackages'])
     diracOsVersion = cfg['version']
     removedFolders = cfg['removedFolders']
+    manualDependencies = set(cfg['manualDependencies'])
+
   _doBundleDIRACOS(
       diracOsVersion,
       repository=repository,
       ignoredPackages=ignoredPkg,
-      removedFolders=removedFolders)
+      removedFolders=removedFolders,
+      manualDependencies=manualDependencies)
 
 
 if __name__ == '__main__':

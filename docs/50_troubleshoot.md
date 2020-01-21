@@ -83,3 +83,17 @@ As `subversion` has a lot of Python dependencies which it cause many errors of t
 Additionaly, compiling `golang` to remove the `subversion` dependency requires an existing `golang` package. Fortunately older `golang` pakcages don't require `subversion`, but does still require an existing `golang`.
 This is avoided using prebuilt RPMs for an old `golang` version (split into `golang`/`golang-bin`/`golang-src`) that then enables a newer `golang` package to be built with the `subversion` dependency removed.
 Singularity can then be built from source as is the case for other packages.
+
+
+## About manualDependencies
+
+The packages that are in `manualDependencies` are added to the dependencies that are pulled together with DIRACOS. In principle, since we build all the packages we need and pull their dependencies, there should be no need for such a thing. THere are however two cases where it shows useful:
+
+* In case of RPM dependencies badly defined
+* In case of premature stop when pulling the dependencies.
+
+`NSS` falls in the later one.
+
+## LDD check failing
+
+The `check_ldd` test looks at the dependencies of the binaries in DIRACOS. It finds those pointing outside of DIRACOS (can be due to rpath) and those not found. There is a list of known "broken" dependencies (`tests/integration/knownMissingDependencies.txt`). Ideally, this list should be empty, but it will never be the case. So if you cannot do differently, you can always add your libraries there.

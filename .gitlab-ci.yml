@@ -98,6 +98,25 @@ check_links:
     - source $DIRACOS/diracosrc
     - ./tests/integration/test_symlink.sh
 
+# Check dependencies
+check_dependencies:
+  stage: links
+  dependencies:
+    - compile
+  tags:
+    - docker
+  except:
+    - tags
+  image: cern/slc6-base
+  before_script:
+    - yum install tar -y
+  script:
+    - source ./docs/Tools/CreateName.sh
+    - tar xf public/releases/diracos-${BUILD_NAME}.tar.gz -C /tmp
+    - export DIRACOS=/tmp/diracos
+    - source $DIRACOS/diracosrc
+    - ./tests/integration/test_ldd.sh
+
 # Run tests
 
 .run_test:
