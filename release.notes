@@ -1,3 +1,13 @@
+[v1r6]
+
+FIX: (#113) Use latest pip inside the virtual environment so python_version metadata is considered
+NEW: (#114) Add manualDependencies feature and use it for NSS
+NEW: (#114) postfix package is now ignored
+NEW: (#114) add an ldd test
+NEW: (#105) Add singularity
+
+
+
 [v1r5]
 
 NEW: (#100) dynamically collect and test the import of DIRAC/integration
