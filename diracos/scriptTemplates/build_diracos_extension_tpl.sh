@@ -76,7 +76,7 @@ echo -e "$EXTENSION_NAME""DIRACOS $DIRACOS_EXT_VERSION $(date -u) based on DIRAC
 
 echo -e "===== Python packages ====\n\n" >> $DIRACOS_EXT_VERSION_FILE
 # reminder: this file was generated when building the python modules
-comm -3 before.txt after.txt | sed 's/\t//g' | sort >> $DIRACOS_EXT_VERSION_FILE
+comm -13 before.txt after.txt | sed 's/\t//g' | sort >> $DIRACOS_EXT_VERSION_FILE
 
 # Remove pyo and pyc
 find $DIRACOS_PATH -name '*.py[oc]' -exec rm {} \;
