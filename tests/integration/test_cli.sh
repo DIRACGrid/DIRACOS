@@ -51,7 +51,7 @@ if ! singularity build --sandbox lolcow docker://godlovedc/lolcow; then
   echo "singularity build not working";
   rc=1;
 fi
-if ! singularity --verbose --debug run -u lolcow || (singularity --verbose --debug run -u lolcow 2>&1 | grep 'Failed to create user namespace: Operation not permitted'); then
+if ! (singularity --verbose --debug run -u lolcow || (singularity --verbose --debug run -u lolcow 2>&1 | grep 'Failed to create user namespace: Operation not permitted')); then
   echo "singularity run not working";
   rc=1;
 fi
