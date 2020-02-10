@@ -53,7 +53,6 @@ moduleNames = [
     'copy',
     'cStringIO',
     'csv',
-    'cx_Oracle',
     'datetime',
     'difflib',
     'distutils.spawn',
@@ -157,8 +156,7 @@ moduleNames = [
 
 # List here the modules that are allowed to Fail.
 # Ideally, this should always be empty...
-ALLOWED_TO_FAIL = ['cx_Oracle',  # This is used by some extensions and migration script (LFC->DFC)
-                   ]
+ALLOWED_TO_FAIL = [ ]
 
 # List of modules that need graphic libraries.
 # When failing, these tests are just marked as skipped with a warning
