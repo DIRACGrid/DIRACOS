@@ -1,3 +1,14 @@
+[v1r7]
+
+FIX: (#116) fix the generation of the version file for the extension build
+FIX: (#118) Patch singularity to make it runtime relocatable
+CHANGE: (#119) remove cx_Oracle
+CHANGE: (#121) Keep empty directory because of idiotic singularity
+NEW: (#111) Run DIRAC integration tests with the tarball
+FIX: (#111) Use latest pip inside the virtual environment so `python_version` metadata is considered
+
+
+
 [v1r6]
 
 FIX: (#113) Use latest pip inside the virtual environment so python_version metadata is considered
