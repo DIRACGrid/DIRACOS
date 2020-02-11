@@ -168,6 +168,8 @@ ubuntu-latest:
 
 .integration_tests:
   stage: test
+  except:
+    - tags
   dependencies:
     - compile
   tags:
