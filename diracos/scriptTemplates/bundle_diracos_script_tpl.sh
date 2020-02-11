@@ -30,9 +30,6 @@ echo "Copying python modules"
 rsync -zvr /tmp/pipDirac/lib/ $DIRACOS/usr/lib64/
 cp -r /tmp/pipDirac/bin/ $DIRACOS/usr/
 
-echo "Deleting empty directories"
-find $DIRACOS -type d -empty -delete
-
 # Fix the shebang for python
 echo "Fixing the shebang"
 grep -rIl '#!/usr/bin/python' /tmp/diracos | xargs sed -i 's:#!/usr/bin/python:#!/usr/bin/env python:g'
