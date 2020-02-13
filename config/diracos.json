@@ -537,7 +537,8 @@
                   "buildOnly": true
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-2.16.1-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-2.17.1-1.el6_10.src.rpm",
+                  "originalRepo": "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/",
                   "excludePatterns": [
                      ".*-doc-.*",
                      ".*-debuginfo-.*",
