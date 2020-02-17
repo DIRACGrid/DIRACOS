@@ -1,3 +1,12 @@
+[v1r8]
+
+CHANGE: (#121) Keep empty directory because of idiotic singularity
+CHANGE: (#123) davix 0.7.2-2 to 0.7.5-1
+CHANGE: (#123) xrootd 4.140.0 -> 4.11.2
+CHANGE: (#123) gfal2 2.16.1 -> 2.17.1
+
+
+
 [v1r7]
 
 FIX: (#116) fix the generation of the version file for the extension build
