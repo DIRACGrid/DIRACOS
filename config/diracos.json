@@ -453,8 +453,9 @@
                   "buildOnly": true
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/xrootd-4.10.0-1.el7.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/xrootd-4.11.2-1.el7.src.rpm",
                   "comment": "The SRPM for scl6 and cc7 are the same, and they only provide cc7",
+                  "originalRepo": "http://xrootd.web.cern.ch/xrootd/sw/releases",
                   "name": "xrootd",
                   "pkgList": [
                      "xrootd",
@@ -472,7 +473,8 @@
             "name": "davix",
             "packages": [
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/davix-0.7.2-2.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/davix-0.7.5-1.el6.src.rpm",
+                  "originalRepo": "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/",
                   "name": "davix"
                }
             ]
@@ -535,7 +537,8 @@
                   "buildOnly": true
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-2.16.1-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-2.17.1-1.el6_10.src.rpm",
+                  "originalRepo": "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/",
                   "excludePatterns": [
                      ".*-doc-.*",
                      ".*-debuginfo-.*",

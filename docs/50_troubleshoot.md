@@ -97,3 +97,19 @@ The packages that are in `manualDependencies` are added to the dependencies that
 ## LDD check failing
 
 The `check_ldd` test looks at the dependencies of the binaries in DIRACOS. It finds those pointing outside of DIRACOS (can be due to rpath) and those not found. There is a list of known "broken" dependencies (`tests/integration/knownMissingDependencies.txt`). Ideally, this list should be empty, but it will never be the case. So if you cannot do differently, you can always add your libraries there.
+
+## ldconfig_scriptlets
+
+Some spec files use `ldconfig_scriptlets` to trigger `ldconfig`. This does not work with DIRACOS because it relies on some packages in EPEL that we exclude on purpose. You can simply replace
+
+```
+%ldconfig_scriptlets <A PACKAGE>
+```
+
+with
+
+```
+%post <A PACKAGE> -p /sbin/ldconfig
+
+%postun <A PACKAGE> -p /sbin/ldconfig
+```

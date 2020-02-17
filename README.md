@@ -44,6 +44,7 @@ DIRACOS aims at bringing in one archive all the dependencies needed by DIRAC to 
   * [ Singularity](docs/50_troubleshoot.md#singularity)
   * [ About manualDependencies](docs/50_troubleshoot.md#about-manualdependencies)
   * [ LDD check failing](docs/50_troubleshoot.md#ldd-check-failing)
+  * [ldconfig_scriptlets](docs/50_troubleshoot.md#ldconfig_scriptlets)
 - [ Test DIRACOS as a User](docs/60_useDIRACOS.md#test-diracos-as-a-user)
 - [ Make a new release](docs/70_release.md#make-a-new-release)
   * [ Versioning](docs/70_release.md#versioning)

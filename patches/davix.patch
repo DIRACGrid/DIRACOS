@@ -1,7 +1,7 @@
-diff -u -r original/davix.spec modified/davix.spec
---- original/davix.spec 2019-03-20 11:54:36.000000000 +0100
-+++ modified/davix.spec 2019-05-08 17:37:46.416589447 +0200
-@@ -25,10 +25,6 @@
+diff -r -u original/davix.spec modified/davix.spec
+--- original/davix.spec 2019-08-28 09:13:40.000000000 +0000
++++ modified/davix.spec 2020-02-13 14:16:43.513053440 +0000
+@@ -22,10 +22,6 @@
  # davix-copy dependencies
  BuildRequires:                  gsoap-devel
  BuildRequires:                  libuuid-devel
@@ -12,7 +12,7 @@ diff -u -r original/davix.spec modified/davix.spec
 
  Requires:                       %{name}-libs%{?_isa} = %{version}-%{release}
  Requires:                       libuuid
-@@ -86,18 +82,15 @@
+@@ -83,18 +79,14 @@
  make %{?_smp_mflags}
  make doc
 
@@ -21,7 +21,7 @@ diff -u -r original/davix.spec modified/davix.spec
 -#make abi-check
 -%endif
 -ctest -V -T Test
-
+-
 
  %install
  rm -rf %{buildroot}
