@@ -1,6 +1,18 @@
-diff -r -u original/xrootd.spec modified/xrootd.spec
+diff -r -u original/xrootd/bindings/python/setup.py.in patched/xrootd/bindings/python/setup.py.in
+--- original/xrootd/bindings/python/setup.py.in 2020-02-03 08:55:35.000000000 +0000
++++ patched/xrootd/bindings/python/setup.py.in  2020-02-21 13:48:15.466745239 +0000
+@@ -24,7 +24,7 @@
+ cfg_vars["CXX"] = " ".join(cxxl)
+ cfg_vars["PY_CXXFLAGS"] = "${CMAKE_CXX_FLAGS}"
+
+-cfg_vars['LDSHARED'] = cfg_vars['LDSHARED'] + " -Wl,-rpath,${XRDCL_INSTALL}"
++#cfg_vars['LDSHARED'] = cfg_vars['LDSHARED'] + " -Wl,-rpath,${XRDCL_INSTALL}"
+
+ sources = list()
+ depends = list()
+diff -r -u original/xrootd.spec patched/xrootd.spec
 --- original/xrootd.spec        2020-02-03 09:55:51.000000000 +0000
-+++ modified/xrootd.spec        2020-02-13 12:30:05.051221133 +0000
++++ patched/xrootd.spec 2020-02-21 13:47:58.377652275 +0000
 @@ -77,11 +77,6 @@
  BuildRequires: json-c-devel
 
