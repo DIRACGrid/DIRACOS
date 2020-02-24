@@ -458,7 +458,6 @@
                   "originalRepo": "http://xrootd.web.cern.ch/xrootd/sw/releases",
                   "name": "xrootd",
                   "pkgList": [
-                     "xrootd",
                      "xrootd-libs",
                      "xrootd-devel",
                      "xrootd-client-libs",
