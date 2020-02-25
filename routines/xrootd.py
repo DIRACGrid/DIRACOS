@@ -10,7 +10,7 @@ from yum import rpmUtils
 # TODO: factorize with glite-ce-cream-cli.py, since it is essentialy the same thing
 
 
-def _mock_patchAndRecreateGlite(srpmFile, patchFile, mockConfigFile=None, mockRoot=None):
+def _mock_patchAndRecreateXroot(srpmFile, patchFile, mockConfigFile=None, mockRoot=None):
   """ Patch and recreate an SRPM """
 
   tmpDir = diracoslib._extractSRPM(srpmFile)
@@ -49,6 +49,7 @@ def execute(**kwargs):
   mockRoot = kwargs['mockRoot']
   patchDir = kwargs['patchDir']
   patchFile = None
+  pkgList = kwargs['pkgList']
 
   logging.info("Building %s %s", SRPMFile, "%s" % ("with mockConfig %s" % mockConfig
                                                    if mockConfig else ""))
@@ -77,12 +78,12 @@ def execute(**kwargs):
       patchFile = potentialPatchFile
 
   if patchFile:
-    newSRPM = _mock_patchAndRecreateGlite(SRPMFile, patchFile, mockConfig, mockRoot=mockRoot)
+    newSRPM = _mock_patchAndRecreateXroot(SRPMFile, patchFile, mockConfig, mockRoot=mockRoot)
     logging.debug("New SRPM file %s", newSRPM)
     SRPMFile = newSRPM
 
   diracoslib._mockRebuild(SRPMFile, mockConfig)
   mockResultDir = os.path.join(mockRoot, 'result/')
-  diracoslib._copyRPMs(mockResultDir, repository, byRPMType=True)
+  diracoslib._copyRPMs(mockResultDir, repository, byRPMType=True, pkgList=pkgList)
   diracoslib._createRepo(repository)
   logging.info('Finished')

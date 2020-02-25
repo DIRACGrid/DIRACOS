@@ -51,7 +51,6 @@ libxcb.so.1
 libXdamage.so.1
 libXfixes.so.3
 libXft.so.2
-libxml2.so.2
 libXrender.so.1
 libXxf86vm.so.1
 libz-a147dcb0.so.1.2.3
