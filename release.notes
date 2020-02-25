@@ -1,3 +1,13 @@
+[v1r9]
+
+CHANGE: (#123) davix 0.7.2-2 to 0.7.5-1
+CHANGE: (#123) xrootd 4.140.0 -> 4.11.2
+CHANGE: (#123) gfal2 2.16.1 -> 2.17.1
+FIX: (#124) remove the rpath from the pyxrootd compilation
+CHANGE: (#125) do not distribute xroot server anymore
+
+
+
 [v1r8]
 
 CHANGE: (#121) Keep empty directory because of idiotic singularity
