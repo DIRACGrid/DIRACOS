@@ -30,6 +30,7 @@ setup(
         'console_scripts': ['dos-build-all-rpms=diracos.scripts.buildAll:main',
                             'dos-build-package=diracos.scripts.buildPackage:main',
                             'dos-build-python-modules=diracos.scripts.buildPythonModules:main',
+                            'dos-set-rpaths=diracos.scripts.setRPATHWrapper:main',
                             'dos-bundle=diracos.scripts.bundleDiracOS:main',
                             'dos-dump-config=diracos.scripts.dumpConfig:main',
                             'dos-fix-pip-versions=diracos.scripts.fixPipRequirementsVersions:main',

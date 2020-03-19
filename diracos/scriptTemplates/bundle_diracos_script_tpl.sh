@@ -37,15 +37,6 @@ grep -rIl '#!/usr/bin/python' /tmp/diracos | xargs sed -i 's:#!/usr/bin/python:#
 # Generating the diracosrc
 echo "Generating diracosrc $DIRACOSRC"
 
-# Find all the libraries in the diracos folder in order to build the LD_LIBRARY_PATH
-# We also replace the localy resolved DIRACOS path with the variable '$DIRACOS' such
-# that it is resolved at source time
-DIRACOS_LD_LIBRARY_PATH=$(find -L $DIRACOS -name '*.so' -printf "%%h\n" | sort -u | sed -E "s|^$DIRACOS|\$DIRACOS|g" | sort -u | paste -sd ':')
-
-# Replace the DIRACOS_LD_LIBRARY_PATH text in the diracosrc template with the libraries just found
-# reminder: the /tmp/diracosrc_tpl.sh file was put there in the bundling bootstrap of diracoslib
-sed "s|DIRACOS_LD_LIBRARY_PATH|$DIRACOS_LD_LIBRARY_PATH|g" /tmp/diracosrc_tpl.sh > $DIRACOSRC
-
 # add the list of rpms and python packages for info
 echo "Adding the version list $DIRACOS_VERSION_FILE"
 
