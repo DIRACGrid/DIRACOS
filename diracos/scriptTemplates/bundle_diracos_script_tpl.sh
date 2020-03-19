@@ -36,6 +36,7 @@ grep -rIl '#!/usr/bin/python' /tmp/diracos | xargs sed -i 's:#!/usr/bin/python:#
 
 # Generating the diracosrc
 echo "Generating diracosrc $DIRACOSRC"
+cp /tmp/diracosrc_tpl.sh $DIRACOSRC
 
 # add the list of rpms and python packages for info
 echo "Adding the version list $DIRACOS_VERSION_FILE"
