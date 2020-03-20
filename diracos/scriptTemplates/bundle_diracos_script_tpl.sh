@@ -34,6 +34,9 @@ cp -r /tmp/pipDirac/bin/ $DIRACOS/usr/
 echo "Fixing the shebang"
 grep -rIl '#!/usr/bin/python' /tmp/diracos | xargs sed -i 's:#!/usr/bin/python:#!/usr/bin/env python:g'
 
+# Fix RPATHs
+dos-set-rpaths
+
 # Generating the diracosrc
 echo "Generating diracosrc $DIRACOSRC"
 cp /tmp/diracosrc_tpl.sh $DIRACOSRC

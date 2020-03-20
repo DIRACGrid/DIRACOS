@@ -70,6 +70,9 @@ for root, dirs, files in tqdm(list(os.walk('diracos'))):
             so_names[soname].append(fn)
             elf_fns[fn] = deps
 
+if len(elf_fns) < 100:
+    raise RuntimeError("Something appears to have gone wrong")
+
 for k, v in so_names.items():
     if k is None or len(v) == 1:
         continue
@@ -84,10 +87,10 @@ for k, v in so_names.items():
     if len(hashes) > 1:
         raise NotImplementedError(v, hashes)
 
-# Load missing dependencies
-with open(sys.argv[1]) as fp:
-    allowed_missing = fp.read().strip().split()
-allowed_missing.append('ld-linux-x86-64.so.2')
+# # Load missing dependencies
+# with open(sys.argv[1]) as fp:
+#     allowed_missing = fp.read().strip().split()
+# allowed_missing.append('ld-linux-x86-64.so.2')
 
 # Fix the RPATHs
 for i, elf_fn in tqdm(enumerate(elf_fns)):
@@ -116,10 +119,10 @@ for i, elf_fn in tqdm(enumerate(elf_fns)):
                     break
             else:
                 raise NotImplementedError()
-        elif soname in allowed_missing:
-            print(f'Found allowed missing SONAME: {soname}')
-        else:
-            raise NotImplementedError()
+        # elif soname in allowed_missing:
+        #     print(f'Found allowed missing SONAME: {soname}')
+        # else:
+        #     raise NotImplementedError()
 
     binary = cached_parse(elf_fn)
     rpaths = set()

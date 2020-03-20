@@ -64,7 +64,6 @@ compile:
     - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt changes/requirements.txt
     - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/fixed_requirements.txt config/requirements.txt
     - dos-build-python-modules config/diracos.json
-    - dos-set-rpaths tests/integration/knownMissingDependencies.txt
     - dos-bundle config/diracos.json
     - cp /var/lib/mock/epel-6-x86_64-install/root/tmp/diracos-${BUILD_NAME}.tar.gz public/releases/diracos-${BUILD_NAME}.tar.gz
     - cd public/releases
