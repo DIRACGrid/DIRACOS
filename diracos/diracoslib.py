@@ -12,7 +12,8 @@ import tempfile
 from yum import rpmUtils
 
 from diracos import BUILD_PYTHON_MODULE_SH_TPL_PATH, FIX_PIP_REQUIREMENTS_VERSIONS_SH_TPL_PATH,\
-    DIRACOSRC_TPL_PATH, PYTHON_BUNDLE_LIB_PATH, BUNDLE_DIRACOS_SCRIPT_SH_TPL_PATH, BUILD_DIRACOS_EXTENSION_TPL_PATH
+    DIRACOSRC_TPL_PATH, PYTHON_BUNDLE_LIB_PATH, BUNDLE_DIRACOS_SCRIPT_SH_TPL_PATH, BUILD_DIRACOS_EXTENSION_TPL_PATH, \
+    SET_RPATH_PY_PATH
 
 
 def _downloadFile(url, dest):
@@ -593,7 +594,7 @@ def bundleDIRACOS(fullCfg):
   with open(jsonConfPath, 'w') as jc:
     json.dump(fullCfg, jc)
 
-  for fileToCopy in (PYTHON_BUNDLE_LIB_PATH, BUNDLE_DIRACOS_SCRIPT_SH_TPL_PATH, DIRACOSRC_TPL_PATH):
+  for fileToCopy in (PYTHON_BUNDLE_LIB_PATH, BUNDLE_DIRACOS_SCRIPT_SH_TPL_PATH, DIRACOSRC_TPL_PATH, SET_RPATH_PY_PATH):
     fn = os.path.basename(fileToCopy)
     destPathInMock = os.path.join(mockTmpPath, fn)
     shutil.copyfile(fileToCopy, destPathInMock)

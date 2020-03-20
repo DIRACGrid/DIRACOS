@@ -35,7 +35,16 @@ echo "Fixing the shebang"
 grep -rIl '#!/usr/bin/python' /tmp/diracos | xargs sed -i 's:#!/usr/bin/python:#!/usr/bin/env python:g'
 
 # Fix RPATHs
-dos-set-rpaths
+set -x
+export CONDA_BASE_TMP=$(mktemp -d)
+(cd "${CONDA_BASE_TMP}" &&
+ curl -LO https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh &&
+ bash Miniconda3-latest-Linux-x86_64.sh -b -p "${CONDA_BASE_TMP}/miniconda")
+(source "${CONDA_BASE_TMP}/miniconda/bin/activate" &&
+ conda config --add channels conda-forge --env &&
+ conda install --yes python-magic py-lief tqdm &&
+ python /tmp/set_RPATH.py)
+rm -rf "${CONDA_BASE_TMP}"
 
 # Generating the diracosrc
 echo "Generating diracosrc $DIRACOSRC"
