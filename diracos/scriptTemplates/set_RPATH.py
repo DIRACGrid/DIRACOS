@@ -43,7 +43,7 @@ except NameError:
 # Use magic to find all ELF binaries and then extract their SONAME and dependencies
 elf_fns = {}
 so_names = defaultdict(list)
-for root, dirs, files in tqdm(list(os.walk('diracos'))):
+for root, dirs, files in tqdm(list(os.walk(sys.argv[1]))):
     for fn in files:
         fn = join(root, fn)
         if fn not in cache:
@@ -141,4 +141,4 @@ for i, elf_fn in tqdm(enumerate(elf_fns)):
             break
 
     binary.add(ELF.DynamicEntryRpath(rpaths))
-    binary.write('diracos'+fn[len('diracos'):])
+    binary.write(fn)

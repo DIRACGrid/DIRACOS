@@ -32,7 +32,7 @@ cp -r /tmp/pipDirac/bin/ $DIRACOS/usr/
 
 # Fix the shebang for python
 echo "Fixing the shebang"
-grep -rIl '#!/usr/bin/python' /tmp/diracos | xargs sed -i 's:#!/usr/bin/python:#!/usr/bin/env python:g'
+grep -rIl '#!/usr/bin/python' $DIRACOS | xargs sed -i 's:#!/usr/bin/python:#!/usr/bin/env python:g'
 
 # Fix RPATHs
 set -x
@@ -43,7 +43,7 @@ export CONDA_BASE_TMP=$(mktemp -d)
 (source "${CONDA_BASE_TMP}/miniconda/bin/activate" &&
  conda config --add channels conda-forge --env &&
  conda install --yes python-magic py-lief tqdm &&
- python /tmp/set_RPATH.py)
+ python /tmp/set_RPATH.py $DIRACOS)
 rm -rf "${CONDA_BASE_TMP}"
 
 # Generating the diracosrc
