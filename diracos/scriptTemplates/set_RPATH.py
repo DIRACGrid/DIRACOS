@@ -3,6 +3,7 @@ from collections import defaultdict
 import hashlib
 import os
 from os.path import basename, dirname, join
+import subprocess
 import sys
 
 import lief
@@ -146,8 +147,12 @@ def write_fixed_binaries(elf_fns, so_names):
                 binary.remove(entry)
                 break
 
-        binary.add(ELF.DynamicEntryRpath(rpaths))
-        binary.write(elf_fn)
+        # binary.add(ELF.DynamicEntryRpath(rpaths))
+        # binary.write(elf_fn)
+        # Can't use LIEF due to: https://github.com/lief-project/LIEF/issues/239
+        # So do it the old fashioned way...
+        subprocess.check_output(['patchelf', '--force-rpath', '--set-rpath',
+                                 ':'.join(rpaths), elf_fn])
 
 
 def main():
