@@ -59,7 +59,7 @@ def get_elf_fns():
                     print('Skipping', fn)
                     continue
             result = cache[fn]
-            if result.startswith('ELF '):
+            if result.startswith('ELF ') and 'dynamically linked' in result:
                 binary = cached_parse(fn)
                 soname = None
                 deps = []
@@ -100,8 +100,8 @@ def check_duplicates(so_names):
 
 def write_fixed_binaries(elf_fns, so_names):
     # Fix the RPATHs
-    for i, elf_fn in tqdm(enumerate(elf_fns)):
-        print('Processing', i, elf_fn)
+    for i, elf_fn in enumerate(elf_fns):
+        print('Processing', i, 'out of', len(elf_fns), elf_fn)
         deps = []
         for soname in elf_fns[elf_fn]:
             if so_names[soname]:
