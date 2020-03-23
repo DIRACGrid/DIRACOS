@@ -134,15 +134,16 @@ def write_fixed_binaries(elf_fns, so_names):
         binary = cached_parse(elf_fn)
         rpaths = set()
         for dep in deps:
-            relative_path = os.path.relpath(dirname(deps[0]), dirname(elf_fn))
+            print('Depending on', dep)
+            relative_path = os.path.relpath(dirname(dep), dirname(elf_fn))
             assert relative_path.startswith('.')
-            rpaths.add(os.path.join('$ORIGIN', relative_path).strip('.'))
+            rpaths.add(os.path.join('$ORIGIN', relative_path))
         rpaths = list(rpaths)
 
         # This might be a bad idea but keep append any pre-existing RPATHs
         for entry in binary.dynamic_entries:
             if entry.tag == ELF.DYNAMIC_TAGS.RPATH:
-                rpaths += entry.name.split(":")
+                # rpaths += entry.name.split(":")
                 print('Removing RPATH:', entry.tag, entry.name, entry.value)
                 binary.remove(entry)
                 break
@@ -151,8 +152,10 @@ def write_fixed_binaries(elf_fns, so_names):
         # binary.write(elf_fn)
         # Can't use LIEF due to: https://github.com/lief-project/LIEF/issues/239
         # So do it the old fashioned way...
+        rpath = ':'.join(rpaths)
+        print('Setting RPATH to', rpath)
         subprocess.check_output(['patchelf', '--force-rpath', '--set-rpath',
-                                 ':'.join(rpaths), elf_fn])
+                                 rpath, elf_fn])
 
 
 def main():
