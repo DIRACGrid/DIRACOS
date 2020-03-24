@@ -20,6 +20,7 @@ MySQL-python>=1.2.5
 jinja2
 ipython==5.3.0
 numpy>=1.10.1
+pillow
 pexpect>=4.0.1
 psutil>=4.2.0
 pyasn1>0.4.1
