@@ -59,7 +59,7 @@ def get_elf_fns():
                     print('Skipping', fn)
                     continue
             result = cache[fn]
-            if result.startswith('ELF ') and 'dynamically linked' in result:
+            if 'ELF' in result and 'dynamically linked' in result:
                 binary = cached_parse(fn)
                 soname = None
                 deps = []
