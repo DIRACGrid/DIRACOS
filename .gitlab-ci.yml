@@ -148,6 +148,14 @@ CC7:
     # graphical libraries needed for rrdtool
     - yum install -y freetype fontconfig pixman libXrender
 
+CC8:
+  extends: .run_test
+  image: centos:8
+  allow_failure: true
+  before_script:
+    # graphical libraries needed for rrdtool
+    - yum install -y freetype fontconfig pixman libXrender
+
 fedora-latest:
   extends: .run_test
   image: fedora:latest
@@ -227,6 +235,14 @@ integration_tests_cc7:
   variables:
     MYSQL_VER: "5.7"
     HOST_OS: cc7
+    DIRAC_RELEASE: master
+
+integration_tests_c8:
+  extends: .integration_tests
+  allow_failure: true
+  variables:
+    MYSQL_VER: "5.7"
+    HOST_OS: c8
     DIRAC_RELEASE: master
 
 ########### CHRIS

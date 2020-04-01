@@ -25,7 +25,7 @@ There is a boostrap issue with mock: mock needs gdb which, when compiled with py
 ### About EPEL repository
 
 We could very well rely on the EPEL repository to provide most of the dependencies. The issue there is that it is very difficult to know if we are not rebuilding some of the dependencies of a given RPM, in which case one needs to recompile it as well.
-In order to avoid such headache, we just exclude EPEL alltogether, and recompile it all.
+In order to avoid such headache, we just exclude EPEL all together, and recompile it all.
 
 ### About links
 
@@ -38,7 +38,7 @@ Once the list of RPM and python packages are built, we pull all their dependenci
 
 ## Supported platforms
 
-Only SLC6 and CC7 are supported. We have automated tests for the LTS Ubuntu and Fedora, but if they fail, too bad ! Up to you to fix it if you wish
+Only SLC6 and CC7 are supported. We have automated tests for CentOS 8, LTS Ubuntu and Fedora, but if they fail, too bad ! Up to you to fix it if you wish
 
 ### Trick
 
