@@ -38,8 +38,8 @@ grep -rIl '#!/usr/bin/python' $DIRACOS | xargs sed -i 's:#!/usr/bin/python:#!/us
 set -x
 export CONDA_BASE_TMP=$(mktemp -d)
 (cd "${CONDA_BASE_TMP}" &&
- curl -LO https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh &&
- bash Miniconda3-latest-Linux-x86_64.sh -b -p "${CONDA_BASE_TMP}/miniconda")
+ curl -LO https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.2-Linux-x86_64.sh &&
+ bash Miniconda3-py37_4.8.2-Linux-x86_64.sh -b -p "${CONDA_BASE_TMP}/miniconda")
 (source "${CONDA_BASE_TMP}/miniconda/bin/activate" &&
  conda config --add channels conda-forge --env &&
  conda install --yes python-magic patchelf py-lief tqdm &&

@@ -100,7 +100,6 @@ check_links:
 # Check dependencies
 check_dependencies:
   stage: links
-  allow_failure: true
   dependencies:
     - compile
   tags:
