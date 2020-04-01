@@ -43,34 +43,6 @@ Sometimes, the build will fail, for some weird reasons. To start with, do not bo
 
 When crashing, mock sometimes messes up the actual environment. Log out from the machine, come back, and try again.
 
-## Issue with rpath
-
-In the future, we might see issue with rpath
-
-```
-mock-chroot> sh-4.1# ldd /tmp/root/usr/lib64/python2.7/lib-dynload/pyexpat.so
-	linux-vdso.so.1 =>  (0x00007fff6afac000)
-	libexpat.so.1 => /tmp/root/lib64/libexpat.so.1 (0x00007fb9716ff000)
-	libpython2.7.so.1.0 => /usr/lib64/libpython2.7.so.1.0 (0x00007fb971321000)
-	libpthread.so.0 => /tmp/root/lib64/libpthread.so.0 (0x00007fb971104000)
-	libc.so.6 => /tmp/root/lib64/libc.so.6 (0x00007fb970d70000)
-	libdl.so.2 => /tmp/root/lib64/libdl.so.2 (0x00007fb970b6c000)
-	libutil.so.1 => /tmp/root/lib64/libutil.so.1 (0x00007fb970969000)
-	libm.so.6 => /tmp/root/lib64/libm.so.6 (0x00007fb9706e5000)
-	/lib64/ld-linux-x86-64.so.2 (0x00007fb971b33000)
-
-<mock-chroot> sh-4.1# readelf -d /tmp/root/usr/lib64/python2.7/lib-dynload/pyexpat.so  | grep RPAT
-    0x000000000000000f (RPATH)              Library rpath: [/usr/lib64]
-```
-
-A tool can remove them if needed:
-https://linux.die.net/man/1/chrpath
-
-## CentOS7
-
-Currently there is an issue with CentOS7.
-The python scripts have `/usr/bin/env` as shebang. However, `/usr/bin/env` requires `GLIBC_2.14` on CentOS7, which is not in the `libc` shipped here. The solution is probably to fix the postinstall script of DIRAC to not use the system `env`
-
 ## Symlinks
 
 Some RPMs will create broken symlinks. The existing ones are know, and are in the file `tests/integration/knownBrokenLinks.txt`. Shall a new one appear, this test should trigger, and you should either fix it, or add it to the list.
