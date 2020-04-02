@@ -1,3 +1,11 @@
+[v1r10]
+
+NEW: (#128) Add boto3 as requirements (for S3)
+CHANGE: (#125) do not distribute xroot server anymore
+CHANGE: (#126) remove rst2pdf and add Pillow and docutils
+
+
+
 [v1r9]
 
 CHANGE: (#123) davix 0.7.2-2 to 0.7.5-1
