@@ -45,11 +45,11 @@ def cached_parse(fn):
   return lief_cache[fn]
 
 
-def get_elf_fns():
+def get_elf_fns(base_path):
   # Use magic to find all ELF binaries and then extract their SONAME and dependencies
   elf_fns = {}
   so_names = defaultdict(list)
-  for root, dirs, files in tqdm(list(os.walk(sys.argv[1]))):
+  for root, dirs, files in tqdm(list(os.walk(base_path))):
     for fn in files:
       fn = join(root, fn)
       if fn not in cache:
@@ -157,11 +157,20 @@ def write_fixed_binaries(elf_fns, so_names):
     subprocess.check_output(['patchelf', '--force-rpath', '--set-rpath', rpath, elf_fn])
 
 
-def main():
-  elf_fns, so_names = get_elf_fns()
+def main(base_path):
+  """Find dynamically linked files and set relative RPATH between them
+
+  This is achieved by:
+   - Recursively search in `base_path` for dynamically linked ELF binaries
+   - Extract the SONAME and any dependent libraries (NEEDED)
+   - Raise an exception if two binaries have the same SONAME and different content
+   - For each dynamically linked binary: set the RPATH to the set of relative
+     paths needed to find all of it's dependencies (e.g. $ORIGIN/:$ORIGIN/../lib64)
+  """
+  elf_fns, so_names = get_elf_fns(base_path)
   check_duplicates(so_names)
   write_fixed_binaries(elf_fns, so_names)
 
 
 if __name__ == '__main__':
-  main()
+  main(sys.argv[1])
