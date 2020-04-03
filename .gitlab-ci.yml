@@ -237,13 +237,13 @@ integration_tests_cc7:
     HOST_OS: cc7
     DIRAC_RELEASE: master
 
-integration_tests_c8:
-  extends: .integration_tests
-  allow_failure: true
-  variables:
-    MYSQL_VER: "5.7"
-    HOST_OS: c8
-    DIRAC_RELEASE: master
+# integration_tests_c8:
+#   extends: .integration_tests
+#   allow_failure: true
+#   variables:
+#     MYSQL_VER: "5.7"
+#     HOST_OS: c8
+#     DIRAC_RELEASE: master
 
 ########### CHRIS
 # Run the dyn tests as a separate test for the time being, so to allow it to fail
