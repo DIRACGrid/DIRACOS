@@ -78,7 +78,6 @@ compile:
       - changes
     expire_in: 1 week
 
-
 # Check links
 check_links:
   stage: links
@@ -145,6 +144,14 @@ SLC6:
 CC7:
   extends: .run_test
   image: cern/cc7-base
+  before_script:
+    # graphical libraries needed for rrdtool
+    - yum install -y freetype fontconfig pixman libXrender
+
+CC8:
+  extends: .run_test
+  image: centos:8
+  allow_failure: true
   before_script:
     # graphical libraries needed for rrdtool
     - yum install -y freetype fontconfig pixman libXrender
@@ -229,6 +236,14 @@ integration_tests_cc7:
     MYSQL_VER: "5.7"
     HOST_OS: cc7
     DIRAC_RELEASE: master
+
+# integration_tests_c8:
+#   extends: .integration_tests
+#   allow_failure: true
+#   variables:
+#     MYSQL_VER: "5.7"
+#     HOST_OS: c8
+#     DIRAC_RELEASE: master
 
 ########### CHRIS
 # Run the dyn tests as a separate test for the time being, so to allow it to fail

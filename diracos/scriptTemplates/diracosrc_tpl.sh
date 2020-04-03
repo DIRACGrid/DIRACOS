@@ -9,10 +9,7 @@ then
   export DIRACOS;
 fi
 
-
-# Define the LD_LIBRARY_PATH
-LD_LIBRARY_PATH=DIRACOS_LD_LIBRARY_PATH:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH
+unset LD_LIBRARY_PATH
 
 # Define the path
 PATH=$DIRACOS/bin:$DIRACOS/usr/bin:$DIRACOS/sbin:$DIRACOS/usr/sbin:$PATH

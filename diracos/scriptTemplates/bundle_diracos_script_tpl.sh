@@ -32,19 +32,23 @@ cp -r /tmp/pipDirac/bin/ $DIRACOS/usr/
 
 # Fix the shebang for python
 echo "Fixing the shebang"
-grep -rIl '#!/usr/bin/python' /tmp/diracos | xargs sed -i 's:#!/usr/bin/python:#!/usr/bin/env python:g'
+grep -rIl '#!/usr/bin/python' $DIRACOS | xargs sed -i 's:#!/usr/bin/python:#!/usr/bin/env python:g'
+
+# Fix RPATHs
+set -x
+export CONDA_BASE_TMP=$(mktemp -d)
+(cd "${CONDA_BASE_TMP}" &&
+ curl -LO https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.2-Linux-x86_64.sh &&
+ bash Miniconda3-py37_4.8.2-Linux-x86_64.sh -b -p "${CONDA_BASE_TMP}/miniconda")
+(source "${CONDA_BASE_TMP}/miniconda/bin/activate" &&
+ conda config --add channels conda-forge --env &&
+ conda install --yes python-magic patchelf py-lief tqdm &&
+ python /tmp/set_RPATH.py $DIRACOS)
+rm -rf "${CONDA_BASE_TMP}"
 
 # Generating the diracosrc
 echo "Generating diracosrc $DIRACOSRC"
-
-# Find all the libraries in the diracos folder in order to build the LD_LIBRARY_PATH
-# We also replace the localy resolved DIRACOS path with the variable '$DIRACOS' such
-# that it is resolved at source time
-DIRACOS_LD_LIBRARY_PATH=$(find -L $DIRACOS -name '*.so' -printf "%%h\n" | sort -u | sed -E "s|^$DIRACOS|\$DIRACOS|g" | sort -u | paste -sd ':')
-
-# Replace the DIRACOS_LD_LIBRARY_PATH text in the diracosrc template with the libraries just found
-# reminder: the /tmp/diracosrc_tpl.sh file was put there in the bundling bootstrap of diracoslib
-sed "s|DIRACOS_LD_LIBRARY_PATH|$DIRACOS_LD_LIBRARY_PATH|g" /tmp/diracosrc_tpl.sh > $DIRACOSRC
+cp /tmp/diracosrc_tpl.sh $DIRACOSRC
 
 # add the list of rpms and python packages for info
 echo "Adding the version list $DIRACOS_VERSION_FILE"
