@@ -47,7 +47,7 @@ When dynamic libraries are resolved by `/lib64/ld-linux-x86-64.so.2` libraries a
 Ordinarily the CentOS 6 SPRMs upon which DIRACOS is based find shared libraries by relying on the default locations (4).
 As DIRACOS has to be relocatable this has to be overridden.
 Prior to DIRACOS v1r10 this was achieved using the `LD_LIBRARY_PATH` environment variable however this interferes with the job payload in undesirable ways (see [DIRACGrid/DIRAC#4480](https://github.com/DIRACGrid/DIRAC/issues/4480)).
-DIRACOS v1r10 uses `patchelf` to run a post processing step on the built binaries to modify the headers of all dynamically linked ELF files to add the `RPATH` section.
+DIRACOS v1r11 uses `patchelf` to run a post processing step on the built binaries to modify the headers of all dynamically linked ELF files to add the `RPATH` section.
 This is set to a path starting with `$ORIGIN/` to allow dependencies to be found relative to the current files location rather than using an absolute path.
 This transformation is performed by `diracos/scriptTemplates/set_RPATH.py` which is called by `diracos/scriptTemplates/bundle_diracos_script_tpl.sh`.
 
