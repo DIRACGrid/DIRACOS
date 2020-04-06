@@ -68,7 +68,7 @@ interactive tasks (debugging, file editing, etc). We are aware than some
 -  `Troubleshoot <docs/50_troubleshoot.rst#troubleshoot>`__
 
    -  `Error
-      ``Requires: python(abi) = 2.6`` <docs/50_troubleshoot.rst#error-requires-pythonabi-26>`__
+      `Requires: python(abi) = 2.6 <docs/50_troubleshoot.rst#error-requires-pythonabi-26>`__
    -  `Build is failing for broken rpm
       dependencies <docs/50_troubleshoot.rst#build-is-failing-for-broken-rpm-dependencies>`__
    -  `Script fails for missing python
