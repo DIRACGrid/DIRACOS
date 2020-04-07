@@ -274,7 +274,6 @@ dyn_SLC6:
   before_script:
     # graphical libraries needed for rrdtool
     - yum install -y tar freetype fontconfig pixman libXrender unzip
-  allow_failure: true
 
 dyn_CC7:
   extends: .run_dyn_test
@@ -282,7 +281,6 @@ dyn_CC7:
   before_script:
     # graphical libraries needed for rrdtool
     - yum install -y freetype fontconfig pixman libXrender unzip
-  allow_failure: true
 
 #######################################################################################
 
