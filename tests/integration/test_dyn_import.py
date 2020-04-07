@@ -7,7 +7,6 @@ import os
 import traceback
 import warnings
 import pytest
-import sys
 import findimports
 
 parametrize = pytest.mark.parametrize
@@ -23,8 +22,15 @@ diracPath = os.environ['DIRAC']
 
 # Find all the packages used by DIRAC
 g = findimports.ModuleGraph()
-g.parsePathname(diracPath)
-# g.parsePathname('/tmp/cacheFile.importcache')
+directories = next(os.walk(diracPath))[1]
+directories.remove('docs')
+
+for dir in directories:
+  g.parsePathname('%s/%s' % (diracPath, dir))
+
+g.parseFile('%s/%s' % (diracPath, '__init__.py'))
+g.parseFile('%s/%s' % (diracPath, 'setup.py'))
+
 g = g.packageGraph(packagelevel=1).collapseTests()
 moduleNames = set([i for m in g.listModules() for i in m.imports])
 
