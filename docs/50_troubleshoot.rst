@@ -8,13 +8,13 @@ If you see such an error, start by comparing the version of the
 complaining package with the one which is in the diracos_repo. If they
 do not match, then you need to update the version shipped with DIRACOS.
 
-The whole point of building so many RPMs is because we try to get ride
+The whole point of building so many RPMs is because we try to get rid
 of python2.6 in all the low level packages. If you see such a message,
 that means that one of the package you are building requires a
 dependency that we do not provide. And if that’s the case, you might
-want to look at version change. For example::
+want to look at version change. For example:
 
-::
+.. code-block:: text
 
    Getting requirements for yum-3.2.29-81.el6.py27.usc4.src
     --> python-2.7.13-2.el6.x86_64
