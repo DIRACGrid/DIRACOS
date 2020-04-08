@@ -12,15 +12,15 @@ interactive tasks (debugging, file editing, etc). We are aware than some
    :maxdepth: 3
    :caption: Contents:
 
-   docs/0_concepts
-   docs/10_RPMs
-   docs/20_pythonPackages
-   docs/30_generatingDIRACOS
-   docs/40_grammar
-   docs/50_troubleshoot
-   docs/60_useDIRACOS
-   docs/70_release
-   docs/80_extendingDIRACOS
+   0_concepts
+   10_RPMs
+   20_pythonPackages
+   30_generatingDIRACOS
+   40_grammar
+   50_troubleshoot
+   60_useDIRACOS
+   70_release
+   80_extendingDIRACOS
 
 Search
 ======
