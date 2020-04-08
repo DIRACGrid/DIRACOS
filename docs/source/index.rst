@@ -1,7 +1,7 @@
 DIRACOS
 =======
 
-|pipeline status|
+|pipeline status| |documentation status|
 
 DIRACOS aims at bringing in one archive all the dependencies needed by
 DIRAC to run Agents, Services and clients. It is not intended to perform
@@ -38,3 +38,6 @@ for those.
 
 .. |pipeline status| image:: https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/badges/master/pipeline.svg
    :target: https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/pipelines
+
+.. |documentation status| image:: https://readthedocs.org/projects/diracos/badge/?version=latest
+   :target: https://diracos.readthedocs.io/en/latest/
