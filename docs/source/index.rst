@@ -1,18 +1,34 @@
 DIRACOS
 =======
 
-|pipeline status| |documentation status| 
+|pipeline status| |documentation status|
 
 DIRACOS aims at bringing in one archive all the dependencies needed by
 DIRAC to run Agents, Services and clients. It is not intended to perform
 interactive tasks (debugging, file editing, etc). We are aware than some
 “basic” tools won’t work (less, emacs, etc). They won’t be fixed.
 
-The documentation for DIRACOS can be found [here](https://diracos.readthedocs.io/en/latest/)
+.. toctree::
+   :maxdepth: 3
+   :caption: Contents:
 
+   0_concepts
+   10_RPMs
+   20_pythonPackages
+   30_generatingDIRACOS
+   40_grammar
+   50_troubleshoot
+   60_useDIRACOS
+   70_release
+   80_extendingDIRACOS
 
+Search
+======
+
+* :ref:`search`
+  
 Disclaimer
-----------
+==========
 
 DIRACOS is distributed in the hope that it will be useful, but WITHOUT
 ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
