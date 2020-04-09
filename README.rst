@@ -8,7 +8,7 @@ DIRAC to run Agents, Services and clients. It is not intended to perform
 interactive tasks (debugging, file editing, etc). We are aware than some
 “basic” tools won’t work (less, emacs, etc). They won’t be fixed.
 
-The documentation for DIRACOS can be found [here](https://diracos.readthedocs.io/en/latest/)
+The documentation for DIRACOS can be found `here <https://diracos.readthedocs.io/en/latest/>`_.
 
 
 Disclaimer
