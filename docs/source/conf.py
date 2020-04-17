@@ -26,7 +26,7 @@ author = u'DIRACOS Authors'
 # The short X.Y version
 version = u''
 # The full version, including alpha/beta/rc tags
-release = u'v1r10'
+release = u''
 
 
 # -- General configuration ---------------------------------------------------
