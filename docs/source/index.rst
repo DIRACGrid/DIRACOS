@@ -40,4 +40,4 @@ for those.
    :target: https://gitlab.cern.ch/CLICdp/iLCDirac/DIRACOS/pipelines
 
 .. |documentation status| image:: https://readthedocs.org/projects/diracos/badge/?version=latest
-   :target: https://diracos.readthedocs.io/en/latest/
+   :target: https://diracos.readthedocs.io/
