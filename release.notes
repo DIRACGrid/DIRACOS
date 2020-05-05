@@ -1,3 +1,17 @@
+[v1r12]
+
+NEW: (#128) Add boto3 as requirements (for S3)
+CHANGE: (#129) Convert docs to rst
+NEW: (#131) Exclude `docs` folder dyn import test
+CHANGE: (#131) Require python imports tests to pass in CI
+NEW: (#137) Add diraccfg
+CHANGE: (#125) do not distribute xroot server anymore
+CHANGE: (#126) remove rst2pdf and add Pillow and docutils
+CHANGE: (#127) Shared libraries are now found using RPATH instead of LD_LIBRARY_PATH
+FIX: (#127) CentOS 8 support
+
+
+
 [v1r11]
 
 NEW: (#128) Add boto3 as requirements (for S3)
