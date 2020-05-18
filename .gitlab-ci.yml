@@ -19,12 +19,14 @@ changelog:
   before_script:
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     - python get-pip.py
-    - pip install requests
+    - pip install -U requests python-dateutil pytz
   script:
     - echo "GITHUBTOKEN = \"$GITHUBTOKEN\"" >& GitTokens.py
     - export PYTHONPATH=$(pwd)
     - mkdir changes
-    - python ./docs/Tools/GetReleaseNotes.py --last > changes/PRs.txt
+    - curl -O https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/docs/diracdoctools/scripts/dirac-docs-get-release-notes.py
+    - python dirac-docs-get-release-notes.py --sinceLatestTag -r DIRACGrid/DIRACOS --branches master > changes/PRs.txt
+    - sed -i '1,2d' changes/PRs.txt
     - cat changes/PRs.txt | cat - release.notes > temp
     - source ./docs/Tools/CreateName.sh
     - echo -n "[${BUILD_NAME}]" | cat - temp > changes/release.notes
@@ -347,4 +349,9 @@ push_tag:
     - if $MAKE_TAG ; then git push origin --tags ; fi
     - echo "GITHUBTOKEN = \"$GITHUBTOKEN\"" >& GitTokens.py
     - export PYTHONPATH=$(pwd)
-    - if $MAKE_TAG ; then python ./docs/Tools/GetReleaseNotes.py --PRInfo ../changes/PRs.txt --versionInfo bundle/diracos/versions.txt --newTag ${BUILD_NAME} ; fi
+    - echo $'## This release contains the following PRs \n' > releaseText.txt
+    - cat ../changes/PRs.txt >> releaseText.txt
+    - echo $'## Included versions of packages \n' >> releaseText.txt
+    - cat bundle/diracos/versions.txt >> releaseText.txt
+    - cat releaseText.txt
+    - if $MAKE_TAG ; then python dirac-docs-get-release-notes.py -r DIRACGrid/DIRACOS --tagName ${BUILD_NAME} --releaseNotes releaseText.txt --deployRelease ; fi
