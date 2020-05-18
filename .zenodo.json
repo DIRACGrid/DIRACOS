@@ -1,0 +1,43 @@
+{
+    "license": "GPL-3.0",
+    "notes": "documentation: https://diracos.readthedocs.io", 
+    "language": "eng", 
+    "upload_type": "software", 
+    "keywords": [
+        "Grid,Distributed Computing, Science, HEP"
+    ],
+    "creators": [
+        {
+            "orcid": "0000-0002-4947-2928",
+            "affiliation": "CERN", 
+            "name": "Haen, Christophe"
+        }, 
+        {
+            "orcid": "0000-0002-1331-2578",
+            "affiliation": "CERN", 
+            "name": "Petric, Marko"
+        }, 
+        {
+            "orcid": "0000-0001-6749-1033",
+            "affiliation": "CERN", 
+            "name": "Couturier, Benjamin"
+        },
+        {
+            "orcid": "0000-0002-5155-1094",
+            "affiliation": "CERN", 
+            "name": "Burr, Christopher"
+        },
+        {
+            "orcid": " 0000-0002-7576-4019",
+            "affiliation": "CERN", 
+            "name": "Stagni, Federico"
+        },        
+        {
+            "orcid": "0000-0002-9897-5214",
+            "affiliation": "CERN", 
+            "name": "Sailer, Andre"
+        }
+    ], 
+    "access_right": "open"
+}
+
