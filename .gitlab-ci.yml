@@ -26,10 +26,10 @@ changelog:
     - mkdir changes
     - curl -O https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/docs/diracdoctools/scripts/dirac-docs-get-release-notes.py
     - python dirac-docs-get-release-notes.py --sinceLatestTag -r DIRACGrid/DIRACOS --branches master > changes/PRs.txt
-    - sed -i '1,2d' changes/PRs.txt
+    - sed -i '1,1d' changes/PRs.txt
     - cat changes/PRs.txt | cat - release.notes > temp
     - source ./docs/Tools/CreateName.sh
-    - echo -n "[${BUILD_NAME}]" | cat - temp > changes/release.notes
+    - echo "[${BUILD_NAME}]" | cat - temp > changes/release.notes
 
   artifacts:
     paths:
@@ -351,7 +351,7 @@ push_tag:
     - export PYTHONPATH=$(pwd)
     - echo $'## This release contains the following PRs \n' > releaseText.txt
     - cat ../changes/PRs.txt >> releaseText.txt
-    - echo $'## Included versions of packages \n' >> releaseText.txt
+    - echo $'## Included versions of packages \n\n' >> releaseText.txt
     - cat bundle/diracos/versions.txt >> releaseText.txt
     - cat releaseText.txt
     - if $MAKE_TAG ; then python dirac-docs-get-release-notes.py -r DIRACGrid/DIRACOS --tagName ${BUILD_NAME} --releaseNotes releaseText.txt --deployRelease ; fi
