@@ -1,107 +1,86 @@
 [v1r12]
 
-NEW: (#128) Add boto3 as requirements (for S3)
-CHANGE: (#129) Convert docs to rst
-NEW: (#131) Exclude `docs` folder dyn import test
-CHANGE: (#131) Require python imports tests to pass in CI
 NEW: (#137) Add diraccfg
-CHANGE: (#125) do not distribute xroot server anymore
-CHANGE: (#126) remove rst2pdf and add Pillow and docutils
-CHANGE: (#127) Shared libraries are now found using RPATH instead of LD_LIBRARY_PATH
-FIX: (#127) CentOS 8 support
 
 
 
 [v1r11]
 
-NEW: (#128) Add boto3 as requirements (for S3)
-CHANGE: (#129) Convert docs to rst
-NEW: (#131) Exclude `docs` folder dyn import test
-CHANGE: (#131) Require python imports tests to pass in CI
-CHANGE: (#125) do not distribute xroot server anymore
-CHANGE: (#126) remove rst2pdf and add Pillow and docutils
 CHANGE: (#127) Shared libraries are now found using RPATH instead of LD_LIBRARY_PATH
+CHANGE: (#129) Convert docs to rst
+CHANGE: (#131) Require python imports tests to pass in CI
 FIX: (#127) CentOS 8 support
+NEW: (#131) Exclude `docs` folder dyn import test
 
 
 
 [v1r10]
 
-NEW: (#128) Add boto3 as requirements (for S3)
-CHANGE: (#125) do not distribute xroot server anymore
 CHANGE: (#126) remove rst2pdf and add Pillow and docutils
+NEW: (#128) Add boto3 as requirements (for S3)
 
 
 
 [v1r9]
 
-CHANGE: (#123) davix 0.7.2-2 to 0.7.5-1
-CHANGE: (#123) xrootd 4.140.0 -> 4.11.2
-CHANGE: (#123) gfal2 2.16.1 -> 2.17.1
-FIX: (#124) remove the rpath from the pyxrootd compilation
 CHANGE: (#125) do not distribute xroot server anymore
+FIX: (#124) remove the rpath from the pyxrootd compilation
 
 
 
 [v1r8]
 
-CHANGE: (#121) Keep empty directory because of idiotic singularity
 CHANGE: (#123) davix 0.7.2-2 to 0.7.5-1
-CHANGE: (#123) xrootd 4.140.0 -> 4.11.2
 CHANGE: (#123) gfal2 2.16.1 -> 2.17.1
+CHANGE: (#123) xrootd 4.140.0 -> 4.11.2
 
 
 
 [v1r7]
 
-FIX: (#116) fix the generation of the version file for the extension build
-FIX: (#118) Patch singularity to make it runtime relocatable
 CHANGE: (#119) remove cx_Oracle
 CHANGE: (#121) Keep empty directory because of idiotic singularity
-NEW: (#111) Run DIRAC integration tests with the tarball
 FIX: (#111) Use latest pip inside the virtual environment so `python_version` metadata is considered
+FIX: (#116) fix the generation of the version file for the extension build
+FIX: (#118) Patch singularity to make it runtime relocatable
+NEW: (#111) Run DIRAC integration tests with the tarball
 
 
 
 [v1r6]
 
 FIX: (#113) Use latest pip inside the virtual environment so python_version metadata is considered
-NEW: (#114) Add manualDependencies feature and use it for NSS
-NEW: (#114) postfix package is now ignored
-NEW: (#114) add an ldd test
 NEW: (#105) Add singularity
+NEW: (#114) Add manualDependencies feature and use it for NSS
+NEW: (#114) add an ldd test
+NEW: (#114) postfix package is now ignored
 
 
 
 [v1r5]
 
-NEW: (#100) dynamically collect and test the import of DIRAC/integration
-NEW: (#103) Add xz for use with Python's backport.lzma
-NEW: (#103) Add uproot and related compression libraries for reading ROOT files
-CHANGE: (#103) Update MySQL from 5.7.21 to 5.7.28 for support with servers running MySQL 8
-CHANGE: (#108) Update git to 2.18.0
-FIX: (#108) Remove dependency on host git installation by making git relocatable
 FIX: (#108) Don't bundle entries listed in `ignoredPackages`
-CHANGE: (#109) Freeze stomp.py to 4.1.22
+FIX: (#108) Remove dependency on host git installation by making git relocatable
+NEW: (#100) dynamically collect and test the import of DIRAC/integration
+NEW: (#103) Add uproot and related compression libraries for reading ROOT files
+NEW: (#103) Add xz for use with Python's backport.lzma
 
 
 
 [v1r4]
 
-CHANGE: (#98) xrootd version from 4.8.3 to 4.10.0
-NEW: (#98) subprocess32 as explicit python requirement
-NEW: (#94) DIRACOS: Add tools to build pure python extensions
 CHANGE: (#94) DIRACOS: package scritps and tests under diracos package
+CHANGE: (#98) xrootd version from 4.8.3 to 4.10.0
 FIX: (#95) DIRACOS: surround list variable with quotes in script template
+NEW: (#94) DIRACOS: Add tools to build pure python extensions
+NEW: (#98) subprocess32 as explicit python requirement
 
 
 
 [v1r3]
 
-CHANGE: (#85) Change base container to centos6 and enable EPEL
-CHANGE: (#86) Change tag from Lightweight to Annotated
-CHANGE: (#88) relax M2Crypto version
 CHANGE added python packages: future, pytest-mock, plus specifying some versions
+CHANGE: (#88) relax M2Crypto version
 CHANGE: (#90) import tests are inline with the DIRAC integration branch
 CHANGE: (#91) fix version of elasticsearch to less than 7.0.0
 CHANGE: (#92) Don't test irods import
@@ -111,57 +90,54 @@ FIX: (#92) Don't test pilotTools import
 
 [v1r2]
 
-NEW: (#71) Explicitly require M2Crypto 0.32.0
-FIX: (#71) bash scripts exit on errors
-FIX: (#72) use rsync to copy python modules in diracos
 CHANGE: (#73) Davix 0.7.2, gfal2 2.16.1, gfal2-python 1.9.5
-NEW: (#76) Add openldap to bundle
-FIX: (#79) Add missing libxcrypt-compat package for import_test.py under Fedora 30
 CHANGE: (#80) Freeze the typing module to version 3.6.6., because newer version cause an exception in hypothesis
-NEW: (#81) specify ARC and GFAL plugins locations in diracosrc
-NEW: (#82) more binary tests
-FIX: (#84) add fipscheck as dependency of ssh
-FIX: (#84) add graphic libraries to SLC6 & CC7 docker images for rrdtools tests
 CHANGE: (#85) Change base container to centos6 and enable EPEL
 CHANGE: (#86) Change tag from Lightweight to Annotated
+FIX: (#71) bash scripts exit on errors
+FIX: (#72) use rsync to copy python modules in diracos
+FIX: (#79) Add missing libxcrypt-compat package for import_test.py under Fedora 30
+FIX: (#84) add fipscheck as dependency of ssh
+FIX: (#84) add graphic libraries to SLC6 & CC7 docker images for rrdtools tests
+NEW: (#71) Explicitly require M2Crypto 0.32.0
+NEW: (#76) Add openldap to bundle
+NEW: (#81) specify ARC and GFAL plugins locations in diracosrc
+NEW: (#82) more binary tests
 
 
 
 [v1r1]
 
-FIX: (#64) Use BASH_SOURCE instead of first argument in diracosrc
-CHANGE: (#67) take fts3-rest from pipy instead of github. Replace coverall with codecov.
 CHANGE: (#67) reorganizing the diracos tools for better readability of the scripts
+CHANGE: (#67) take fts3-rest from pipy instead of github. Replace coverall with codecov.
 CHANGE: (#67) use pip-tools to compile the python package versions, and use pip freeze for listing all the packages shipped
-NEW: (#68) add Tornado to the python requirements list
 CHANGE: (#70) remove runit from DIRACOS
-NEW: (#55) if DIRACOS env variable is not defined, diracosrc infers it as its current location
-NEW: (#57) Extend the CI to produce tags, releases and builds based on branch name
-NEW: (#58) Document release versioning scheme
 FIX: (#60) fix fedora's tests for F29
 FIX: (#61) correct if conditions in CI yml
 FIX: (#62) DIRACOS inference was buggy
+FIX: (#64) Use BASH_SOURCE instead of first argument in diracosrc
+NEW: (#55) if DIRACOS env variable is not defined, diracosrc infers it as its current location
 NEW: (#63) after a successful build upload the tar of RPMs to the DIRACOS webpage
+NEW: (#68) add Tornado to the python requirements list
 
 
 
 [1.0.0]
 
-NEW: (#38) add runit
 CHANGE: (#40) new packaging version of yum-utils yum-utils-1.1.30-42.el6_10
+CHANGE: (#51) Shrink the size of DIRACOS by removing useless libs
+CHANGE: (#52) CI jobs deployed only from the main ILC repo
+CHANGE: (#53) use http://diracos.web.cern.ch/ for DIRACOS
 FIX: (#43) Deploy nightly build of master and tags to https://diracos.web.cern.ch
+FIX: (#50) absolute symlinks and all hard linksare transformed into copies
+FIX: (#50) create a virtualenv with no external symlinks
+FIX: (#51) fix the test for Fedora
 NEW: (#44) cx_Oracle as a python dependency
 NEW: (#47) add tests of DIRACOS on CC7, SLC6, ubuntu, fedora
 NEW: (#48) build git's SRPM
 NEW: (#50) test that there are no absolute symlinks in DIRACOS
-FIX: (#50) absolute symlinks and all hard linksare transformed into copies
-FIX: (#50) create a virtualenv with no external symlinks
-CHANGE: (#51) Shrink the size of DIRACOS by removing useless libs
-FIX: (#51) fix the test for Fedora
 NEW: (#52) Add mysql client
 NEW: (#52) Add test for cli
-CHANGE: (#52) CI jobs deployed only from the main ILC repo
-CHANGE: (#53) use http://diracos.web.cern.ch/ for DIRACOS
 NEW: (#54) add pyasn1 and pyasn1_modules
 NEW: (#57) Extend the CI to produce tags, releases and builds based on branch name
 NEW: (#58) Document release versioning scheme
@@ -170,11 +146,12 @@ NEW: (#58) Document release versioning scheme
 
 [0.0.8]
 
+CHANGE: (#37) srm-ifce to 1.24.4
 NEW: (#33) documentation on how to make a release
 NEW: (#33) pull request template
 NEW: (#37) add a versions.txt file in diracos containing all the packages (issue #32)
-CHANGE: (#37) srm-ifce to 1.24.4
 NEW: (#38) add runit
+
 
 
 [0.0.7]
