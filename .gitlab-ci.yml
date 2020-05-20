@@ -27,6 +27,7 @@ changelog:
     - curl -O https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/docs/diracdoctools/scripts/dirac-docs-get-release-notes.py
     - python dirac-docs-get-release-notes.py --sinceLatestTag -r DIRACGrid/DIRACOS --branches master > changes/PRs.txt
     - sed -i '1,1d' changes/PRs.txt
+    - sort -o changes/PRs.txt changes/PRs.txt
     - cat changes/PRs.txt | cat - release.notes > temp
     - source ./docs/Tools/CreateName.sh
     - echo "[${BUILD_NAME}]" | cat - temp > changes/release.notes
