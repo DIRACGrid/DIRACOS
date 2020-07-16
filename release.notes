@@ -1,3 +1,9 @@
+[v1r13]
+
+
+
+
+FIX: (#138) use script from DIRACGrid/DIRAC integration to aggregate release notes and create release
 [v1r12]
 
 NEW: (#137) Add diraccfg
