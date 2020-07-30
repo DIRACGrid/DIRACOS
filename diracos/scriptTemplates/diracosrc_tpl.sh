@@ -26,7 +26,10 @@ export ARC_PLUGIN_PATH;
 GFAL_CONFIG_DIR=$DIRACOS/etc/gfal2.d;
 export GFAL_CONFIG_DIR;
 
-
 # Gfal plugins
 GFAL_PLUGIN_DIR=$DIRACOS/usr/lib64/gfal2-plugins/;
 export GFAL_PLUGIN_DIR;
+
+# Many Linux distributions set LESSOPEN to provide fancier features
+# These don't work with the CentOS 6 version of less so unset the variable
+unset LESSOPEN
