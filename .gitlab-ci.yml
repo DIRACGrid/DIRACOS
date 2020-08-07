@@ -6,6 +6,7 @@ stages:
     - compile
     - links
     - test
+    - extension
     - deploy
     - push
 
@@ -284,6 +285,29 @@ dyn_CC7:
   before_script:
     # graphical libraries needed for rrdtool
     - yum install -y freetype fontconfig pixman libXrender unzip
+
+https-extension:
+  stage: extension
+  dependencies:
+    - compile
+  only:
+      - master
+  except:
+    - tags
+  image: centos:6
+  script:
+    - tar xf public/releases/diracos-master.tar.gz
+    - export DIRACOS=$(pwd)/diracos
+    - source $DIRACOS/diracosrc
+    - pip uninstall tornado -y
+    - pip install git+https://github.com/chaen/tornado.git@iostreamConfigurable
+    - pip install git+https://github.com/chaen/tornado_m2crypto.git
+    - tar zcf public/releases/diracos-https.tar.gz diracos
+    - cd public/releases
+    - md5sum diracos-https.tar.gz | awk {'print $1'} > diracos-https.md5
+  artifacts:
+    paths:
+      - public
 
 #######################################################################################
 
