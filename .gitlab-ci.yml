@@ -356,6 +356,7 @@ push_tag:
     - git config --global user.email "dirac.os@cern.ch"
     - git config --global user.name "DIRACOS"
     - git config --global pull.rebase true
+    - curl -O https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/docs/diracdoctools/scripts/dirac-docs-get-release-notes.py
   script:
     - git clone git@github.com:DIRACGrid/DIRACOS.git DIRACOS
     - cd DIRACOS
