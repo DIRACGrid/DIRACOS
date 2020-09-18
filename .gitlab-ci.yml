@@ -292,6 +292,9 @@ extension:
     - compile
   except:
     - tags
+  only:
+    refs:
+      - master@CLICdp/iLCDirac/DIRACOS
   image: centos:6
   script:
     - tar xf public/releases/diracos-master.tar.gz
