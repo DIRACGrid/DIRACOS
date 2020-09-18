@@ -345,7 +345,7 @@ push_tag:
   before_script:
     - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     - python get-pip.py
-    - pip install requests
+    - pip install -U requests python-dateutil pytz
     - yum install git less -y
     - eval `ssh-agent -s`
     - mkdir -p ~/.ssh
@@ -356,7 +356,6 @@ push_tag:
     - git config --global user.email "dirac.os@cern.ch"
     - git config --global user.name "DIRACOS"
     - git config --global pull.rebase true
-    - curl -O https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/docs/diracdoctools/scripts/dirac-docs-get-release-notes.py
   script:
     - git clone git@github.com:DIRACGrid/DIRACOS.git DIRACOS
     - cd DIRACOS
@@ -382,4 +381,5 @@ push_tag:
     - echo $'## Included versions of packages \n\n' >> releaseText.txt
     - cat bundle/diracos/versions.txt >> releaseText.txt
     - cat releaseText.txt
+    - curl -O https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/docs/diracdoctools/scripts/dirac-docs-get-release-notes.py
     - if $MAKE_TAG ; then python dirac-docs-get-release-notes.py -r DIRACGrid/DIRACOS --tagName ${BUILD_NAME} --releaseNotes releaseText.txt --deployRelease ; fi
