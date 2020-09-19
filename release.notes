@@ -4,6 +4,14 @@
 
 
 FIX: (#142) Unset LESSOPEN so `less` can be used interactively
+FIX: (#144) Download missing script in tag creating step
+NEW: (#143) adds job to master pipeline, to produce modified master tarball (diracos-https) for testing
+[v1r14]
+
+
+
+
+FIX: (#142) Unset LESSOPEN so `less` can be used interactively
 NEW: (#143) adds job to master pipeline, to produce modified master tarball (diracos-https) for testing
 [v1r13]
 
