@@ -128,3 +128,39 @@ with
    %post <A PACKAGE> -p /sbin/ldconfig
 
    %postun <A PACKAGE> -p /sbin/ldconfig
+
+
+Firefox and Thunderbird in dependency list
+------------------------------------------
+On October 2 the packages of firefox and thunderbird have been updated to
+a version that ships several base libraries as part of firefox and does not
+rely on system libraries anymore. This has as a consequence that several libraries 
+mistakingly resolve firefox as a dependency e.g.:
+
+.. code-block:: text
+
+    DEBUG:root:openldap-clients requires set(['cyrus-sasl-lib', 'firefox', 'nspr', 'glibc', u'openldap-clients', 'nss-util', 'openldap', 'nss'])
+
+One can see that `openldap-clients` needs `nss-util` but this is resolved via:
+
+.. code-block:: text
+
+  repoquery --whatprovides 'libnssutil3.so()(64bit)'
+  nss-util-0:3.12.10-2.el6.x86_64
+  firefox-0:78.3.0-1.el6_10.x86_64
+  nss-util-0:3.14.3-4.el6_4.x86_64
+  nss-util-0:3.21.0-0.3.el6_7.x86_64
+  nss-util-0:3.36.0-1.el6.x86_64
+
+The problems is it caused by `libnssutil3.so` which is offered by `nss-util`, `thunderbird` and `firefox`, winning the latter because it comes first in alphabetic order.
+
+The same behaviour can be observer in the dependency resolution of many other packages. To mitigate this problem, we have added `firefox` and `thunderbird` into the mockCofigs build and install exclusion list
+
+.. code-block:: text
+
+  [updates]
+  name=updates
+  enabled=1
+  baseurl=http://linuxsoft.cern.ch/cern/slc6X/x86_64/yum/updates/
+  failovermethod=priority
+  exclude=boost*,python*,PyXML*,firefox*,thundrbird*
