@@ -10,6 +10,7 @@ codecov
 diraccfg
 docutils
 elasticsearch-dsl>=6.0.0,<7.0.0
+flaky
 fts3-rest
 funcsigs
 future
