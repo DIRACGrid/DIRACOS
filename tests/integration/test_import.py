@@ -80,6 +80,7 @@ moduleNames = [
     'io',
     'itertools',
     'json',
+    'ldap3',
     'logging',
     'lz4',
     'M2Crypto',
@@ -151,7 +152,7 @@ moduleNames = [
     'xml.sax',
     'xxhash',
     'zipfile',
-    'zlib'
+    'zlib',
 ]
 
 # List here the modules that are allowed to Fail.
