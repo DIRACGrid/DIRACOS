@@ -301,8 +301,8 @@ extension:
     - export DIRACOS=$(pwd)/diracos
     - source $DIRACOS/diracosrc
     - pip uninstall tornado -y
-    - pip install git+https://github.com/chaen/tornado.git@iostreamConfigurable
-    - pip install git+https://github.com/chaen/tornado_m2crypto.git
+    - pip install git+https://github.com/DIRACGrid/tornado.git@iostreamConfigurable
+    - pip install git+https://github.com/DIRACGrid/tornado_m2crypto.git
     - if [ $CI_COMMIT_BRANCH == "master" ]; then tar zcf public/releases/diracos-https.tar.gz diracos ; fi
     - cd public/releases
     - if [ $CI_COMMIT_BRANCH == "master" ]; then md5sum diracos-https.tar.gz | awk {'print $1'} > diracos-https.md5 ; fi
