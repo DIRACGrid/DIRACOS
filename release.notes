@@ -1,3 +1,10 @@
+[v1r15]
+
+
+
+
+FIX: (#149) Remove firefox from mockConfig repo configuration not to interfere with builds
+NEW: (#150) add flaky to python packages needed by DIRACGrid/DIRAC#4732
 [v1r14]
 
 
