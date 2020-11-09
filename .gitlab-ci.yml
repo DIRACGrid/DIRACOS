@@ -6,7 +6,6 @@ stages:
     - compile
     - links
     - test
-    - extension
     - deploy
     - push
 
@@ -286,29 +285,6 @@ dyn_CC7:
     # graphical libraries needed for rrdtool
     - yum install -y freetype fontconfig pixman libXrender unzip
 
-extension:
-  stage: extension
-  dependencies:
-    - compile
-  except:
-    - tags
-  only:
-    refs:
-      - master@CLICdp/iLCDirac/DIRACOS
-  image: centos:6
-  script:
-    - tar xf public/releases/diracos-master.tar.gz
-    - export DIRACOS=$(pwd)/diracos
-    - source $DIRACOS/diracosrc
-    - pip uninstall tornado -y
-    - pip install git+https://github.com/DIRACGrid/tornado.git@iostreamConfigurable
-    - pip install git+https://github.com/DIRACGrid/tornado_m2crypto.git
-    - if [ $CI_COMMIT_BRANCH == "master" ]; then tar zcf public/releases/diracos-https.tar.gz diracos ; fi
-    - cd public/releases
-    - if [ $CI_COMMIT_BRANCH == "master" ]; then md5sum diracos-https.tar.gz | awk {'print $1'} > diracos-https.md5 ; fi
-  artifacts:
-    paths:
-      - public
 
 #######################################################################################
 
@@ -318,7 +294,6 @@ deployment:
     stage: deploy
     dependencies:
       - compile
-      - extension
     only:
       - branches@CLICdp/iLCDirac/DIRACOS
     # Custom docker image providing the needed tools to deploy in EOS
