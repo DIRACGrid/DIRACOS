@@ -1,3 +1,11 @@
+[v1r16]
+
+
+
+
+CHANGE: (#152) change repo for tornado extension from `chaen` to `DIRACGrid`
+CHANGE: (#153) Use tornado from DIRACGrid repo and add the M2Crypto tornado extension
+NEW: (#151) Add ldap3 Python package
 [v1r15]
 
 
