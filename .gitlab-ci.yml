@@ -88,7 +88,7 @@ check_links:
     - docker
   except:
     - tags
-  image: cern/slc6-base
+  image: diracgrid/centos6
   before_script:
     - yum install tar -y
   script:
@@ -107,7 +107,7 @@ check_dependencies:
     - docker
   except:
     - tags
-  image: cern/slc6-base
+  image: diracgrid/centos6
   before_script:
     - yum install tar -y
   script:
@@ -137,7 +137,7 @@ check_dependencies:
 
 SLC6:
   extends: .run_test
-  image: cern/slc6-base
+  image: diracgrid/centos6
   before_script:
     # graphical libraries needed for rrdtool
     - yum install -y tar freetype fontconfig pixman libXrender
@@ -271,7 +271,7 @@ integration_tests_cc7:
 
 dyn_SLC6:
   extends: .run_dyn_test
-  image: cern/slc6-base
+  image: diracgrid/centos6
   before_script:
     # graphical libraries needed for rrdtool
     - yum install -y tar freetype fontconfig pixman libXrender unzip
