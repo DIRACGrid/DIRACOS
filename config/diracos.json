@@ -18,20 +18,20 @@
             "packages": [
                {
                   "src": "python",
-                  "mockConfig": "epel-6-x86_64",
+                  "mockConfig": "../mockConfigs/epel-6-x86_64.cfg",
                   "name": "python",
                   "branch": "f24"
                },
                {
                   "mockRoot": "/var/lib/mock/epel-6-i386",
                   "src": "python",
-                  "mockConfig": "epel-6-i386",
+                  "mockConfig": "../mockConfigs/epel-6-i386",
                   "name": "python-i386",
                   "branch": "f24"
                },
                {
                   "src": "gdb",
-                  "mockConfig": "epel-6-x86_64",
+                  "mockConfig": "../mockConfigs/epel-6-x86_64.cfg",
                   "name": "gdb",
                   "postRoutine": "bootstrap-mock.py",
                   "buildOnly": true,

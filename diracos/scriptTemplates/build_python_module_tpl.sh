@@ -30,7 +30,7 @@ source $PIP_DIRAC/bin/activate
 echo "Installing newer pip in virtualenv"
 cd /tmp
 curl -O -L https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
+python get-pip.py pip==20.2.4
 
 pip install -r /tmp/requirements.txt
 virtualenv --relocatable $PIP_DIRAC

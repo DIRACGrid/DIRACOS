@@ -45,13 +45,11 @@ compile:
     - DIRACOS
   except:
     - tags
-  image: centos:6
+  image: diracgrid/centos6
   script:
     - source ./docs/Tools/CreateName.sh
     - sed -i "2s/master/${BUILD_NAME}/" config/diracos.json
     - cp config/diracos.json changes/diracos.json
-    - yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
-    - yum install -y mock rpm-build fedora-packager createrepo python-pip
     - export DIRACOS_REPO=/diracos_repo
     - mkdir -p $DIRACOS_REPO/i386 $DIRACOS_REPO/i686 $DIRACOS_REPO/src $DIRACOS_REPO/noarch $DIRACOS_REPO/x86_64 $DIRACOS_REPO/bootstrap $DIRACOS_REPO/buildOnly
     - curl -o $DIRACOS_REPO/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm -L https://diracos.web.cern.ch/diracos/bootstrap/lbzip2-2.5-2.el6.x86_64.rpm
@@ -90,7 +88,7 @@ check_links:
     - docker
   except:
     - tags
-  image: cern/slc6-base
+  image: diracgrid/centos6
   before_script:
     - yum install tar -y
   script:
@@ -109,7 +107,7 @@ check_dependencies:
     - docker
   except:
     - tags
-  image: cern/slc6-base
+  image: diracgrid/centos6
   before_script:
     - yum install tar -y
   script:
@@ -139,7 +137,7 @@ check_dependencies:
 
 SLC6:
   extends: .run_test
-  image: cern/slc6-base
+  image: diracgrid/centos6
   before_script:
     # graphical libraries needed for rrdtool
     - yum install -y tar freetype fontconfig pixman libXrender
@@ -273,7 +271,7 @@ integration_tests_cc7:
 
 dyn_SLC6:
   extends: .run_dyn_test
-  image: cern/slc6-base
+  image: diracgrid/centos6
   before_script:
     # graphical libraries needed for rrdtool
     - yum install -y tar freetype fontconfig pixman libXrender unzip

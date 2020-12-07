@@ -25,7 +25,7 @@ then
   echo "Installing pip"
   cd /tmp
   curl -O -L https://bootstrap.pypa.io/get-pip.py
-  python get-pip.py
+  python get-pip.py pip==20.2.4
 
   echo "Installing pip-tools"
   pip install pip-tools
