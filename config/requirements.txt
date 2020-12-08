@@ -9,6 +9,7 @@ boto3
 certifi
 CMRESHandler>=1.0.0b4
 codecov
+rucio-clients
 diraccfg
 docutils
 elasticsearch-dsl>=6.0.0,<7.0.0
