@@ -136,7 +136,7 @@ def write_fixed_binaries(elf_fns, so_names):
     for dep in deps:
       print('Depending on', dep)
       relative_path = os.path.relpath(dirname(dep), dirname(elf_fn))
-      assert relative_path.startswith('.')
+      assert not relative_path.startswith('/'), (dep, elf_fn, relative_path)
       rpaths.add(os.path.join('$ORIGIN', relative_path))
     rpaths = list(rpaths)
 
