@@ -16,20 +16,18 @@ parametrize = pytest.mark.parametrize
 
 
 # Use the environment variable to make it easy with pytest (it does not like cli arguments)
-diracPath = os.environ['DIRAC']
-
-# diracPath = '/home/chaen/dirac/DIRAC/DataManagementSystem/Client/'
+diracRoot = os.environ['DIRAC']
+diracPath = diracRoot + "/src/DIRAC"
 
 # Find all the packages used by DIRAC
 g = findimports.ModuleGraph()
 directories = next(os.walk(diracPath))[1]
-directories.remove('docs')
 
 for dir in directories:
   g.parsePathname('%s/%s' % (diracPath, dir))
 
 g.parseFile('%s/%s' % (diracPath, '__init__.py'))
-g.parseFile('%s/%s' % (diracPath, 'setup.py'))
+g.parseFile('%s/%s' % (diracRoot, 'setup.py'))
 
 g = g.packageGraph(packagelevel=1).collapseTests()
 moduleNames = set([i for m in g.listModules() for i in m.imports])
