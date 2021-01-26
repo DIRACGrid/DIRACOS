@@ -13,12 +13,12 @@ changelog:
   stage: changelog
   tags:
     - docker
-  image: cern/cc7-base
+  image: gitlab-registry.cern.ch/ci-tools/ci-worker:cc7
   except:
     - tags
   before_script:
-    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    - python get-pip.py
+    - pip install 'setuptools<45'
+    - pip install --upgrade 'pip<21'
     - pip install -U requests python-dateutil pytz
   script:
     - echo "GITHUBTOKEN = \"$GITHUBTOKEN\"" >& GitTokens.py
