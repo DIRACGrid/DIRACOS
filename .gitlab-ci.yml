@@ -19,7 +19,7 @@ changelog:
   before_script:
     - pip install 'setuptools<45'
     - pip install --upgrade 'pip<21'
-    - pip install -U requests python-dateutil pytz
+    - pip install -U python-dateutil pytz
   script:
     - echo "GITHUBTOKEN = \"$GITHUBTOKEN\"" >& GitTokens.py
     - export PYTHONPATH=$(pwd)
