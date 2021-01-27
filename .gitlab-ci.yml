@@ -316,8 +316,8 @@ push_tag:
     GIT_STRATEGY: none
   image: cern/cc7-base
   before_script:
-    - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    - python get-pip.py
+    - curl -O -L https://diracos.web.cern.ch/diracos/bootstrap/get-pip.py
+    - python get-pip.py pip==20.2.4
     - pip install -U requests python-dateutil pytz
     - yum install git less -y
     - eval `ssh-agent -s`

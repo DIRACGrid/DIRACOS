@@ -24,7 +24,7 @@ if [ ! -z "$PIP_BUILD_DEPENDENCIES" ];
 then
   echo "Installing pip"
   cd /tmp
-  curl -O -L https://bootstrap.pypa.io/get-pip.py
+  curl -O -L https://diracos.web.cern.ch/diracos/bootstrap/get-pip.py
   python get-pip.py pip==20.2.4
 
   echo "Installing pip-tools"
