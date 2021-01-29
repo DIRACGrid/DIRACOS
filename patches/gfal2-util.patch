@@ -1,0 +1,39 @@
+--- original/gfal2-util.spec    2021-01-14 09:53:06.477321181 +0000
++++ modified/gfal2-util.spec    2021-01-14 09:51:10.169742718 +0000
+@@ -14,7 +14,7 @@
+ %endif
+ 
+ %if %{with python2}
+-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
++%global python2_sitelib /usr/lib/python2.7/site-packages
+ %endif
+ 
+ %if %{with python3}
+@@ -83,13 +83,6 @@
+   python3 setup.py install --root=%{buildroot}
+ %endif
+ 
+-%check
+-%if %{with python2}
+-  python2 test/functional/test_all.py
+-%endif
+-%if %{with python3}
+-  python3 test/functional/test_all.py
+-%endif
+ 
+ %clean
+ rm -rf %{buildroot}
+@@ -117,12 +110,9 @@
+ 
+ BuildRequires: gfal2-python >= 1.9.0
+ BuildRequires: python2
+-BuildRequires: python2-rpm-macros
+-BuildRequires: python2-future
+ Requires:      gfal2-python >= 1.9.0
+ Requires:      gfal2-util-scripts = %{version}-%{release}
+ Requires:      python2
+-Requires:      python2-future
+ %if %{?fedora}%{!?fedora:0} < 26 || %{?rhel}%{!?rhel:0} < 7
+ BuildRequires: python-argparse
+ Requires:      python-argparse
+

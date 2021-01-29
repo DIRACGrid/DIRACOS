@@ -472,14 +472,17 @@
             "name": "davix",
             "packages": [
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/davix-0.7.5-1.el6.src.rpm",
-                  "originalRepo": "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/davix-0.7.6.200.3c48eab-1.el6.src.rpm",
+                  "originalRepo": "https://storage-ci.web.cern.ch/storage-ci/davix/",
                   "name": "davix"
                }
             ]
          },
          {
             "name": "gfal2",
+            "RCRepos": "https://dmc-repo.web.cern.ch/dmc-repo/rc/",
+            "TestingRepos": "https://dmc-repo.web.cern.ch/dmc-repo/testing/",
+            "ProdRepos": "https://dmc-repo.web.cern.ch/dmc-repo/el6/x86_64/",
             "packages": [
                {
                   "src": "https://diracos.web.cern.ch/diracos/SRPM/epydoc-3.0.1-6.el6.src.rpm",
@@ -536,8 +539,7 @@
                   "buildOnly": true
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-2.17.1-1.el6_10.src.rpm",
-                  "originalRepo": "https://dl.fedoraproject.org/pub/epel/6/SRPMS/Packages/",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-2.19.0-1.el6.src.rpm",
                   "excludePatterns": [
                      ".*-doc-.*",
                      ".*-debuginfo-.*",
@@ -546,11 +548,11 @@
                   "name": "gfal2"
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-python-1.9.5-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-python-1.10.0-1.el6.src.rpm",
                   "name": "gfal2-python"
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-util-1.5.1-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/gfal2-util-1.6.0-1.el6.src.rpm",
                   "name": "gfal2-util"
                }
             ]

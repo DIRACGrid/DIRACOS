@@ -1,36 +1,61 @@
+Only in modified/: davix-0.7.6.200.3c48eab-1.el6.py27.usc4.src.rpm
 diff -r -u original/davix.spec modified/davix.spec
---- original/davix.spec 2019-08-28 09:13:40.000000000 +0000
-+++ modified/davix.spec 2020-02-13 14:16:43.513053440 +0000
-@@ -22,10 +22,6 @@
+--- original/davix.spec	2020-11-10 03:21:20.000000000 +0000
++++ modified/davix.spec	2021-01-28 08:09:13.207702045 +0000
+@@ -1,5 +1,5 @@
+ %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
+-%global __cmake cmake3
++%global cmake /usr/bin/cmake
+ 
+ Name:				davix
+ Version:			0.7.6.200.3c48eab
+@@ -13,8 +13,6 @@
+ #main lib dependencies
+ BuildRequires:                  python2
+ BuildRequires:                  libuuid-devel
+-BuildRequires:                  cmake
+-BuildRequires:                  cmake3
+ BuildRequires:                  doxygen
+ BuildRequires:                  libxml2-devel
+ BuildRequires:                  openssl-devel
+@@ -25,10 +23,6 @@
  # davix-copy dependencies
  BuildRequires:                  gsoap-devel
- BuildRequires:                  libuuid-devel
+ 
 -# unit tests and abi check
 -%if %{?fedora}%{!?fedora:0} >= 10 || %{?rhel}%{!?rhel:0} >= 6
 -BuildRequires:                  abi-compliance-checker
 -%endif
-
+ 
  Requires:                       %{name}-libs%{?_isa} = %{version}-%{release}
- Requires:                       libuuid
-@@ -83,18 +79,14 @@
+ 
+@@ -66,9 +60,9 @@
+ with Http based protocols (WebDav, Amazon S3, ...).
+ 
+ %package doc
+-Summary:			Documentation for %{name}
++Summary:                        Documentation for %{name}
+ %if %{?fedora}%{!?fedora:0} >= 10 || %{?rhel}%{!?rhel:0} >= 6
+-BuildArch:	noarch
++BuildArch:      noarch
+ %endif
+ 
+ %description doc
+@@ -89,7 +83,7 @@
+ %cmake \
+ -DDOC_INSTALL_DIR=%{_pkgdocdir} \
+ -DENABLE_THIRD_PARTY_COPY=TRUE \
+--DENABLE_HTML_DOCS=TRUE \
++-DCMAKE_INSTALL_PREFIX=/usr/ \
+ .
  make %{?_smp_mflags}
  make doc
-
--%check
--%if %{?fedora}%{!?fedora:0} >= 10 || %{?rhel}%{!?rhel:0} >= 6
--#make abi-check
--%endif
--ctest -V -T Test
--
-
- %install
- rm -rf %{buildroot}
- make DESTDIR=%{buildroot} install
-
--%ldconfig_scriptlets libs
-+%post libs -p /sbin/ldconfig
+@@ -129,7 +123,7 @@
+ %files doc
+ %{_pkgdocdir}/LICENSE
+ %{_pkgdocdir}/RELEASE-NOTES.md
+-%{_pkgdocdir}/html/
 +
-+%postun libs -p /sbin/ldconfig
-
- %files
- %{_bindir}/*
+ 
+ %files tests
+ %{_bindir}/davix-unit-tests

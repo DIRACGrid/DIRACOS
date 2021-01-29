@@ -86,6 +86,14 @@ prebuilt RPMs for an old ``golang`` version (split into
 removed. Singularity can then be built from source as is the case for
 other packages.
 
+Davix (Cmake3)
+--------------
+
+Latest davix versions require ``CMake3``, which is available as RPM in the SLC6
+environment in which we build. To solve this, we download in the ``davix`` routine
+a binary of ``CMake3`` that we then inject in the ``mock`` environment. We may have
+to do similar tricks for other packages in the future...
+
 About manualDependencies
 ------------------------
 
