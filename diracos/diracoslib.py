@@ -360,17 +360,20 @@ def _buildFromSRPM(packageCfg):
   logging.info('Finished')
 
 
-def _mockRebuild(srpmFile, mockConfigFile):
+def _mockRebuild(srpmFile, mockConfigFile, noClean=False):
   """
        Rebuild RPMs from a SRPM using mock
 
        :param srpmFile: path to the SRPM file
        :param mockConfigFile: path to the mock config file. Otherwise, mock will use the system one
+       :param noClean: if True, will not clean the mock environment before building
   """
 
   cmd = ['/usr/bin/mock']
   if mockConfigFile:
     cmd += ['-r', mockConfigFile]
+  if noClean:
+    cmd += ['--no-clean']
   cmd += ['--rebuild', srpmFile]
 
   logging.debug("Rebuild SRPM with %s", cmd)
