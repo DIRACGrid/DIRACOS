@@ -1,3 +1,19 @@
+[v1r17]
+
+
+
+
+CHANGE: (#156) Fix pip version to 20.2.4 (20.3 does not work)
+CHANGE: (#156) Update mock config files to use  Centos Vault and EPEL from Fedora Archive
+CHANGE: (#156) Use dedicated container diracgrid/centos6 for building that has Centos Vault and EPEL from Fedora Archive enabled
+CHANGE: (#161) davix 0.7.5 -> davix 0.7.6 devel
+CHANGE: (#161) gfal2.17.1 -> gfal2.19.0 (final RC)
+FIX: (#159) Fix M2Crypto to 0.36 due to swig problem in future versions
+FIX: (#160) adjust test to new DIRAC folder layout
+FIX: (#162) Force pip version in CI to be <21, as from 21 python2 support is dropped.
+FIX: (#163) get the last python2 compatible pip bootstrap script from the diracos server
+NEW: (#157) Add rucio-clients to python packages
+NEW: (#161) possibility to run mock rebuild without cleaning the environment
 [v1r16]
 
 
