@@ -30,6 +30,9 @@ export GFAL_CONFIG_DIR;
 GFAL_PLUGIN_DIR=$DIRACOS/usr/lib64/gfal2-plugins/;
 export GFAL_PLUGIN_DIR;
 
+# Davix options (will be default in the future)
+export DAVIX_USE_LIBCURL=1
+
 # Many Linux distributions set LESSOPEN to provide fancier features
 # These don't work with the CentOS 6 version of less so unset the variable
 unset LESSOPEN
