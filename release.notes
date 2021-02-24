@@ -1,3 +1,10 @@
+[v1r18]
+
+
+
+
+NEW: (#164) add apache-libcloud for VMDIRAC
+NEW: (#165) add DAVIX_USE_LIBCURL=1 in diracosrc
 [v1r17]
 
 
