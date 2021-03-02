@@ -54,6 +54,7 @@ suds-jurko>=0.6
 typing==3.6.6
 hypothesis
 python-json-logger>=0.1.8
+prompt-toolkit
 # Add uproot and optional compression related libraries
 uproot
 backports.lzma
