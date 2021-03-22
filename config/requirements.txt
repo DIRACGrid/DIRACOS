@@ -60,3 +60,5 @@ uproot
 backports.lzma
 lz4
 xxhash
+# setuptools_scm comes via tornado. newer versions of setuptools_scm do not support py2
+setuptools_scm<6.0
