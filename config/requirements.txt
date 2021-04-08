@@ -55,6 +55,7 @@ typing==3.6.6
 hypothesis
 python-json-logger>=0.1.8
 prompt-toolkit
+importlib_resources
 # Add uproot and optional compression related libraries
 uproot
 backports.lzma
