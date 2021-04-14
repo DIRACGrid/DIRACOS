@@ -226,6 +226,7 @@ ubuntu-latest:
 
 integration_tests_slc6:
   extends: .integration_tests
+  allow_failure: true
   variables:
     MYSQL_VER: "5.7"
     HOST_OS: slc6
@@ -233,6 +234,7 @@ integration_tests_slc6:
 
 integration_tests_cc7:
   extends: .integration_tests
+  allow_failure: true
   variables:
     MYSQL_VER: "5.7"
     HOST_OS: cc7
