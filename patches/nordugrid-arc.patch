@@ -1,22 +1,93 @@
---- nordugrid-arc-orig/nordugrid-arc.spec	2017-09-19 05:25:47.000000000 +0200
-+++ nordugrid-arc-patched/nordugrid-arc.spec	2018-03-28 13:41:07.939847810 +0200
-@@ -6,8 +6,8 @@
-
- %global with_xrootd %{!?_without_xrootd:1}%{?_without_xrootd:0}
-
--%global with_java %{!?_without_java:1}%{?_without_java:0}
--%global with_junit %{!?_without_junit:1}%{?_without_junit:0}
-+%global with_java 0
-+%global with_junit 0
-
- %if %{?rhel}%{!?rhel:0} == 6
- %ifarch ppc64
-@@ -42,7 +42,7 @@
-
- %global with_sqlite 1
-
+Only in modified/: nordugrid-arc-6.10.1-1.el6.py27.usc4.src.rpm
+diff -u -r original/nordugrid-arc.spec modified/nordugrid-arc.spec
+--- original/nordugrid-arc.spec	2021-02-12 09:41:58.000000000 +0000
++++ modified/nordugrid-arc.spec	2021-03-25 17:01:23.083036557 +0000
+@@ -25,22 +25,14 @@
+ #
+ # Python
+ #
+-%if %{?fedora}%{!?fedora:0} >= 32 || %{?rhel}%{!?rhel:0} >= 8
+-%global with_python2 0
+-%else
+ %global with_python2 1
+-%endif
+ 
+-%if %{?fedora}%{!?fedora:0} >= 13 || %{?rhel}%{!?rhel:0} >= 7
+-%global with_python3 1
+-%else
+ %global with_python3 0
+-%endif
+ 
+ %if %{with_python2}
+ %{!?__python2: %global __python2 /usr/bin/python2}
+-%{!?python2_sitearch: %global python2_sitearch %(%{__python2} -Esc "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
+-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -Esc "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
++%global python2_sitearch /usr/lib64/python2.7/site-packages
++%global python2_sitelib /usr/lib64/python2.7/site-packages
+ %endif
+ 
+ %if %{with_python3}
+@@ -58,17 +50,9 @@
+ %global with_pylint 0
+ %endif
+ 
+-%if %{?fedora}%{!?fedora:0} >= 29 || %{?rhel}%{!?rhel:0} >= 8
+-%global py3default 1
+-%else
+ %global py3default 0
+-%endif
+ 
+-%if %{?fedora}%{!?fedora:0} >= 7 || %{?rhel}%{!?rhel:0} >= 5 || %{?suse_version}%{!?suse_version:0} >= 1110
+-%global with_acix 1
+-%else
+ %global with_acix 0
+-%endif
+ 
+ %if %{?fedora}%{!?fedora:0} >= 21 || %{?rhel}%{!?rhel:0} >= 5
+ %global with_s3 1
+@@ -88,19 +72,10 @@
+ %global with_xmlsec1 0
+ %endif
+ 
+-%if %{?fedora}%{!?fedora:0} >= 21 || %{?rhel}%{!?rhel:0} == 6 || %{?rhel}%{!?rhel:0} == 7
+-# Dependency missing in EPEL 8
+-%global with_pythonlrms 1
+-%else
+ %global with_pythonlrms 0
+-%endif
+ 
+ # LDNS
+-%if %{?fedora}%{!?fedora:0} >= 13 || %{?rhel}%{!?rhel:0} >= 5
 -%global with_ldns 1
-+%global with_ldns 0
-
- %if %{?fedora}%{!?fedora:0} >= 25 || %{?rhel}%{!?rhel:0} >= 8
+-%else
+ %global with_ldns 0
+-%endif
+ 
+ %if %{?fedora}%{!?fedora:0} >= 25 || %{?rhel}%{!?rhel:0} >= 7
  %global use_systemd 1
+@@ -261,16 +236,6 @@
+ %if %{?fedora}%{!?fedora:0} >= 21 || %{?rhel}%{!?rhel:0}
+ BuildRequires:	perl-generators
+ %endif
+-# Needed for Boinc backend testing during make check
+-BuildRequires:	perl(DBI)
+-# Needed for infoprovider testing during make check
+-BuildRequires:	perl(English)
+-BuildRequires:	perl(JSON::XS)
+-BuildRequires:	perl(Sys::Hostname)
+-BuildRequires:	perl(XML::Simple)
+-# Needed for LRMS testing during make check
+-BuildRequires:	perl(Test::Harness)
+-BuildRequires:	perl(Test::Simple)
+ # Needed to run ACIX unit tests
+ %if %{with_acix}
+ %if %{py3default}
+@@ -1036,8 +1001,6 @@
+ 
+ make %{?_smp_mflags}
+ 
+-%check
+-make %{?_smp_mflags} check
+ 
+ %install
+ rm -rf $RPM_BUILD_ROOT

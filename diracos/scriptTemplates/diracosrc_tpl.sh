@@ -19,8 +19,8 @@ export PATH
 export PYTHONWARNINGS="ignore"
 
 # ARC Computing Element
-ARC_PLUGIN_PATH=$DIRACOS/usr/lib64/arc;
-export ARC_PLUGIN_PATH;
+ARC_LOCATION=$DIRACOS/usr
+export ARC_LOCATION;
 
 # Gfal configuration
 GFAL_CONFIG_DIR=$DIRACOS/etc/gfal2.d;

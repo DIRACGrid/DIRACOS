@@ -622,13 +622,21 @@
                   "buildOnly": true
                },
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/nordugrid-arc-5.4.0-1.el6.src.rpm",
+                  "src": "https://diracos.web.cern.ch/diracos/SRPM/nordugrid-arc-6.10.1-1.el6.src.rpm",
+                  "originalSrc": "http://download.nordugrid.org/repos/6/centos/el6/source/updates/SRPMS/nordugrid-arc-6.10.1-1.el6.src.rpm",
                   "name": "nordugrid-arc",
                   "pkgList": [
                      "nordugrid-arc",
                      "nordugrid-arc-client",
-                     "nordugrid-arc-plugins-needed",
+                     "nordugrid-arc-plugins-arcrest",
+                     "nordugrid-arc-plugins-gfal",
                      "nordugrid-arc-plugins-globus",
+                     "nordugrid-arc-plugins-globus-common",
+                     "nordugrid-arc-plugins-gridftp",
+                     "nordugrid-arc-plugins-gridftpjob",
+                     "nordugrid-arc-plugins-needed",
+                     "nordugrid-arc-plugins-python",
+                     "nordugrid-arc-plugins-xrootd",
                      "python2-nordugrid-arc"
                   ]
                }
