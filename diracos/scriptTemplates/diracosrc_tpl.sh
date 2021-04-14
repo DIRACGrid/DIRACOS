@@ -19,7 +19,7 @@ export PATH
 export PYTHONWARNINGS="ignore"
 
 # ARC Computing Element
-export ARC_LOCATION=$DIRACOS/usr
+ARC_LOCATION=$DIRACOS/usr
 export ARC_LOCATION;
 
 # Gfal configuration
