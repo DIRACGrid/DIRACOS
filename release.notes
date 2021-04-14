@@ -1,3 +1,12 @@
+[v1r19]
+
+
+
+
+CHANGE: (#169) Move to ARC 6
+FIX: (#168) newer versions of setuptools_scm do not support py2
+NEW: (#167) Add prompt-toolkit
+NEW: (#172) Add importlib_resources
 [v1r18]
 
 
