@@ -182,47 +182,28 @@ ubuntu-latest:
     - compile
   tags:
     - DIRACOS
-  image: diracgrid/docker-compose-dirac:latest
+  image: alpine:edge
   before_script:
-    - source ./docs/Tools/CreateName.sh
-
-    # Clone DIRAC
-    - git clone https://github.com/DIRACGrid/DIRAC.git
-    - cd DIRAC
-    - git checkout "${DIRAC_RELEASE}"
-    - cd ..
-    # Set environment variables
-    - export CI_REGISTRY_IMAGE=diracgrid
-    - export HOST_OS=${HOST_OS}
-    - export CI_PROJECT_DIR=${PWD}/DIRAC
-    - export CI_COMMIT_REF_NAME=refs/heads/${DIRAC_RELEASE}
-    - export MYSQL_VER=${MYSQL_VER}
-    - export ES_VER=${ES_VER}
-    - export DIRACOSVER=${BUILD_NAME}
-    - export DIRACOS_TARBALL_PATH="/"
-    # Prepare for docker in docker
+    # Install dependencies
+    - apk add docker py3-pip python3 bash git docker-compose
+    # Prepare docker in docker
     - unset DOCKER_HOST
     - mkdir -p $PWD/docker-data /var/lib
     - ln -s $PWD/docker-data /var/lib/docker
     - apk add --no-cache btrfs-progs e2fsprogs e2fsprogs-extra iptables openssl shadow-uidmap xfsprogs xz pigz
     - dockerd >/dev/null 2>&1 &
     - sleep 10
-    # Activate the DIRAC testing environment
-    - source DIRAC/tests/CI/run_docker_setup.sh
-    - prepareEnvironment
-    # Copy the DIRAC OS tarball into the containers
-    - docker cp "${CI_PROJECT_DIR}/../public/releases/diracos-${BUILD_NAME}.tar.gz" server:/
-    - docker cp "${CI_PROJECT_DIR}/../public/releases/diracos-${BUILD_NAME}.md5" server:/
-    - docker exec -u root server chown dirac /diracos-${BUILD_NAME}.{tar.gz,md5}
-    - docker cp "${CI_PROJECT_DIR}/../public/releases/diracos-${BUILD_NAME}.tar.gz" client:/
-    - docker cp "${CI_PROJECT_DIR}/../public/releases/diracos-${BUILD_NAME}.md5" client:/
-    - docker exec -u root client chown dirac /diracos-${BUILD_NAME}.{tar.gz,md5}
+    # Do the other preparations
+    - source ./docs/Tools/CreateName.sh
+    - pip3 install typer pyyaml gitpython
+    - git clone https://github.com/DIRACGrid/DIRAC.git -b "${DIRAC_RELEASE}"
+    - cd DIRAC
   script:
-    - installServer
-    - installClient
-    - testServer
-    - testClient
-    - checkErrors
+    - |
+      python3 ./integration_tests.py create \
+        HOST_OS=${HOST_OS} \
+        MYSQL_VER=${MYSQL_VER} \
+        DIRACOS_TARBALL_PATH="${CI_PROJECT_DIR}/../public/releases/diracos-${BUILD_NAME}.tar.gz"
 
 integration_tests_slc6:
   extends: .integration_tests
