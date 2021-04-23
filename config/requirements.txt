@@ -59,6 +59,7 @@ prompt-toolkit
 importlib_resources
 # Add uproot and optional compression related libraries
 uproot
+awkward
 backports.lzma
 lz4
 xxhash
