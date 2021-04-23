@@ -203,7 +203,7 @@ ubuntu-latest:
       python3 ./integration_tests.py create \
         HOST_OS=${HOST_OS} \
         MYSQL_VER=${MYSQL_VER} \
-        DIRACOS_TARBALL_PATH="${CI_PROJECT_DIR}/../public/releases/diracos-${BUILD_NAME}.tar.gz"
+        DIRACOS_TARBALL_PATH="${CI_PROJECT_DIR}/public/releases/diracos-${BUILD_NAME}.tar.gz"
 
 integration_tests_slc6:
   extends: .integration_tests
