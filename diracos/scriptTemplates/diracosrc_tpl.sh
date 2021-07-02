@@ -22,6 +22,10 @@ export PYTHONWARNINGS="ignore"
 ARC_LOCATION=$DIRACOS/usr
 export ARC_LOCATION;
 
+# Condor configuration
+CONDOR_CONFIG=$DIRACOS/etc/condor/condor_config;
+export CONDOR_CONFIG
+
 # Gfal configuration
 GFAL_CONFIG_DIR=$DIRACOS/etc/gfal2.d;
 export GFAL_CONFIG_DIR;
