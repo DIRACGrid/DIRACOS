@@ -55,6 +55,7 @@ ALLOWED_TO_FAIL = ['cx_Oracle',  # This is used by some extensions and migration
                    'PilotWrapper',  # in the pilot
                    'irods',  # not clear whether someone in DIRAC still uses it
                    'lfcthr',  # used by the LFC plugins
+                   'pathlib',  # only used for Python 3 installations
                    ]
 
 # List of modules that need graphic libraries.
