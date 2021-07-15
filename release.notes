@@ -1,3 +1,10 @@
+[v1r23]
+
+
+
+
+NEW: (#182) set CONDOR_CONFIG in diracosrc
+NEW: (#183) Add selectors2 for https://github.com/DIRACGrid/DIRAC/issues/5232
 [v1r22]
 
 
