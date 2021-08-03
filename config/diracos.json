@@ -472,7 +472,7 @@
             "name": "davix",
             "packages": [
                {
-                  "src": "https://diracos.web.cern.ch/diracos/SRPM/davix-0.7.6.200.3c48eab-1.el6.src.rpm",
+                  "src": "https://storage-ci.web.cern.ch/storage-ci/davix/R_0_7_6/el6/SRPMS/davix-0.7.6-1.el6.src.rpm",
                   "originalRepo": "https://storage-ci.web.cern.ch/storage-ci/davix/",
                   "name": "davix"
                }
