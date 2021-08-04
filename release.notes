@@ -1,3 +1,10 @@
+[v1r24]
+
+
+
+
+CHANGE: (#185) replace RC by real davix 0.7.6
+CHANGE: (#186) release constraint on SQLAlchemy
 [v1r23]
 
 
