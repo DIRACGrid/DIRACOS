@@ -13,6 +13,7 @@ codecov
 rucio-clients
 diraccfg
 docutils
+elasticsearch <7.14
 elasticsearch-dsl>=6.0.0,<7.0.0
 flaky
 fts3-rest
