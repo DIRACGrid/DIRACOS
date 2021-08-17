@@ -42,7 +42,7 @@ export CONDA_BASE_TMP=$(mktemp -d)
  bash Miniconda3-py37_4.8.2-Linux-x86_64.sh -b -p "${CONDA_BASE_TMP}/miniconda")
 (source "${CONDA_BASE_TMP}/miniconda/bin/activate" &&
  conda config --add channels conda-forge --env &&
- conda install --yes python-magic patchelf py-lief tqdm &&
+ conda install --yes python-magic patchelf=0.12 py-lief tqdm &&
  python /tmp/set_RPATH.py $DIRACOS)
 rm -rf "${CONDA_BASE_TMP}"
 
