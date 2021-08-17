@@ -1,3 +1,10 @@
+[v1r26]
+
+
+
+
+CHANGE: (#187) revert back to davix RC `0.7.6.200.3c48eab`
+FIX: (#188) fixing elasticsearch-py to <7.14
 [v1r24]
 
 
