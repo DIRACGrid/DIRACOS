@@ -57,6 +57,7 @@ ALLOWED_TO_FAIL = ['cx_Oracle',  # This is used by some extensions and migration
                    'lfcthr',  # used by the LFC plugins
                    'pathlib',  # only used for Python 3 installations
                    'asyncio',  # only used for Python 3 installations
+                   'selectors',  # only used for Python 3 installations
                    ]
 
 # List of modules that need graphic libraries.
