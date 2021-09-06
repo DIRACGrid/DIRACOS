@@ -24,7 +24,7 @@ changelog:
     - echo "GITHUBTOKEN = \"$GITHUBTOKEN\"" >& GitTokens.py
     - export PYTHONPATH=$(pwd)
     - mkdir changes
-    - curl -O https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/docs/diracdoctools/scripts/dirac-docs-get-release-notes.py
+    - curl -O https://raw.githubusercontent.com/DIRACGrid/DIRAC/rel-v7r3/docs/diracdoctools/scripts/dirac-docs-get-release-notes.py
     - python dirac-docs-get-release-notes.py --sinceLatestTag -r DIRACGrid/DIRACOS --branches master > changes/PRs.txt
     - sed -i '1,1d' changes/PRs.txt
     - sort -o changes/PRs.txt changes/PRs.txt
@@ -210,14 +210,14 @@ integration_tests_slc6:
   variables:
     MYSQL_VER: "5.7"
     HOST_OS: slc6
-    DIRAC_RELEASE: master
+    DIRAC_RELEASE: rel-v7r3
 
 integration_tests_cc7:
   extends: .integration_tests
   variables:
     MYSQL_VER: "5.7"
     HOST_OS: cc7
-    DIRAC_RELEASE: master
+    DIRAC_RELEASE: rel-v7r3
 
 # integration_tests_c8:
 #   extends: .integration_tests
@@ -231,7 +231,7 @@ integration_tests_cc7:
 # Run the dyn tests as a separate test for the time being, so to allow it to fail
 # later on, merge it with .run_test
 
-# Download the integration code of DIRAC, and dynamically check the dependencies
+# Download the rel-v7r3 code of DIRAC, and dynamically check the dependencies
 .run_dyn_test:
   stage: test
   dependencies:
@@ -241,14 +241,14 @@ integration_tests_cc7:
   except:
     - tags
   script:
-    - curl --output /tmp/integration.zip -L https://github.com/DIRACGrid/DIRAC/archive/integration.zip
-    - unzip -d /tmp/  /tmp/integration.zip
+    - curl --output /tmp/rel-v7r3.zip -L https://github.com/DIRACGrid/DIRAC/archive/rel-v7r3.zip
+    - unzip -d /tmp/  /tmp/rel-v7r3.zip
     - source ./docs/Tools/CreateName.sh
     - tar xf public/releases/diracos-${BUILD_NAME}.tar.gz -C /tmp
     - export DIRACOS=/tmp/diracos
     - source $DIRACOS/diracosrc
     - pip install findimports
-    - DIRAC=/tmp/DIRAC-integration/ pytest tests/integration/test_dyn_import.py
+    - DIRAC=/tmp/DIRAC-rel-v7r3/ pytest tests/integration/test_dyn_import.py
 
 dyn_SLC6:
   extends: .run_dyn_test
@@ -335,5 +335,5 @@ push_tag:
     - echo $'## Included versions of packages \n\n' >> releaseText.txt
     - cat bundle/diracos/versions.txt >> releaseText.txt
     - cat releaseText.txt
-    - curl -O https://raw.githubusercontent.com/DIRACGrid/DIRAC/integration/docs/diracdoctools/scripts/dirac-docs-get-release-notes.py
+    - curl -O https://raw.githubusercontent.com/DIRACGrid/DIRAC/rel-v7r3/docs/diracdoctools/scripts/dirac-docs-get-release-notes.py
     - if $MAKE_TAG ; then python dirac-docs-get-release-notes.py -r DIRACGrid/DIRACOS --tagName ${BUILD_NAME} --releaseNotes releaseText.txt --deployRelease ; fi
