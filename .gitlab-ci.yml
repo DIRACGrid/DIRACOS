@@ -208,14 +208,14 @@ ubuntu-latest:
 integration_tests_slc6:
   extends: .integration_tests
   variables:
-    MYSQL_VER: "5.7"
+    MYSQL_VER: "mysql:5.7"
     HOST_OS: slc6
     DIRAC_RELEASE: rel-v7r3
 
 integration_tests_cc7:
   extends: .integration_tests
   variables:
-    MYSQL_VER: "5.7"
+    MYSQL_VER: "mysql:5.7"
     HOST_OS: cc7
     DIRAC_RELEASE: rel-v7r3
 
