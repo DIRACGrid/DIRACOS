@@ -11,6 +11,7 @@ certifi
 CMRESHandler>=1.0.0b4
 codecov
 rucio-clients
+db12
 diraccfg
 docutils
 elasticsearch <7.14
